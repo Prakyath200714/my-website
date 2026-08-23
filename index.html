@@ -6,456 +6,526 @@
 <title>Mada General Store</title>
 
 <style>
-    * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-        font-family: Arial, sans-serif;
-    }
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
 
-    body {
-        background: #f1f3f6;
-        color: #212121;
-    }
+body {
+    background: #f1f3f6;
+    color: #212121;
+}
 
-    /* HEADER */
+/* HEADER */
+header {
+    background: #2874f0;
+    color: white;
+    padding: 12px 5%;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.logo span {
+    color: #ffe500;
+}
+
+.search {
+    flex: 1;
+    display: flex;
+}
+
+.search input {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    outline: none;
+    font-size: 15px;
+}
+
+.search button {
+    border: none;
+    background: white;
+    color: #2874f0;
+    padding: 0 18px;
+}
+
+.header-btn {
+    background: white;
+    color: #2874f0;
+    border: none;
+    padding: 10px 14px;
+    cursor: pointer;
+    font-weight: bold;
+    border-radius: 3px;
+}
+
+/* ADMIN BAR */
+.admin-bar {
+    display: none;
+    background: #ffe500;
+    padding: 10px 5%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+body.admin-mode .admin-bar {
+    display: flex;
+}
+
+.admin-bar button {
+    border: none;
+    background: #2874f0;
+    color: white;
+    padding: 9px 14px;
+    margin-left: 5px;
+    cursor: pointer;
+}
+
+/* CATEGORIES */
+.categories {
+    background: white;
+    padding: 14px 5%;
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+}
+
+.category {
+    border: 1px solid #ddd;
+    padding: 8px 15px;
+    border-radius: 20px;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.category.active,
+.category:hover {
+    background: #2874f0;
+    color: white;
+}
+
+/* BANNER */
+.banner {
+    margin: 15px 5%;
+    padding: 30px;
+    text-align: center;
+    color: white;
+    background: linear-gradient(90deg,#2874f0,#1257c7);
+    border-radius: 5px;
+}
+
+.banner h1 {
+    margin-bottom: 8px;
+}
+
+/* PRODUCTS */
+.container {
+    padding: 10px 5% 50px;
+}
+
+.products {
+    display: grid;
+    grid-template-columns: repeat(auto-fill,minmax(190px,1fr));
+    gap: 15px;
+}
+
+.product {
+    background: white;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 1px 5px rgba(0,0,0,.15);
+}
+
+.product img {
+    width: 100%;
+    height: 160px;
+    object-fit: contain;
+}
+
+.product h3 {
+    margin-top: 10px;
+    font-size: 17px;
+}
+
+.category-name {
+    color: #777;
+    font-size: 13px;
+    margin: 5px 0;
+}
+
+.price {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+.add {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    background: #ff9f00;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+/* ADMIN CONTROLS */
+.admin-controls {
+    display: none;
+    margin-top: 8px;
+    gap: 5px;
+}
+
+body.admin-mode .admin-controls {
+    display: flex;
+}
+
+.edit {
+    flex: 1;
+    background: #2874f0;
+    color: white;
+    border: none;
+    padding: 8px;
+    cursor: pointer;
+}
+
+.delete {
+    flex: 1;
+    background: #e53935;
+    color: white;
+    border: none;
+    padding: 8px;
+    cursor: pointer;
+}
+
+/* MODAL */
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.65);
+    z-index: 2000;
+    align-items: center;
+    justify-content: center;
+    padding: 15px;
+}
+
+.modal-box {
+    background: white;
+    width: 100%;
+    max-width: 500px;
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 25px;
+    border-radius: 5px;
+}
+
+.close {
+    float: right;
+    font-size: 25px;
+    cursor: pointer;
+}
+
+.form {
+    margin-top: 15px;
+}
+
+.form label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.form input,
+.form select,
+.form textarea {
+    width: 100%;
+    padding: 11px;
+    border: 1px solid #ccc;
+}
+
+.save {
+    width: 100%;
+    padding: 12px;
+    margin-top: 15px;
+    border: none;
+    background: #2874f0;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* CART */
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #ddd;
+    padding: 12px 0;
+}
+
+.qty button {
+    padding: 5px 9px;
+    cursor: pointer;
+}
+
+.total {
+    font-size: 21px;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+.whatsapp {
+    width: 100%;
+    background: #25D366;
+    color: white;
+    border: none;
+    padding: 14px;
+    margin-top: 15px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.continue {
+    width: 100%;
+    background: #2874f0;
+    color: white;
+    border: none;
+    padding: 14px;
+    margin-top: 10px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.empty {
+    text-align: center;
+    padding: 30px;
+    color: #777;
+}
+
+/* ORDER SENT */
+.order-success {
+    display: none;
+    text-align: center;
+    padding: 20px;
+}
+
+.order-success h2 {
+    color: #25a244;
+    margin-bottom: 10px;
+}
+
+footer {
+    background: #172337;
+    color: white;
+    text-align: center;
+    padding: 30px;
+}
+
+@media(max-width:700px) {
+
     header {
-        background: #2874f0;
-        color: white;
-        padding: 12px 5%;
-        display: flex;
-        align-items: center;
-        gap: 25px;
-        position: sticky;
-        top: 0;
-        z-index: 1000;
+        flex-wrap: wrap;
     }
 
-    .logo {
-        font-size: 25px;
-        font-weight: bold;
-        white-space: nowrap;
-    }
-
-    .logo span {
-        color: #ffe500;
-        font-style: italic;
-    }
-
-    .search-box {
-        flex: 1;
-        display: flex;
-    }
-
-    .search-box input {
-        width: 100%;
-        padding: 12px;
-        border: none;
-        outline: none;
-        font-size: 15px;
-        border-radius: 3px 0 0 3px;
-    }
-
-    .search-box button {
-        border: none;
-        background: white;
-        color: #2874f0;
-        padding: 0 18px;
-        cursor: pointer;
-        font-size: 18px;
-    }
-
-    .header-buttons {
-        display: flex;
-        gap: 10px;
-    }
-
-    .header-buttons button {
-        background: white;
-        color: #2874f0;
-        border: none;
-        padding: 10px 14px;
-        font-weight: bold;
-        cursor: pointer;
-        border-radius: 3px;
-    }
-
-    /* CATEGORIES */
-    .categories {
-        background: white;
-        padding: 15px 5%;
-        display: flex;
-        gap: 15px;
-        overflow-x: auto;
-        box-shadow: 0 2px 4px rgba(0,0,0,.1);
-    }
-
-    .category {
-        border: 1px solid #ddd;
-        padding: 8px 15px;
-        border-radius: 20px;
-        cursor: pointer;
-        white-space: nowrap;
-        background: white;
-    }
-
-    .category:hover,
-    .category.active {
-        background: #2874f0;
-        color: white;
-    }
-
-    /* BANNER */
-    .banner {
-        margin: 15px 5%;
-        background: linear-gradient(90deg,#2874f0,#0b57d0);
-        color: white;
-        padding: 30px;
-        border-radius: 5px;
-        text-align: center;
-    }
-
-    .banner h1 {
-        font-size: 30px;
-        margin-bottom: 8px;
-    }
-
-    /* PRODUCTS */
-    .products-container {
-        padding: 10px 5% 50px;
-    }
-
-    .section-title {
-        margin: 15px 0;
-        font-size: 24px;
+    .search {
+        flex-basis: 100%;
+        order: 3;
     }
 
     .products {
-        display: grid;
-        grid-template-columns: repeat(auto-fill,minmax(190px,1fr));
-        gap: 15px;
-    }
-
-    .product {
-        background: white;
-        padding: 15px;
-        border-radius: 4px;
-        box-shadow: 0 1px 4px rgba(0,0,0,.15);
-        transition: .2s;
-        position: relative;
-    }
-
-    .product:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 3px 12px rgba(0,0,0,.2);
+        grid-template-columns: repeat(2,1fr);
     }
 
     .product img {
-        width: 100%;
-        height: 160px;
-        object-fit: contain;
-        margin-bottom: 10px;
+        height: 120px;
     }
-
-    .product h3 {
-        font-size: 16px;
-        margin-bottom: 6px;
-    }
-
-    .category-label {
-        color: #777;
-        font-size: 12px;
-        margin-bottom: 8px;
-    }
-
-    .price {
-        font-size: 20px;
-        font-weight: bold;
-        color: #212121;
-        margin-bottom: 10px;
-    }
-
-    .add-cart {
-        width: 100%;
-        padding: 10px;
-        background: #ff9f00;
-        border: none;
-        color: white;
-        font-weight: bold;
-        cursor: pointer;
-        border-radius: 3px;
-    }
-
-    .admin-controls {
-        display: none;
-        gap: 5px;
-        margin-top: 8px;
-    }
-
-    body.admin-mode .admin-controls {
-        display: flex;
-    }
-
-    .edit-btn,
-    .delete-btn {
-        flex: 1;
-        border: none;
-        padding: 8px;
-        cursor: pointer;
-        color: white;
-        border-radius: 3px;
-    }
-
-    .edit-btn {
-        background: #2874f0;
-    }
-
-    .delete-btn {
-        background: #e53935;
-    }
-
-    /* MODALS */
-    .modal {
-        display: none;
-        position: fixed;
-        inset: 0;
-        background: rgba(0,0,0,.65);
-        z-index: 2000;
-        align-items: center;
-        justify-content: center;
-        padding: 15px;
-    }
-
-    .modal-content {
-        background: white;
-        width: 100%;
-        max-width: 500px;
-        max-height: 90vh;
-        overflow-y: auto;
-        border-radius: 5px;
-        padding: 25px;
-    }
-
-    .modal-content h2 {
-        margin-bottom: 20px;
-    }
-
-    .close {
-        float: right;
-        font-size: 25px;
-        cursor: pointer;
-    }
-
-    .form-group {
-        margin-bottom: 15px;
-    }
-
-    .form-group label {
-        display: block;
-        font-weight: bold;
-        margin-bottom: 5px;
-    }
-
-    .form-group input,
-    .form-group select,
-    .form-group textarea {
-        width: 100%;
-        padding: 11px;
-        border: 1px solid #ccc;
-        border-radius: 3px;
-    }
-
-    .save-btn {
-        width: 100%;
-        padding: 12px;
-        background: #2874f0;
-        color: white;
-        border: none;
-        cursor: pointer;
-        font-weight: bold;
-        border-radius: 3px;
-    }
-
-    /* CART */
-    .cart-item {
-        display: flex;
-        justify-content: space-between;
-        gap: 10px;
-        padding: 12px 0;
-        border-bottom: 1px solid #ddd;
-    }
-
-    .quantity-controls button {
-        padding: 4px 8px;
-        cursor: pointer;
-    }
-
-    .cart-total {
-        font-size: 20px;
-        font-weight: bold;
-        margin-top: 20px;
-    }
-
-    .whatsapp-btn {
-        width: 100%;
-        margin-top: 15px;
-        padding: 13px;
-        border: none;
-        background: #25D366;
-        color: white;
-        font-weight: bold;
-        cursor: pointer;
-        border-radius: 4px;
-        font-size: 16px;
-    }
-
-    .empty {
-        text-align: center;
-        padding: 40px;
-        color: #777;
-    }
-
-    .admin-bar {
-        display: none;
-        background: #ffe500;
-        padding: 10px 5%;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    body.admin-mode .admin-bar {
-        display: flex;
-    }
-
-    .admin-bar button {
-        padding: 8px 12px;
-        border: none;
-        background: #2874f0;
-        color: white;
-        cursor: pointer;
-    }
-
-    footer {
-        background: #172337;
-        color: white;
-        padding: 30px 5%;
-        text-align: center;
-    }
-
-    @media(max-width:700px) {
-        header {
-            flex-wrap: wrap;
-        }
-
-        .search-box {
-            order: 3;
-            flex-basis: 100%;
-        }
-
-        .logo {
-            font-size: 20px;
-        }
-
-        .products {
-            grid-template-columns: repeat(2,1fr);
-        }
-
-        .product img {
-            height: 120px;
-        }
-    }
+}
 </style>
 </head>
 
 <body>
 
+<!-- HEADER -->
 <header>
-    <div class="logo">Mada <span>General Store</span></div>
 
-    <div class="search-box">
+    <div class="logo">
+        Mada <span>General Store</span>
+    </div>
+
+    <div class="search">
         <input
-            type="text"
-            id="searchInput"
-            placeholder="Search for groceries..."
-            oninput="displayProducts()"
+            id="search"
+            placeholder="Search groceries..."
+            oninput="showProducts()"
         >
         <button>🔍</button>
     </div>
 
-    <div class="header-buttons">
-        <button onclick="openCart()">🛒 Cart (<span id="cartCount">0</span>)</button>
-        <button onclick="openAdminLogin()">Admin</button>
-    </div>
+    <button class="header-btn" onclick="openCart()">
+        🛒 Cart (<span id="cartCount">0</span>)
+    </button>
+
+    <button class="header-btn" onclick="openLogin()">
+        Admin
+    </button>
+
 </header>
 
+
+<!-- ADMIN BAR -->
 <div class="admin-bar">
-    <strong>🔐 ADMIN MODE ACTIVE</strong>
+
+    <strong>🔐 ADMIN MODE</strong>
+
     <div>
-        <button onclick="openAddProduct()">➕ Add Product</button>
-        <button onclick="logoutAdmin()">Logout</button>
+        <button onclick="addProduct()">➕ Add Product</button>
+        <button onclick="logout()">Logout</button>
     </div>
+
 </div>
 
+
+<!-- CATEGORIES -->
 <div class="categories" id="categories"></div>
 
-<section class="banner">
-    <h1>Welcome to Mada General Store</h1>
-    <p>Fresh groceries at today's prices 🛒</p>
-</section>
 
-<div class="products-container">
-    <h2 class="section-title">Today's Grocery Items</h2>
-    <div class="products" id="products"></div>
+<!-- BANNER -->
+<div class="banner">
+
+    <h1>Welcome to Mada General Store</h1>
+
+    <p>
+        Fresh groceries at today's market prices
+    </p>
+
 </div>
 
+
+<!-- PRODUCTS -->
+<div class="container">
+
+    <h2 style="margin:15px 0;">
+        Today's Grocery Items
+    </h2>
+
+    <div class="products" id="products"></div>
+
+</div>
+
+
 <footer>
+
     <h2>Mada General Store</h2>
-    <p>Fresh groceries • Best prices • Easy ordering</p>
-    <p style="margin-top:10px;">Orders via WhatsApp: 8792043577</p>
+
+    <p style="margin-top:8px;">
+        Easy grocery shopping
+    </p>
+
+    <p style="margin-top:8px;">
+        WhatsApp Orders: 8792043577
+    </p>
+
 </footer>
 
 
 <!-- ADMIN LOGIN -->
-<div class="modal" id="adminLoginModal">
-    <div class="modal-content">
-        <span class="close" onclick="closeModal('adminLoginModal')">&times;</span>
+<div class="modal" id="loginModal">
+
+    <div class="modal-box">
+
+        <span class="close" onclick="closeModal('loginModal')">
+            ×
+        </span>
 
         <h2>Admin Login</h2>
 
-        <div class="form-group">
+        <div class="form">
+
             <label>Admin PIN</label>
-            <input type="password" id="adminPin" maxlength="6" placeholder="Enter PIN">
+
+            <input
+                id="pin"
+                type="password"
+                maxlength="6"
+                placeholder="Enter 6 digit PIN"
+            >
+
         </div>
 
-        <button class="save-btn" onclick="loginAdmin()">Login</button>
+        <button class="save" onclick="login()">
+            Login
+        </button>
 
-        <p id="loginError" style="color:red;margin-top:10px;"></p>
+        <p id="loginError"
+           style="color:red;margin-top:10px;">
+        </p>
+
     </div>
+
 </div>
 
 
 <!-- ADD / EDIT PRODUCT -->
 <div class="modal" id="productModal">
-    <div class="modal-content">
-        <span class="close" onclick="closeModal('productModal')">&times;</span>
 
-        <h2 id="productModalTitle">Add Product</h2>
+    <div class="modal-box">
 
-        <input type="hidden" id="editProductId">
+        <span class="close"
+              onclick="closeModal('productModal')">
+            ×
+        </span>
 
-        <div class="form-group">
+        <h2 id="productTitle">
+            Add Product
+        </h2>
+
+        <input type="hidden" id="productId">
+
+        <div class="form">
+
             <label>Product Name</label>
-            <input id="productName" placeholder="Example: Rice 5kg">
+
+            <input
+                id="productName"
+                placeholder="Example: Rice 5kg"
+            >
+
         </div>
 
-        <div class="form-group">
-            <label>Today's Price (₹)</label>
-            <input id="productPrice" type="number" min="0" placeholder="Example: 350">
+        <div class="form">
+
+            <label>Today's Market Price ₹</label>
+
+            <input
+                id="productPrice"
+                type="number"
+                min="0"
+                placeholder="Example: 350"
+            >
+
         </div>
 
-        <div class="form-group">
+        <div class="form">
+
             <label>Category</label>
+
             <select id="productCategory">
+
                 <option>Rice & Grains</option>
                 <option>Dal & Pulses</option>
                 <option>Oil</option>
@@ -465,74 +535,150 @@
                 <option>Dairy</option>
                 <option>Snacks</option>
                 <option>Beverages</option>
-                <option>Personal Care</option>
                 <option>Household</option>
+                <option>Personal Care</option>
                 <option>Other</option>
+
             </select>
+
         </div>
 
-        <div class="form-group">
+        <div class="form">
+
             <label>Product Image URL</label>
-            <input id="productImage" placeholder="https://example.com/product.jpg">
+
+            <input
+                id="productImage"
+                placeholder="Paste image URL"
+            >
+
         </div>
 
-        <div class="form-group">
-            <label>Product Description</label>
-            <textarea id="productDescription" rows="3"></textarea>
+        <div class="form">
+
+            <label>Description</label>
+
+            <textarea
+                id="productDescription"
+                rows="3">
+            </textarea>
+
         </div>
 
-        <button class="save-btn" onclick="saveProduct()">Save Product</button>
+        <button class="save"
+                onclick="saveProduct()">
+            Save Product
+        </button>
+
     </div>
+
 </div>
 
 
 <!-- CART -->
 <div class="modal" id="cartModal">
-    <div class="modal-content">
-        <span class="close" onclick="closeModal('cartModal')">&times;</span>
 
-        <h2>🛒 Your Cart</h2>
+    <div class="modal-box">
 
-        <div id="cartItems"></div>
+        <span class="close"
+              onclick="closeModal('cartModal')">
+            ×
+        </span>
 
-        <div class="cart-total">
-            Total: ₹<span id="cartTotal">0</span>
-        </div>
+        <div id="cartPage">
 
-        <div style="margin-top:20px;">
-            <div class="form-group">
+            <h2>🛒 Your Cart</h2>
+
+            <div id="cartItems"></div>
+
+            <div class="total">
+                Total: ₹<span id="total">0</span>
+            </div>
+
+            <div class="form">
+
                 <label>Customer Name</label>
-                <input id="customerName" placeholder="Your name">
+
+                <input
+                    id="customerName"
+                    placeholder="Your name"
+                >
+
             </div>
 
-            <div class="form-group">
-                <label>Delivery Address</label>
-                <textarea id="customerAddress" rows="3"
-                    placeholder="Enter delivery address"></textarea>
-            </div>
+            <div class="form">
 
-            <div class="form-group">
                 <label>Phone Number</label>
-                <input id="customerPhone" placeholder="Your phone number">
+
+                <input
+                    id="customerPhone"
+                    placeholder="Your phone number"
+                >
+
             </div>
+
+            <div class="form">
+
+                <label>Delivery Address</label>
+
+                <textarea
+                    id="customerAddress"
+                    rows="3"
+                    placeholder="Your delivery address">
+                </textarea>
+
+            </div>
+
+            <button class="whatsapp"
+                    onclick="sendOrder()">
+
+                📲 Order Through WhatsApp
+
+            </button>
+
+            <!-- NEW CONTINUE SHOPPING BUTTON -->
+            <button class="continue"
+                    onclick="continueShopping()">
+
+                🛍️ Continue Shopping
+
+            </button>
+
         </div>
 
-        <button class="whatsapp-btn" onclick="sendWhatsAppOrder()">
-            📲 Order on WhatsApp
-        </button>
+
+        <!-- SUCCESS PAGE -->
+        <div class="order-success"
+             id="orderSuccess">
+
+            <h2>✅ Order Sent!</h2>
+
+            <p>
+                Your order has been opened in WhatsApp.
+            </p>
+
+            <button class="continue"
+                    onclick="continueShopping()">
+
+                🛍️ Continue Shopping
+
+            </button>
+
+        </div>
+
     </div>
+
 </div>
 
 
 <script>
 
-/* =========================================================
+/* =====================================================
    DEFAULT PRODUCTS
-   These are sample grocery products.
-   Admin can edit/delete/add them.
-========================================================= */
+===================================================== */
 
 const defaultProducts = [
+
     {
         id: 1,
         name: "Rice 5kg",
@@ -541,6 +687,7 @@ const defaultProducts = [
         image: "https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=500&q=80",
         description: "Premium quality rice"
     },
+
     {
         id: 2,
         name: "Toor Dal 1kg",
@@ -549,6 +696,7 @@ const defaultProducts = [
         image: "https://images.unsplash.com/photo-1585996787445-0f7b0b1a9e9a?auto=format&fit=crop&w=500&q=80",
         description: "Fresh toor dal"
     },
+
     {
         id: 3,
         name: "Sunflower Oil 1L",
@@ -557,6 +705,7 @@ const defaultProducts = [
         image: "https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?auto=format&fit=crop&w=500&q=80",
         description: "Refined sunflower oil"
     },
+
     {
         id: 4,
         name: "Sugar 1kg",
@@ -565,6 +714,7 @@ const defaultProducts = [
         image: "https://images.unsplash.com/photo-1581268491976-1f0f9a8b5d76?auto=format&fit=crop&w=500&q=80",
         description: "Fine quality sugar"
     },
+
     {
         id: 5,
         name: "Wheat Flour 5kg",
@@ -573,6 +723,7 @@ const defaultProducts = [
         image: "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=500&q=80",
         description: "Fresh wheat flour"
     },
+
     {
         id: 6,
         name: "Milk 1L",
@@ -581,14 +732,16 @@ const defaultProducts = [
         image: "https://images.unsplash.com/photo-1550583724-b2692b85b150?auto=format&fit=crop&w=500&q=80",
         description: "Fresh milk"
     },
+
     {
         id: 7,
         name: "Tea Powder 250g",
         price: 120,
         category: "Beverages",
         image: "https://images.unsplash.com/photo-1594631252845-29fc4cc8cde9?auto=format&fit=crop&w=500&q=80",
-        description: "Premium tea powder"
+        description: "Premium tea"
     },
+
     {
         id: 8,
         name: "Salt 1kg",
@@ -597,6 +750,7 @@ const defaultProducts = [
         image: "https://images.unsplash.com/photo-1518110925495-5fe2c9a8b6d3?auto=format&fit=crop&w=500&q=80",
         description: "Iodized salt"
     },
+
     {
         id: 9,
         name: "Potato 1kg",
@@ -605,6 +759,7 @@ const defaultProducts = [
         image: "https://images.unsplash.com/photo-1518977676601-b53f82aba655?auto=format&fit=crop&w=500&q=80",
         description: "Fresh potatoes"
     },
+
     {
         id: 10,
         name: "Onion 1kg",
@@ -613,6 +768,7 @@ const defaultProducts = [
         image: "https://images.unsplash.com/photo-1618512496248-a07fe83aa8cb?auto=format&fit=crop&w=500&q=80",
         description: "Fresh onions"
     },
+
     {
         id: 11,
         name: "Apple 1kg",
@@ -621,6 +777,7 @@ const defaultProducts = [
         image: "https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?auto=format&fit=crop&w=500&q=80",
         description: "Fresh apples"
     },
+
     {
         id: 12,
         name: "Banana 1 Dozen",
@@ -629,14 +786,16 @@ const defaultProducts = [
         image: "https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?auto=format&fit=crop&w=500&q=80",
         description: "Fresh bananas"
     },
+
     {
         id: 13,
         name: "Turmeric Powder 100g",
         price: 35,
         category: "Spices",
         image: "https://images.unsplash.com/photo-1615485500704-8e990f9900f7?auto=format&fit=crop&w=500&q=80",
-        description: "Pure turmeric powder"
+        description: "Pure turmeric"
     },
+
     {
         id: 14,
         name: "Biscuits",
@@ -645,6 +804,7 @@ const defaultProducts = [
         image: "https://images.unsplash.com/photo-1558961363-fa8fdf82db35?auto=format&fit=crop&w=500&q=80",
         description: "Crispy biscuits"
     },
+
     {
         id: 15,
         name: "Detergent 1kg",
@@ -653,164 +813,190 @@ const defaultProducts = [
         image: "https://images.unsplash.com/photo-1585832770485-e68a5dbfad52?auto=format&fit=crop&w=500&q=80",
         description: "Powerful detergent"
     }
+
 ];
 
 
-/* =========================================================
-   STORAGE
-========================================================= */
+/* =====================================================
+   LOAD PRODUCTS
+===================================================== */
 
-let products = JSON.parse(localStorage.getItem("madaProducts"));
+let products =
+    JSON.parse(localStorage.getItem("madaProducts"));
 
 if (!products) {
+
     products = defaultProducts;
-    saveProducts();
+
+    localStorage.setItem(
+        "madaProducts",
+        JSON.stringify(products)
+    );
 }
 
-let cart = JSON.parse(localStorage.getItem("madaCart")) || [];
 
-let selectedCategory = "All";
+/* =====================================================
+   CART
+===================================================== */
 
-let isAdmin = sessionStorage.getItem("madaAdmin") === "true";
+let cart =
+    JSON.parse(localStorage.getItem("madaCart")) || [];
 
-if (isAdmin) {
+
+/* =====================================================
+   ADMIN
+===================================================== */
+
+let admin =
+    sessionStorage.getItem("madaAdmin") === "true";
+
+if (admin) {
     document.body.classList.add("admin-mode");
 }
 
 
-/* =========================================================
-   SAVE PRODUCTS
-========================================================= */
-
-function saveProducts() {
-    localStorage.setItem("madaProducts", JSON.stringify(products));
-}
-
-
-/* =========================================================
-   CATEGORIES
-========================================================= */
+/* =====================================================
+   DISPLAY CATEGORIES
+===================================================== */
 
 function displayCategories() {
 
-    const categories = ["All", ...new Set(products.map(p => p.category))];
+    const categories = [
+        "All",
+        ...new Set(products.map(p => p.category))
+    ];
 
-    const container = document.getElementById("categories");
-
-    container.innerHTML = categories.map(category => `
-        <div
-            class="category ${selectedCategory === category ? "active" : ""}"
-            onclick="selectCategory('${escapeQuotes(category)}')">
-            ${category}
-        </div>
-    `).join("");
+    document.getElementById("categories").innerHTML =
+        categories.map(c => `
+            <div class="category"
+                 onclick="filterCategory('${c}')">
+                ${c}
+            </div>
+        `).join("");
 }
 
+let selectedCategory = "All";
 
-function selectCategory(category) {
+
+function filterCategory(category) {
+
     selectedCategory = category;
-    displayCategories();
-    displayProducts();
+
+    document.querySelectorAll(".category")
+        .forEach(el => {
+
+            el.classList.toggle(
+                "active",
+                el.textContent.trim() === category
+            );
+
+        });
+
+    showProducts();
 }
 
 
-/* =========================================================
-   PRODUCTS
-========================================================= */
+/* =====================================================
+   SHOW PRODUCTS
+===================================================== */
 
-function displayProducts() {
+function showProducts() {
 
-    const search = document
-        .getElementById("searchInput")
+    const search =
+        document.getElementById("search")
         .value
         .toLowerCase();
 
-    const container = document.getElementById("products");
+    const filtered =
+        products.filter(product => {
 
-    let filtered = products.filter(product => {
+            const matchSearch =
+                product.name.toLowerCase()
+                .includes(search);
 
-        const matchesSearch =
-            product.name.toLowerCase().includes(search) ||
-            product.category.toLowerCase().includes(search);
+            const matchCategory =
+                selectedCategory === "All" ||
+                product.category === selectedCategory;
 
-        const matchesCategory =
-            selectedCategory === "All" ||
-            product.category === selectedCategory;
+            return matchSearch && matchCategory;
+        });
 
-        return matchesSearch && matchesCategory;
-    });
 
     if (filtered.length === 0) {
-        container.innerHTML = `
-            <div class="empty">
-                <h3>No products found</h3>
-                <p>Try another search.</p>
-            </div>
-        `;
+
+        document.getElementById("products").innerHTML =
+            `<div class="empty">
+                No products found.
+             </div>`;
+
         return;
     }
 
-    container.innerHTML = filtered.map(product => `
+
+    document.getElementById("products").innerHTML =
+        filtered.map(product => `
 
         <div class="product">
 
             <img
                 src="${product.image}"
-                alt="${escapeHTML(product.name)}"
-                onerror="this.src='https://via.placeholder.com/300x200?text=Grocery'"
+                onerror="
+                this.src='https://via.placeholder.com/300x200?text=Grocery'
+                "
             >
 
-            <h3>${escapeHTML(product.name)}</h3>
+            <h3>${product.name}</h3>
 
-            <div class="category-label">
-                ${escapeHTML(product.category)}
+            <div class="category-name">
+                ${product.category}
             </div>
-
-            <p style="font-size:13px;color:#666;margin-bottom:8px;">
-                ${escapeHTML(product.description || "")}
-            </p>
 
             <div class="price">
                 ₹${Number(product.price).toLocaleString("en-IN")}
             </div>
 
-            <button class="add-cart"
-                onclick="addToCart(${product.id})">
+            <button class="add"
+                    onclick="addCart(${product.id})">
+
                 Add to Cart
+
             </button>
 
             <div class="admin-controls">
 
-                <button
-                    class="edit-btn"
-                    onclick="openEditProduct(${product.id})">
-                    ✏️ Edit
+                <button class="edit"
+                        onclick="editProduct(${product.id})">
+
+                    ✏️ Edit Price / Product
+
                 </button>
 
-                <button
-                    class="delete-btn"
-                    onclick="deleteProduct(${product.id})">
-                    🗑️ Delete
+                <button class="delete"
+                        onclick="deleteProduct(${product.id})">
+
+                    🗑️
+
                 </button>
 
             </div>
 
         </div>
 
-    `).join("");
+        `).join("");
 }
 
 
-/* =========================================================
-   CART
-========================================================= */
+/* =====================================================
+   ADD TO CART
+===================================================== */
 
-function addToCart(id) {
+function addCart(id) {
 
-    const existing = cart.find(item => item.id === id);
+    const item =
+        cart.find(x => x.id === id);
 
-    if (existing) {
-        existing.quantity++;
+    if (item) {
+        item.quantity++;
     } else {
         cart.push({
             id: id,
@@ -819,362 +1005,589 @@ function addToCart(id) {
     }
 
     saveCart();
-    updateCartCount();
 
-    alert("Product added to cart!");
+    updateCart();
+
+    alert("Added to cart!");
 }
 
 
 function saveCart() {
-    localStorage.setItem("madaCart", JSON.stringify(cart));
-}
 
-
-function updateCartCount() {
-
-    const count = cart.reduce(
-        (total,item) => total + item.quantity,
-        0
+    localStorage.setItem(
+        "madaCart",
+        JSON.stringify(cart)
     );
-
-    document.getElementById("cartCount").textContent = count;
 }
 
+
+function updateCart() {
+
+    const count =
+        cart.reduce(
+            (sum,item) =>
+                sum + item.quantity,
+            0
+        );
+
+    document.getElementById("cartCount")
+        .textContent = count;
+}
+
+
+/* =====================================================
+   OPEN CART
+===================================================== */
 
 function openCart() {
 
-    displayCart();
+    document.getElementById("cartModal")
+        .style.display = "flex";
 
-    document.getElementById("cartModal").style.display = "flex";
+    document.getElementById("cartPage")
+        .style.display = "block";
+
+    document.getElementById("orderSuccess")
+        .style.display = "none";
+
+    displayCart();
 }
 
 
+/* =====================================================
+   DISPLAY CART
+===================================================== */
+
 function displayCart() {
 
-    const container = document.getElementById("cartItems");
+    const box =
+        document.getElementById("cartItems");
 
     if (cart.length === 0) {
-        container.innerHTML = `
-            <div class="empty">
-                Your cart is empty.
-            </div>
-        `;
 
-        document.getElementById("cartTotal").textContent = "0";
+        box.innerHTML =
+            `<div class="empty">
+                Your cart is empty.
+             </div>`;
+
+        document.getElementById("total")
+            .textContent = "0";
+
         return;
     }
 
+
     let total = 0;
 
-    container.innerHTML = cart.map(item => {
 
-        const product = products.find(p => p.id === item.id);
+    box.innerHTML =
+        cart.map(item => {
 
-        if (!product) return "";
+            const product =
+                products.find(
+                    p => p.id === item.id
+                );
 
-        const itemTotal = product.price * item.quantity;
+            if (!product) return "";
 
-        total += itemTotal;
 
-        return `
+            const itemTotal =
+                product.price *
+                item.quantity;
+
+            total += itemTotal;
+
+
+            return `
+
             <div class="cart-item">
 
                 <div>
-                    <strong>${escapeHTML(product.name)}</strong>
+
+                    <strong>
+                        ${product.name}
+                    </strong>
+
                     <br>
-                    ₹${product.price} × ${item.quantity}
+
+                    ₹${product.price}
+                    × ${item.quantity}
+
                 </div>
 
-                <div class="quantity-controls">
+                <div class="qty">
 
-                    <button onclick="changeQuantity(${item.id},-1)">
+                    <button
+                        onclick="changeQty(${item.id},-1)">
                         −
                     </button>
 
-                    <button onclick="changeQuantity(${item.id},1)">
+                    ${item.quantity}
+
+                    <button
+                        onclick="changeQty(${item.id},1)">
                         +
                     </button>
 
                 </div>
 
             </div>
-        `;
 
-    }).join("");
+            `;
 
-    document.getElementById("cartTotal").textContent =
+        }).join("");
+
+
+    document.getElementById("total")
+        .textContent =
         total.toLocaleString("en-IN");
 }
 
 
-function changeQuantity(id, change) {
+/* =====================================================
+   CHANGE QUANTITY
+===================================================== */
 
-    const item = cart.find(i => i.id === id);
+function changeQty(id, change) {
+
+    const item =
+        cart.find(x => x.id === id);
 
     if (!item) return;
 
     item.quantity += change;
 
     if (item.quantity <= 0) {
-        cart = cart.filter(i => i.id !== id);
+
+        cart =
+            cart.filter(
+                x => x.id !== id
+            );
     }
 
     saveCart();
-    updateCartCount();
+
+    updateCart();
+
     displayCart();
 }
 
 
-/* =========================================================
-   WHATSAPP ORDER
-========================================================= */
+/* =====================================================
+   SEND WHATSAPP ORDER
+===================================================== */
 
-function sendWhatsAppOrder() {
+function sendOrder() {
 
     if (cart.length === 0) {
+
         alert("Your cart is empty.");
+
         return;
     }
+
 
     const name =
-        document.getElementById("customerName").value.trim();
-
-    const address =
-        document.getElementById("customerAddress").value.trim();
+        document.getElementById("customerName")
+        .value.trim();
 
     const phone =
-        document.getElementById("customerPhone").value.trim();
+        document.getElementById("customerPhone")
+        .value.trim();
 
-    if (!name || !address || !phone) {
-        alert("Please enter your name, address and phone number.");
+    const address =
+        document.getElementById("customerAddress")
+        .value.trim();
+
+
+    if (!name || !phone || !address) {
+
+        alert(
+            "Please enter your name, phone and address."
+        );
+
         return;
     }
+
 
     let message =
         "*NEW ORDER - MADA GENERAL STORE*%0A%0A";
 
-    message += "*Customer:* " + encodeURIComponent(name) + "%0A";
-    message += "*Phone:* " + encodeURIComponent(phone) + "%0A";
-    message += "*Address:* " + encodeURIComponent(address) + "%0A%0A";
+    message +=
+        "*Customer:* " +
+        encodeURIComponent(name) +
+        "%0A";
+
+    message +=
+        "*Phone:* " +
+        encodeURIComponent(phone) +
+        "%0A";
+
+    message +=
+        "*Address:* " +
+        encodeURIComponent(address) +
+        "%0A%0A";
 
     message += "*ITEMS:*%0A";
 
+
     let total = 0;
+
 
     cart.forEach(item => {
 
-        const product = products.find(p => p.id === item.id);
+        const product =
+            products.find(
+                p => p.id === item.id
+            );
 
         if (!product) return;
 
+
         const itemTotal =
-            product.price * item.quantity;
+            product.price *
+            item.quantity;
 
         total += itemTotal;
+
 
         message +=
             "• " +
             encodeURIComponent(product.name) +
-            " x " +
+            " × " +
             item.quantity +
             " = ₹" +
             itemTotal +
             "%0A";
     });
 
+
     message +=
         "%0A*TOTAL: ₹" +
         total +
-        "*%0A%0A";
+        "*";
 
-    message +=
-        "Please confirm the order. Thank you!";
 
-    const whatsappNumber = "918792043577";
-
-    const url =
-        "https://wa.me/" +
-        whatsappNumber +
-        "?text=" +
+    const whatsapp =
+        "https://wa.me/918792043577?text=" +
         message;
 
-    window.open(url, "_blank");
+
+    /*
+       Open WhatsApp.
+
+       IMPORTANT:
+       We do NOT immediately clear the cart.
+       This allows the customer to return
+       and see the Continue Shopping button.
+    */
+
+    window.open(whatsapp, "_blank");
+
+
+    /*
+       Show order-success screen
+       when customer returns to the store.
+    */
+
+    setTimeout(() => {
+
+        document.getElementById("cartPage")
+            .style.display = "none";
+
+        document.getElementById("orderSuccess")
+            .style.display = "block";
+
+    }, 1000);
 }
 
 
-/* =========================================================
+/* =====================================================
+   CONTINUE SHOPPING
+===================================================== */
+
+function continueShopping() {
+
+    /*
+       Close cart
+       and return to products.
+    */
+
+    closeModal("cartModal");
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+
+    showProducts();
+}
+
+
+/* =====================================================
    ADMIN LOGIN
-========================================================= */
+===================================================== */
 
-function openAdminLogin() {
+function openLogin() {
 
-    if (isAdmin) {
-        alert("You are already logged in as admin.");
+    if (admin) {
+
+        alert("You are already logged in.");
+
         return;
     }
 
-    document.getElementById("adminLoginModal").style.display = "flex";
+    document.getElementById("loginModal")
+        .style.display = "flex";
 }
 
 
-function loginAdmin() {
+function login() {
 
     const pin =
-        document.getElementById("adminPin").value;
+        document.getElementById("pin")
+        .value;
+
 
     if (pin === "689768") {
 
-        isAdmin = true;
+        admin = true;
 
         sessionStorage.setItem(
             "madaAdmin",
             "true"
         );
 
-        document.body.classList.add("admin-mode");
+        document.body.classList
+            .add("admin-mode");
 
-        closeModal("adminLoginModal");
+        closeModal("loginModal");
+
+        displayCategories();
+        showProducts();
 
         alert("Admin login successful!");
 
-        displayProducts();
-
     } else {
 
-        document.getElementById("loginError").textContent =
-            "Incorrect PIN.";
+        document.getElementById("loginError")
+            .textContent =
+            "Wrong PIN.";
     }
 }
 
 
-function logoutAdmin() {
+function logout() {
 
-    isAdmin = false;
+    admin = false;
 
-    sessionStorage.removeItem("madaAdmin");
+    sessionStorage.removeItem(
+        "madaAdmin"
+    );
 
-    document.body.classList.remove("admin-mode");
+    document.body.classList
+        .remove("admin-mode");
 
-    displayProducts();
+    showProducts();
 
     alert("Admin logged out.");
 }
 
 
-/* =========================================================
+/* =====================================================
    ADD PRODUCT
-========================================================= */
+===================================================== */
 
-function openAddProduct() {
+function addProduct() {
 
-    if (!isAdmin) {
+    if (!admin) {
+
         alert("Admin login required.");
+
         return;
     }
 
-    document.getElementById("productModalTitle").textContent =
-        "Add Product";
 
-    document.getElementById("editProductId").value = "";
+    document.getElementById("productTitle")
+        .textContent = "Add Product";
 
-    document.getElementById("productName").value = "";
-    document.getElementById("productPrice").value = "";
-    document.getElementById("productImage").value = "";
-    document.getElementById("productDescription").value = "";
+    document.getElementById("productId")
+        .value = "";
 
-    document.getElementById("productModal").style.display = "flex";
+    document.getElementById("productName")
+        .value = "";
+
+    document.getElementById("productPrice")
+        .value = "";
+
+    document.getElementById("productImage")
+        .value = "";
+
+    document.getElementById("productDescription")
+        .value = "";
+
+    document.getElementById("productModal")
+        .style.display = "flex";
 }
 
 
-/* =========================================================
+/* =====================================================
    EDIT PRODUCT
-========================================================= */
+===================================================== */
 
-function openEditProduct(id) {
+function editProduct(id) {
 
-    if (!isAdmin) {
+    if (!admin) {
+
         alert("Admin login required.");
+
         return;
     }
 
+
     const product =
-        products.find(p => p.id === id);
+        products.find(
+            p => p.id === id
+        );
 
     if (!product) return;
 
-    document.getElementById("productModalTitle").textContent =
-        "Edit Product";
 
-    document.getElementById("editProductId").value =
-        product.id;
+    document.getElementById("productTitle")
+        .textContent =
+        "Edit Product / Change Market Price";
 
-    document.getElementById("productName").value =
-        product.name;
 
-    document.getElementById("productPrice").value =
-        product.price;
+    document.getElementById("productId")
+        .value = product.id;
 
-    document.getElementById("productCategory").value =
-        product.category;
 
-    document.getElementById("productImage").value =
-        product.image;
+    document.getElementById("productName")
+        .value = product.name;
 
-    document.getElementById("productDescription").value =
+
+    /*
+       This is the important part:
+       Admin can change the price whenever
+       the market price changes.
+    */
+
+    document.getElementById("productPrice")
+        .value = product.price;
+
+
+    document.getElementById("productCategory")
+        .value = product.category;
+
+
+    document.getElementById("productImage")
+        .value = product.image;
+
+
+    document.getElementById("productDescription")
+        .value =
         product.description || "";
 
-    document.getElementById("productModal").style.display = "flex";
+
+    document.getElementById("productModal")
+        .style.display = "flex";
 }
 
 
-/* =========================================================
-   SAVE PRODUCT
-========================================================= */
+/* =====================================================
+   SAVE PRODUCT / SAVE NEW PRICE
+===================================================== */
 
 function saveProduct() {
 
-    if (!isAdmin) {
+    if (!admin) {
+
         alert("Admin login required.");
+
         return;
     }
+
 
     const id =
-        document.getElementById("editProductId").value;
+        document.getElementById("productId")
+        .value;
+
 
     const name =
-        document.getElementById("productName").value.trim();
+        document.getElementById("productName")
+        .value.trim();
+
 
     const price =
-        Number(document.getElementById("productPrice").value);
+        Number(
+            document.getElementById("productPrice")
+            .value
+        );
+
 
     const category =
-        document.getElementById("productCategory").value;
+        document.getElementById("productCategory")
+        .value;
+
 
     const image =
-        document.getElementById("productImage").value.trim();
+        document.getElementById("productImage")
+        .value.trim();
+
 
     const description =
-        document.getElementById("productDescription").value.trim();
+        document.getElementById("productDescription")
+        .value.trim();
 
-    if (!name || !price || !image) {
-        alert("Please fill product name, price and image.");
+
+    if (!name || price <= 0 || !image) {
+
+        alert(
+            "Please enter product name, price and image."
+        );
+
         return;
     }
+
 
     if (id) {
 
+        /*
+           UPDATE EXISTING PRODUCT
+        */
+
         const product =
-            products.find(p => p.id == id);
+            products.find(
+                p => p.id == id
+            );
 
         if (!product) return;
 
+
         product.name = name;
+
+        /*
+           NEW MARKET PRICE IS SAVED HERE
+        */
+
         product.price = price;
+
         product.category = category;
+
         product.image = image;
+
         product.description = description;
 
+
+        alert(
+            "Product and market price updated!"
+        );
+
     } else {
+
+        /*
+           ADD NEW PRODUCT
+        */
 
         products.push({
 
@@ -1189,114 +1602,123 @@ function saveProduct() {
             image: image,
 
             description: description
+
         });
+
+        alert(
+            "New product added!"
+        );
     }
 
-    saveProducts();
+
+    /*
+       SAVE PERMANENTLY IN THIS BROWSER
+    */
+
+    localStorage.setItem(
+        "madaProducts",
+        JSON.stringify(products)
+    );
+
 
     displayCategories();
-    displayProducts();
+
+    showProducts();
 
     closeModal("productModal");
-
-    alert(
-        id
-        ? "Product updated successfully!"
-        : "Product added successfully!"
-    );
 }
 
 
-/* =========================================================
+/* =====================================================
    DELETE PRODUCT
-========================================================= */
+===================================================== */
 
 function deleteProduct(id) {
 
-    if (!isAdmin) {
+    if (!admin) {
+
         alert("Admin login required.");
+
         return;
     }
 
+
     const product =
-        products.find(p => p.id === id);
+        products.find(
+            p => p.id === id
+        );
+
 
     if (!product) return;
 
-    if (!confirm(
-        "Delete " + product.name + "?"
-    )) {
+
+    if (
+        !confirm(
+            "Delete " +
+            product.name +
+            "?"
+        )
+    ) {
         return;
     }
 
-    products =
-        products.filter(p => p.id !== id);
 
-    saveProducts();
+    products =
+        products.filter(
+            p => p.id !== id
+        );
+
+
+    localStorage.setItem(
+        "madaProducts",
+        JSON.stringify(products)
+    );
+
 
     displayCategories();
-    displayProducts();
+
+    showProducts();
 }
 
 
-/* =========================================================
-   MODAL HELPERS
-========================================================= */
+/* =====================================================
+   CLOSE MODAL
+===================================================== */
 
 function closeModal(id) {
-    document.getElementById(id).style.display = "none";
+
+    document.getElementById(id)
+        .style.display = "none";
 }
 
 
-/* =========================================================
-   SECURITY / HTML HELPERS
-========================================================= */
-
-function escapeHTML(text) {
-
-    return String(text)
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
-}
-
-
-function escapeQuotes(text) {
-
-    return String(text)
-        .replace(/'/g, "\\'")
-        .replace(/"/g, "&quot;");
-}
-
-
-/* =========================================================
-   CLOSE MODAL WHEN CLICKING OUTSIDE
-========================================================= */
+/* =====================================================
+   CLICK OUTSIDE MODAL
+===================================================== */
 
 window.onclick = function(event) {
 
-    const modals =
-        document.querySelectorAll(".modal");
+    document
+        .querySelectorAll(".modal")
+        .forEach(modal => {
 
-    modals.forEach(modal => {
+            if (event.target === modal) {
+                modal.style.display = "none";
+            }
 
-        if (event.target === modal) {
-            modal.style.display = "none";
-        }
-
-    });
+        });
 };
 
 
-/* =========================================================
-   INITIALIZE
-========================================================= */
+/* =====================================================
+   START WEBSITE
+===================================================== */
 
 displayCategories();
-displayProducts();
-updateCartCount();
+
+showProducts();
+
+updateCart();
 
 </script>
 
