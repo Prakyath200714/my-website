@@ -3,9 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Mada General Store</title>
 
 <style>
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -18,7 +20,8 @@ body {
     color: #212121;
 }
 
-/* HEADER */
+/* ================= HEADER ================= */
+
 header {
     background: #2874f0;
     color: white;
@@ -55,9 +58,9 @@ header {
 }
 
 .search button {
-    border: none;
     background: white;
     color: #2874f0;
+    border: none;
     padding: 0 18px;
 }
 
@@ -71,7 +74,8 @@ header {
     border-radius: 3px;
 }
 
-/* ADMIN BAR */
+/* ================= ADMIN BAR ================= */
+
 .admin-bar {
     display: none;
     background: #ffe500;
@@ -93,7 +97,8 @@ body.admin-mode .admin-bar {
     cursor: pointer;
 }
 
-/* CATEGORIES */
+/* ================= CATEGORIES ================= */
+
 .categories {
     background: white;
     padding: 14px 5%;
@@ -110,19 +115,24 @@ body.admin-mode .admin-bar {
     white-space: nowrap;
 }
 
-.category.active,
-.category:hover {
+.category:hover,
+.category.active {
     background: #2874f0;
     color: white;
 }
 
-/* BANNER */
+/* ================= BANNER ================= */
+
 .banner {
     margin: 15px 5%;
     padding: 30px;
     text-align: center;
     color: white;
-    background: linear-gradient(90deg,#2874f0,#1257c7);
+    background: linear-gradient(
+        90deg,
+        #2874f0,
+        #1257c7
+    );
     border-radius: 5px;
 }
 
@@ -130,14 +140,17 @@ body.admin-mode .admin-bar {
     margin-bottom: 8px;
 }
 
-/* PRODUCTS */
+/* ================= PRODUCTS ================= */
+
 .container {
     padding: 10px 5% 50px;
 }
 
 .products {
     display: grid;
-    grid-template-columns: repeat(auto-fill,minmax(190px,1fr));
+    grid-template-columns:
+        repeat(auto-fill, minmax(190px, 1fr));
+
     gap: 15px;
 }
 
@@ -182,7 +195,12 @@ body.admin-mode .admin-bar {
     border-radius: 3px;
 }
 
-/* ADMIN CONTROLS */
+.add:hover {
+    background: #fb8c00;
+}
+
+/* ================= ADMIN CONTROLS ================= */
+
 .admin-controls {
     display: none;
     margin-top: 8px;
@@ -203,7 +221,6 @@ body.admin-mode .admin-controls {
 }
 
 .delete {
-    flex: 1;
     background: #e53935;
     color: white;
     border: none;
@@ -211,15 +228,18 @@ body.admin-mode .admin-controls {
     cursor: pointer;
 }
 
-/* MODAL */
+/* ================= MODAL ================= */
+
 .modal {
     display: none;
     position: fixed;
     inset: 0;
     background: rgba(0,0,0,.65);
     z-index: 2000;
+
     align-items: center;
     justify-content: center;
+
     padding: 15px;
 }
 
@@ -227,9 +247,12 @@ body.admin-mode .admin-controls {
     background: white;
     width: 100%;
     max-width: 500px;
+
     max-height: 90vh;
     overflow-y: auto;
+
     padding: 25px;
+
     border-radius: 5px;
 }
 
@@ -261,18 +284,24 @@ body.admin-mode .admin-controls {
     width: 100%;
     padding: 12px;
     margin-top: 15px;
+
     border: none;
+
     background: #2874f0;
     color: white;
+
     font-weight: bold;
     cursor: pointer;
 }
 
-/* CART */
+/* ================= CART ================= */
+
 .cart-item {
     display: flex;
     justify-content: space-between;
+
     border-bottom: 1px solid #ddd;
+
     padding: 12px 0;
 }
 
@@ -289,24 +318,36 @@ body.admin-mode .admin-controls {
 
 .whatsapp {
     width: 100%;
+
     background: #25D366;
     color: white;
+
     border: none;
+
     padding: 14px;
+
     margin-top: 15px;
+
     cursor: pointer;
+
     font-size: 16px;
     font-weight: bold;
 }
 
 .continue {
     width: 100%;
+
     background: #2874f0;
     color: white;
+
     border: none;
+
     padding: 14px;
+
     margin-top: 10px;
+
     cursor: pointer;
+
     font-size: 16px;
     font-weight: bold;
 }
@@ -317,7 +358,8 @@ body.admin-mode .admin-controls {
     color: #777;
 }
 
-/* ORDER SENT */
+/* ================= ORDER SUCCESS ================= */
+
 .order-success {
     display: none;
     text-align: center;
@@ -329,12 +371,16 @@ body.admin-mode .admin-controls {
     margin-bottom: 10px;
 }
 
+/* ================= FOOTER ================= */
+
 footer {
     background: #172337;
     color: white;
     text-align: center;
     padding: 30px;
 }
+
+/* ================= MOBILE ================= */
 
 @media(max-width:700px) {
 
@@ -354,13 +400,21 @@ footer {
     .product img {
         height: 120px;
     }
+
+    .logo {
+        font-size: 20px;
+    }
 }
+
 </style>
 </head>
 
+
 <body>
 
-<!-- HEADER -->
+
+<!-- ================= HEADER ================= -->
+
 <header>
 
     <div class="logo">
@@ -368,46 +422,86 @@ footer {
     </div>
 
     <div class="search">
+
         <input
             id="search"
             placeholder="Search groceries..."
             oninput="showProducts()"
         >
-        <button>🔍</button>
+
+        <button>
+            🔍
+        </button>
+
     </div>
 
-    <button class="header-btn" onclick="openCart()">
-        🛒 Cart (<span id="cartCount">0</span>)
+
+    <button
+        class="header-btn"
+        onclick="openCart()">
+
+        🛒 Cart
+        (<span id="cartCount">0</span>)
+
     </button>
 
-    <button class="header-btn" onclick="openLogin()">
+
+    <button
+        class="header-btn"
+        onclick="openLogin()">
+
         Admin
+
     </button>
 
 </header>
 
 
-<!-- ADMIN BAR -->
+<!-- ================= ADMIN BAR ================= -->
+
 <div class="admin-bar">
 
-    <strong>🔐 ADMIN MODE</strong>
+    <strong>
+        🔐 ADMIN MODE
+    </strong>
 
     <div>
-        <button onclick="addProduct()">➕ Add Product</button>
-        <button onclick="logout()">Logout</button>
+
+        <button
+            onclick="addProduct()">
+
+            ➕ Add Product
+
+        </button>
+
+
+        <button
+            onclick="logout()">
+
+            Logout
+
+        </button>
+
     </div>
 
 </div>
 
 
-<!-- CATEGORIES -->
-<div class="categories" id="categories"></div>
+<!-- ================= CATEGORIES ================= -->
+
+<div
+    class="categories"
+    id="categories">
+</div>
 
 
-<!-- BANNER -->
+<!-- ================= BANNER ================= -->
+
 <div class="banner">
 
-    <h1>Welcome to Mada General Store</h1>
+    <h1>
+        Welcome to Mada General Store
+    </h1>
 
     <p>
         Fresh groceries at today's market prices
@@ -416,47 +510,74 @@ footer {
 </div>
 
 
-<!-- PRODUCTS -->
+<!-- ================= PRODUCTS ================= -->
+
 <div class="container">
 
     <h2 style="margin:15px 0;">
+
         Today's Grocery Items
+
     </h2>
 
-    <div class="products" id="products"></div>
+
+    <div
+        class="products"
+        id="products">
+    </div>
 
 </div>
 
 
+<!-- ================= FOOTER ================= -->
+
 <footer>
 
-    <h2>Mada General Store</h2>
+    <h2>
+        Mada General Store
+    </h2>
 
     <p style="margin-top:8px;">
         Easy grocery shopping
     </p>
 
     <p style="margin-top:8px;">
-        WhatsApp Orders: 8792043577
+        WhatsApp Orders:
+        8792043577
     </p>
 
 </footer>
 
 
-<!-- ADMIN LOGIN -->
-<div class="modal" id="loginModal">
+<!-- =================================================
+     ADMIN LOGIN MODAL
+================================================= -->
+
+<div
+    class="modal"
+    id="loginModal">
 
     <div class="modal-box">
 
-        <span class="close" onclick="closeModal('loginModal')">
+        <span
+            class="close"
+            onclick="closeModal('loginModal')">
+
             ×
+
         </span>
 
-        <h2>Admin Login</h2>
+
+        <h2>
+            Admin Login
+        </h2>
+
 
         <div class="form">
 
-            <label>Admin PIN</label>
+            <label>
+                Admin PIN
+            </label>
 
             <input
                 id="pin"
@@ -467,12 +588,20 @@ footer {
 
         </div>
 
-        <button class="save" onclick="login()">
+
+        <button
+            class="save"
+            onclick="login()">
+
             Login
+
         </button>
 
-        <p id="loginError"
-           style="color:red;margin-top:10px;">
+
+        <p
+            id="loginError"
+            style="color:red;margin-top:10px;">
+
         </p>
 
     </div>
@@ -480,25 +609,41 @@ footer {
 </div>
 
 
-<!-- ADD / EDIT PRODUCT -->
-<div class="modal" id="productModal">
+<!-- =================================================
+     ADD / EDIT PRODUCT MODAL
+================================================= -->
+
+<div
+    class="modal"
+    id="productModal">
 
     <div class="modal-box">
 
-        <span class="close"
-              onclick="closeModal('productModal')">
+        <span
+            class="close"
+            onclick="closeModal('productModal')">
+
             ×
+
         </span>
+
 
         <h2 id="productTitle">
             Add Product
         </h2>
 
-        <input type="hidden" id="productId">
+
+        <input
+            type="hidden"
+            id="productId"
+        >
+
 
         <div class="form">
 
-            <label>Product Name</label>
+            <label>
+                Product Name
+            </label>
 
             <input
                 id="productName"
@@ -507,9 +652,12 @@ footer {
 
         </div>
 
+
         <div class="form">
 
-            <label>Today's Market Price ₹</label>
+            <label>
+                Today's Market Price ₹
+            </label>
 
             <input
                 id="productPrice"
@@ -520,32 +668,73 @@ footer {
 
         </div>
 
+
         <div class="form">
 
-            <label>Category</label>
+            <label>
+                Category
+            </label>
 
             <select id="productCategory">
 
-                <option>Rice & Grains</option>
-                <option>Dal & Pulses</option>
-                <option>Oil</option>
-                <option>Spices</option>
-                <option>Fruits</option>
-                <option>Vegetables</option>
-                <option>Dairy</option>
-                <option>Snacks</option>
-                <option>Beverages</option>
-                <option>Household</option>
-                <option>Personal Care</option>
-                <option>Other</option>
+                <option>
+                    Rice & Grains
+                </option>
+
+                <option>
+                    Dal & Pulses
+                </option>
+
+                <option>
+                    Oil
+                </option>
+
+                <option>
+                    Spices
+                </option>
+
+                <option>
+                    Fruits
+                </option>
+
+                <option>
+                    Vegetables
+                </option>
+
+                <option>
+                    Dairy
+                </option>
+
+                <option>
+                    Snacks
+                </option>
+
+                <option>
+                    Beverages
+                </option>
+
+                <option>
+                    Household
+                </option>
+
+                <option>
+                    Personal Care
+                </option>
+
+                <option>
+                    Other
+                </option>
 
             </select>
 
         </div>
 
+
         <div class="form">
 
-            <label>Product Image URL</label>
+            <label>
+                Product Image URL
+            </label>
 
             <input
                 id="productImage"
@@ -554,9 +743,12 @@ footer {
 
         </div>
 
+
         <div class="form">
 
-            <label>Description</label>
+            <label>
+                Description
+            </label>
 
             <textarea
                 id="productDescription"
@@ -565,9 +757,13 @@ footer {
 
         </div>
 
-        <button class="save"
-                onclick="saveProduct()">
+
+        <button
+            class="save"
+            onclick="saveProduct()">
+
             Save Product
+
         </button>
 
     </div>
@@ -575,29 +771,54 @@ footer {
 </div>
 
 
-<!-- CART -->
-<div class="modal" id="cartModal">
+<!-- =================================================
+     CART MODAL
+================================================= -->
+
+<div
+    class="modal"
+    id="cartModal">
 
     <div class="modal-box">
 
-        <span class="close"
-              onclick="closeModal('cartModal')">
+        <span
+            class="close"
+            onclick="closeModal('cartModal')">
+
             ×
+
         </span>
+
+
+        <!-- CART PAGE -->
 
         <div id="cartPage">
 
-            <h2>🛒 Your Cart</h2>
+            <h2>
+                🛒 Your Cart
+            </h2>
 
-            <div id="cartItems"></div>
+
+            <div
+                id="cartItems">
+            </div>
+
 
             <div class="total">
-                Total: ₹<span id="total">0</span>
+
+                Total:
+                ₹<span id="total">0</span>
+
             </div>
+
+
+            <!-- CUSTOMER DETAILS -->
 
             <div class="form">
 
-                <label>Customer Name</label>
+                <label>
+                    Customer Name
+                </label>
 
                 <input
                     id="customerName"
@@ -606,9 +827,12 @@ footer {
 
             </div>
 
+
             <div class="form">
 
-                <label>Phone Number</label>
+                <label>
+                    Phone Number
+                </label>
 
                 <input
                     id="customerPhone"
@@ -617,9 +841,12 @@ footer {
 
             </div>
 
+
             <div class="form">
 
-                <label>Delivery Address</label>
+                <label>
+                    Delivery Address
+                </label>
 
                 <textarea
                     id="customerAddress"
@@ -629,16 +856,23 @@ footer {
 
             </div>
 
-            <button class="whatsapp"
-                    onclick="sendOrder()">
+
+            <!-- WHATSAPP -->
+
+            <button
+                class="whatsapp"
+                onclick="sendOrder()">
 
                 📲 Order Through WhatsApp
 
             </button>
 
-            <!-- NEW CONTINUE SHOPPING BUTTON -->
-            <button class="continue"
-                    onclick="continueShopping()">
+
+            <!-- CONTINUE SHOPPING -->
+
+            <button
+                class="continue"
+                onclick="continueShopping()">
 
                 🛍️ Continue Shopping
 
@@ -647,18 +881,30 @@ footer {
         </div>
 
 
-        <!-- SUCCESS PAGE -->
-        <div class="order-success"
-             id="orderSuccess">
+        <!-- ORDER SENT PAGE -->
 
-            <h2>✅ Order Sent!</h2>
+        <div
+            class="order-success"
+            id="orderSuccess">
+
+            <h2>
+                ✅ Order Sent!
+            </h2>
+
 
             <p>
                 Your order has been opened in WhatsApp.
             </p>
 
-            <button class="continue"
-                    onclick="continueShopping()">
+
+            <p style="margin-top:10px;">
+                You can continue shopping below.
+            </p>
+
+
+            <button
+                class="continue"
+                onclick="continueShopping()">
 
                 🛍️ Continue Shopping
 
@@ -684,133 +930,162 @@ const defaultProducts = [
         name: "Rice 5kg",
         price: 350,
         category: "Rice & Grains",
-        image: "https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=500&q=80",
+        image:
+        "https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=500&q=80",
         description: "Premium quality rice"
     },
+
 
     {
         id: 2,
         name: "Toor Dal 1kg",
         price: 160,
         category: "Dal & Pulses",
-        image: "https://images.unsplash.com/photo-1585996787445-0f7b0b1a9e9a?auto=format&fit=crop&w=500&q=80",
+        image:
+        "https://images.unsplash.com/photo-1585996787445-0f7b0b1a9e9a?auto=format&fit=crop&w=500&q=80",
         description: "Fresh toor dal"
     },
+
 
     {
         id: 3,
         name: "Sunflower Oil 1L",
         price: 145,
         category: "Oil",
-        image: "https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?auto=format&fit=crop&w=500&q=80",
+        image:
+        "https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?auto=format&fit=crop&w=500&q=80",
         description: "Refined sunflower oil"
     },
+
 
     {
         id: 4,
         name: "Sugar 1kg",
         price: 48,
         category: "Other",
-        image: "https://images.unsplash.com/photo-1581268491976-1f0f9a8b5d76?auto=format&fit=crop&w=500&q=80",
+        image:
+        "https://images.unsplash.com/photo-1581268491976-1f0f9a8b5d76?auto=format&fit=crop&w=500&q=80",
         description: "Fine quality sugar"
     },
+
 
     {
         id: 5,
         name: "Wheat Flour 5kg",
         price: 260,
         category: "Rice & Grains",
-        image: "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=500&q=80",
+        image:
+        "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=500&q=80",
         description: "Fresh wheat flour"
     },
+
 
     {
         id: 6,
         name: "Milk 1L",
         price: 60,
         category: "Dairy",
-        image: "https://images.unsplash.com/photo-1550583724-b2692b85b150?auto=format&fit=crop&w=500&q=80",
+        image:
+        "https://images.unsplash.com/photo-1550583724-b2692b85b150?auto=format&fit=crop&w=500&q=80",
         description: "Fresh milk"
     },
+
 
     {
         id: 7,
         name: "Tea Powder 250g",
         price: 120,
         category: "Beverages",
-        image: "https://images.unsplash.com/photo-1594631252845-29fc4cc8cde9?auto=format&fit=crop&w=500&q=80",
+        image:
+        "https://images.unsplash.com/photo-1594631252845-29fc4cc8cde9?auto=format&fit=crop&w=500&q=80",
         description: "Premium tea"
     },
+
 
     {
         id: 8,
         name: "Salt 1kg",
         price: 25,
         category: "Other",
-        image: "https://images.unsplash.com/photo-1518110925495-5fe2c9a8b6d3?auto=format&fit=crop&w=500&q=80",
+        image:
+        "https://images.unsplash.com/photo-1518110925495-5fe2c9a8b6d3?auto=format&fit=crop&w=500&q=80",
         description: "Iodized salt"
     },
+
 
     {
         id: 9,
         name: "Potato 1kg",
         price: 40,
         category: "Vegetables",
-        image: "https://images.unsplash.com/photo-1518977676601-b53f82aba655?auto=format&fit=crop&w=500&q=80",
+        image:
+        "https://images.unsplash.com/photo-1518977676601-b53f82aba655?auto=format&fit=crop&w=500&q=80",
         description: "Fresh potatoes"
     },
+
 
     {
         id: 10,
         name: "Onion 1kg",
         price: 45,
         category: "Vegetables",
-        image: "https://images.unsplash.com/photo-1618512496248-a07fe83aa8cb?auto=format&fit=crop&w=500&q=80",
+        image:
+        "https://images.unsplash.com/photo-1618512496248-a07fe83aa8cb?auto=format&fit=crop&w=500&q=80",
         description: "Fresh onions"
     },
+
 
     {
         id: 11,
         name: "Apple 1kg",
         price: 160,
         category: "Fruits",
-        image: "https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?auto=format&fit=crop&w=500&q=80",
+        image:
+        "https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?auto=format&fit=crop&w=500&q=80",
         description: "Fresh apples"
     },
+
 
     {
         id: 12,
         name: "Banana 1 Dozen",
         price: 60,
         category: "Fruits",
-        image: "https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?auto=format&fit=crop&w=500&q=80",
+        image:
+        "https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?auto=format&fit=crop&w=500&q=80",
         description: "Fresh bananas"
     },
+
 
     {
         id: 13,
         name: "Turmeric Powder 100g",
         price: 35,
         category: "Spices",
-        image: "https://images.unsplash.com/photo-1615485500704-8e990f9900f7?auto=format&fit=crop&w=500&q=80",
+        image:
+        "https://images.unsplash.com/photo-1615485500704-8e990f9900f7?auto=format&fit=crop&w=500&q=80",
         description: "Pure turmeric"
     },
+
 
     {
         id: 14,
         name: "Biscuits",
         price: 30,
         category: "Snacks",
-        image: "https://images.unsplash.com/photo-1558961363-fa8fdf82db35?auto=format&fit=crop&w=500&q=80",
+        image:
+        "https://images.unsplash.com/photo-1558961363-fa8fdf82db35?auto=format&fit=crop&w=500&q=80",
         description: "Crispy biscuits"
     },
+
 
     {
         id: 15,
         name: "Detergent 1kg",
         price: 110,
         category: "Household",
-        image: "https://images.unsplash.com/photo-1585832770485-e68a5dbfad52?auto=format&fit=crop&w=500&q=80",
+        image:
+        "https://images.unsplash.com/photo-1585832770485-e68a5dbfad52?auto=format&fit=crop&w=500&q=80",
         description: "Powerful detergent"
     }
 
@@ -822,7 +1097,10 @@ const defaultProducts = [
 ===================================================== */
 
 let products =
-    JSON.parse(localStorage.getItem("madaProducts"));
+    JSON.parse(
+        localStorage.getItem("madaProducts")
+    );
+
 
 if (!products) {
 
@@ -836,68 +1114,84 @@ if (!products) {
 
 
 /* =====================================================
-   CART
+   LOAD CART
 ===================================================== */
 
 let cart =
-    JSON.parse(localStorage.getItem("madaCart")) || [];
+    JSON.parse(
+        localStorage.getItem("madaCart")
+    ) || [];
 
 
 /* =====================================================
-   ADMIN
+   ADMIN STATUS
 ===================================================== */
 
 let admin =
-    sessionStorage.getItem("madaAdmin") === "true";
+    sessionStorage.getItem("madaAdmin")
+    === "true";
+
 
 if (admin) {
-    document.body.classList.add("admin-mode");
+
+    document.body.classList.add(
+        "admin-mode"
+    );
+
 }
 
 
 /* =====================================================
-   DISPLAY CATEGORIES
+   CATEGORY
 ===================================================== */
+
+let selectedCategory = "All";
+
 
 function displayCategories() {
 
     const categories = [
         "All",
-        ...new Set(products.map(p => p.category))
+        ...new Set(
+            products.map(
+                product => product.category
+            )
+        )
     ];
 
-    document.getElementById("categories").innerHTML =
-        categories.map(c => `
-            <div class="category"
-                 onclick="filterCategory('${c}')">
-                ${c}
-            </div>
-        `).join("");
-}
 
-let selectedCategory = "All";
+    document.getElementById("categories")
+        .innerHTML = categories
+        .map(category => `
+
+            <div
+                class="category
+                ${selectedCategory === category
+                    ? "active"
+                    : ""}"
+                onclick="filterCategory('${category}')">
+
+                ${category}
+
+            </div>
+
+        `)
+        .join("");
+}
 
 
 function filterCategory(category) {
 
     selectedCategory = category;
 
-    document.querySelectorAll(".category")
-        .forEach(el => {
-
-            el.classList.toggle(
-                "active",
-                el.textContent.trim() === category
-            );
-
-        });
+    displayCategories();
 
     showProducts();
 }
 
 
 /* =====================================================
-   SHOW PRODUCTS
+   DISPLAY PRODUCTS
 ===================================================== */
 
 function showProducts() {
@@ -907,72 +1201,114 @@ function showProducts() {
         .value
         .toLowerCase();
 
+
     const filtered =
         products.filter(product => {
 
-            const matchSearch =
-                product.name.toLowerCase()
+            const matchesSearch =
+                product.name
+                .toLowerCase()
                 .includes(search);
 
-            const matchCategory =
-                selectedCategory === "All" ||
-                product.category === selectedCategory;
 
-            return matchSearch && matchCategory;
+            const matchesCategory =
+                selectedCategory === "All"
+                ||
+                product.category ===
+                selectedCategory;
+
+
+            return (
+                matchesSearch &&
+                matchesCategory
+            );
+
         });
 
 
     if (filtered.length === 0) {
 
-        document.getElementById("products").innerHTML =
-            `<div class="empty">
-                No products found.
-             </div>`;
+        document.getElementById("products")
+            .innerHTML = `
+
+                <div class="empty">
+
+                    No products found.
+
+                </div>
+
+            `;
 
         return;
     }
 
 
-    document.getElementById("products").innerHTML =
-        filtered.map(product => `
+    document.getElementById("products")
+        .innerHTML = filtered
+        .map(product => `
 
         <div class="product">
 
             <img
                 src="${product.image}"
+                alt="${product.name}"
+
                 onerror="
-                this.src='https://via.placeholder.com/300x200?text=Grocery'
+                    this.src=
+                    'https://via.placeholder.com/300x200?text=Grocery'
                 "
             >
 
-            <h3>${product.name}</h3>
+
+            <h3>
+                ${product.name}
+            </h3>
+
 
             <div class="category-name">
+
                 ${product.category}
+
             </div>
+
 
             <div class="price">
-                ₹${Number(product.price).toLocaleString("en-IN")}
+
+                ₹${Number(product.price)
+                    .toLocaleString("en-IN")}
+
             </div>
 
-            <button class="add"
-                    onclick="addCart(${product.id})">
+
+            <button
+                class="add"
+                onclick="addCart(${product.id})">
 
                 Add to Cart
 
             </button>
 
+
+            <!-- ADMIN ONLY -->
+
             <div class="admin-controls">
 
-                <button class="edit"
-                        onclick="editProduct(${product.id})">
+                <button
+                    class="edit"
+                    onclick="
+                        editProduct(${product.id})
+                    ">
 
-                    ✏️ Edit Price / Product
+                    ✏️ Edit
 
                 </button>
 
-                <button class="delete"
-                        onclick="deleteProduct(${product.id})">
+
+                <button
+                    class="delete"
+                    onclick="
+                        deleteProduct(${product.id})
+                    ">
 
                     🗑️
 
@@ -982,35 +1318,54 @@ function showProducts() {
 
         </div>
 
-        `).join("");
+        `)
+        .join("");
 }
 
 
 /* =====================================================
-   ADD TO CART
+   ADD CART
 ===================================================== */
 
 function addCart(id) {
 
-    const item =
-        cart.find(x => x.id === id);
+    const existing =
+        cart.find(
+            item => item.id === id
+        );
 
-    if (item) {
-        item.quantity++;
+
+    if (existing) {
+
+        existing.quantity++;
+
     } else {
+
         cart.push({
+
             id: id,
+
             quantity: 1
+
         });
+
     }
+
 
     saveCart();
 
     updateCart();
 
-    alert("Added to cart!");
+
+    alert(
+        "Product added to cart!"
+    );
 }
 
+
+/* =====================================================
+   SAVE CART
+===================================================== */
 
 function saveCart() {
 
@@ -1018,20 +1373,28 @@ function saveCart() {
         "madaCart",
         JSON.stringify(cart)
     );
+
 }
 
+
+/* =====================================================
+   UPDATE CART COUNT
+===================================================== */
 
 function updateCart() {
 
     const count =
         cart.reduce(
-            (sum,item) =>
-                sum + item.quantity,
+            (total, item) =>
+                total + item.quantity,
             0
         );
 
-    document.getElementById("cartCount")
-        .textContent = count;
+
+    document.getElementById(
+        "cartCount"
+    ).textContent = count;
+
 }
 
 
@@ -1041,16 +1404,23 @@ function updateCart() {
 
 function openCart() {
 
-    document.getElementById("cartModal")
-        .style.display = "flex";
+    document.getElementById(
+        "cartModal"
+    ).style.display = "flex";
 
-    document.getElementById("cartPage")
-        .style.display = "block";
 
-    document.getElementById("orderSuccess")
-        .style.display = "none";
+    document.getElementById(
+        "cartPage"
+    ).style.display = "block";
+
+
+    document.getElementById(
+        "orderSuccess"
+    ).style.display = "none";
+
 
     displayCart();
+
 }
 
 
@@ -1060,18 +1430,29 @@ function openCart() {
 
 function displayCart() {
 
-    const box =
-        document.getElementById("cartItems");
+    const cartBox =
+        document.getElementById(
+            "cartItems"
+        );
+
 
     if (cart.length === 0) {
 
-        box.innerHTML =
-            `<div class="empty">
-                Your cart is empty.
-             </div>`;
+        cartBox.innerHTML = `
 
-        document.getElementById("total")
-            .textContent = "0";
+            <div class="empty">
+
+                Your cart is empty.
+
+            </div>
+
+        `;
+
+
+        document.getElementById(
+            "total"
+        ).textContent = "0";
+
 
         return;
     }
@@ -1080,7 +1461,7 @@ function displayCart() {
     let total = 0;
 
 
-    box.innerHTML =
+    cartBox.innerHTML =
         cart.map(item => {
 
             const product =
@@ -1088,12 +1469,16 @@ function displayCart() {
                     p => p.id === item.id
                 );
 
-            if (!product) return "";
+
+            if (!product) {
+                return "";
+            }
 
 
             const itemTotal =
                 product.price *
                 item.quantity;
+
 
             total += itemTotal;
 
@@ -1115,18 +1500,35 @@ function displayCart() {
 
                 </div>
 
+
                 <div class="qty">
 
                     <button
-                        onclick="changeQty(${item.id},-1)">
+                        onclick="
+                            changeQty(
+                                ${item.id},
+                                -1
+                            )
+                        ">
+
                         −
+
                     </button>
+
 
                     ${item.quantity}
 
+
                     <button
-                        onclick="changeQty(${item.id},1)">
+                        onclick="
+                            changeQty(
+                                ${item.id},
+                                1
+                            )
+                        ">
+
                         +
+
                     </button>
 
                 </div>
@@ -1135,12 +1537,15 @@ function displayCart() {
 
             `;
 
-        }).join("");
+        })
+        .join("");
 
 
-    document.getElementById("total")
-        .textContent =
+    document.getElementById(
+        "total"
+    ).textContent =
         total.toLocaleString("en-IN");
+
 }
 
 
@@ -1151,11 +1556,18 @@ function displayCart() {
 function changeQty(id, change) {
 
     const item =
-        cart.find(x => x.id === id);
+        cart.find(
+            x => x.id === id
+        );
 
-    if (!item) return;
+
+    if (!item) {
+        return;
+    }
+
 
     item.quantity += change;
+
 
     if (item.quantity <= 0) {
 
@@ -1163,47 +1575,61 @@ function changeQty(id, change) {
             cart.filter(
                 x => x.id !== id
             );
+
     }
+
 
     saveCart();
 
     updateCart();
 
     displayCart();
+
 }
 
 
 /* =====================================================
-   SEND WHATSAPP ORDER
+   SEND ORDER TO WHATSAPP
 ===================================================== */
 
 function sendOrder() {
 
     if (cart.length === 0) {
 
-        alert("Your cart is empty.");
+        alert(
+            "Your cart is empty."
+        );
 
         return;
     }
 
 
     const name =
-        document.getElementById("customerName")
-        .value.trim();
+        document.getElementById(
+            "customerName"
+        ).value.trim();
+
 
     const phone =
-        document.getElementById("customerPhone")
-        .value.trim();
+        document.getElementById(
+            "customerPhone"
+        ).value.trim();
+
 
     const address =
-        document.getElementById("customerAddress")
-        .value.trim();
+        document.getElementById(
+            "customerAddress"
+        ).value.trim();
 
 
-    if (!name || !phone || !address) {
+    if (
+        !name ||
+        !phone ||
+        !address
+    ) {
 
         alert(
-            "Please enter your name, phone and address."
+            "Please enter your name, phone number and address."
         );
 
         return;
@@ -1213,22 +1639,27 @@ function sendOrder() {
     let message =
         "*NEW ORDER - MADA GENERAL STORE*%0A%0A";
 
+
     message +=
         "*Customer:* " +
         encodeURIComponent(name) +
         "%0A";
+
 
     message +=
         "*Phone:* " +
         encodeURIComponent(phone) +
         "%0A";
 
+
     message +=
         "*Address:* " +
         encodeURIComponent(address) +
         "%0A%0A";
 
-    message += "*ITEMS:*%0A";
+
+    message +=
+        "*ITEMS:*%0A";
 
 
     let total = 0;
@@ -1241,24 +1672,31 @@ function sendOrder() {
                 p => p.id === item.id
             );
 
-        if (!product) return;
+
+        if (!product) {
+            return;
+        }
 
 
         const itemTotal =
             product.price *
             item.quantity;
 
+
         total += itemTotal;
 
 
         message +=
             "• " +
-            encodeURIComponent(product.name) +
+            encodeURIComponent(
+                product.name
+            ) +
             " × " +
             item.quantity +
             " = ₹" +
             itemTotal +
             "%0A";
+
     });
 
 
@@ -1268,59 +1706,170 @@ function sendOrder() {
         "*";
 
 
-    const whatsapp =
-        "https://wa.me/918792043577?text=" +
+    const whatsappNumber =
+        "918792043577";
+
+
+    const whatsappURL =
+        "https://wa.me/" +
+        whatsappNumber +
+        "?text=" +
         message;
 
 
     /*
-       Open WhatsApp.
-
-       IMPORTANT:
-       We do NOT immediately clear the cart.
-       This allows the customer to return
-       and see the Continue Shopping button.
+       OPEN WHATSAPP
     */
 
-    window.open(whatsapp, "_blank");
+    window.open(
+        whatsappURL,
+        "_blank"
+    );
 
 
     /*
-       Show order-success screen
-       when customer returns to the store.
+       Show success screen.
+       Cart is NOT cleared yet.
+       It will be cleared when the
+       customer presses Continue Shopping.
     */
 
     setTimeout(() => {
 
-        document.getElementById("cartPage")
-            .style.display = "none";
+        document.getElementById(
+            "cartPage"
+        ).style.display = "none";
 
-        document.getElementById("orderSuccess")
-            .style.display = "block";
 
-    }, 1000);
+        document.getElementById(
+            "orderSuccess"
+        ).style.display = "block";
+
+    }, 700);
+
 }
 
 
 /* =====================================================
    CONTINUE SHOPPING
+   IMPORTANT:
+   CART IS RESET TO ZERO HERE
 ===================================================== */
 
 function continueShopping() {
 
     /*
-       Close cart
-       and return to products.
+       STEP 1
+       Completely empty the cart.
     */
 
-    closeModal("cartModal");
+    cart = [];
 
-    window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-    });
+
+    /*
+       STEP 2
+       Save empty cart.
+    */
+
+    localStorage.setItem(
+        "madaCart",
+        JSON.stringify([])
+    );
+
+
+    /*
+       STEP 3
+       Update cart count to 0.
+    */
+
+    updateCart();
+
+
+    /*
+       STEP 4
+       Reset cart total.
+    */
+
+    document.getElementById(
+        "total"
+    ).textContent = "0";
+
+
+    /*
+       STEP 5
+       Clear customer information.
+    */
+
+    document.getElementById(
+        "customerName"
+    ).value = "";
+
+
+    document.getElementById(
+        "customerPhone"
+    ).value = "";
+
+
+    document.getElementById(
+        "customerAddress"
+    ).value = "";
+
+
+    /*
+       STEP 6
+       Reset cart screen.
+    */
+
+    document.getElementById(
+        "cartPage"
+    ).style.display = "block";
+
+
+    document.getElementById(
+        "orderSuccess"
+    ).style.display = "none";
+
+
+    /*
+       STEP 7
+       Close cart window.
+    */
+
+    closeModal(
+        "cartModal"
+    );
+
+
+    /*
+       STEP 8
+       Refresh product list.
+    */
 
     showProducts();
+
+
+    /*
+       STEP 9
+       Return to top of store.
+    */
+
+    window.scrollTo({
+
+        top: 0,
+
+        behavior: "smooth"
+
+    });
+
+
+    /*
+       Confirmation
+    */
+
+    console.log(
+        "Cart cleared. Cart count = 0"
+    );
+
 }
 
 
@@ -1332,65 +1881,98 @@ function openLogin() {
 
     if (admin) {
 
-        alert("You are already logged in.");
+        alert(
+            "You are already logged in as admin."
+        );
 
         return;
     }
 
-    document.getElementById("loginModal")
-        .style.display = "flex";
+
+    document.getElementById(
+        "loginModal"
+    ).style.display = "flex";
+
 }
 
 
 function login() {
 
     const pin =
-        document.getElementById("pin")
-        .value;
+        document.getElementById(
+            "pin"
+        ).value;
 
 
     if (pin === "689768") {
 
         admin = true;
 
+
         sessionStorage.setItem(
             "madaAdmin",
             "true"
         );
 
-        document.body.classList
-            .add("admin-mode");
 
-        closeModal("loginModal");
+        document.body.classList.add(
+            "admin-mode"
+        );
+
+
+        closeModal(
+            "loginModal"
+        );
+
 
         displayCategories();
+
         showProducts();
 
-        alert("Admin login successful!");
+
+        alert(
+            "Admin login successful!"
+        );
+
 
     } else {
 
-        document.getElementById("loginError")
-            .textContent =
-            "Wrong PIN.";
+        document.getElementById(
+            "loginError"
+        ).textContent =
+            "Incorrect PIN.";
+
     }
+
 }
 
+
+/* =====================================================
+   LOGOUT
+===================================================== */
 
 function logout() {
 
     admin = false;
 
+
     sessionStorage.removeItem(
         "madaAdmin"
     );
 
-    document.body.classList
-        .remove("admin-mode");
+
+    document.body.classList.remove(
+        "admin-mode"
+    );
+
 
     showProducts();
 
-    alert("Admin logged out.");
+
+    alert(
+        "Admin logged out."
+    );
+
 }
 
 
@@ -1402,44 +1984,63 @@ function addProduct() {
 
     if (!admin) {
 
-        alert("Admin login required.");
+        alert(
+            "Admin login required."
+        );
 
         return;
     }
 
 
-    document.getElementById("productTitle")
-        .textContent = "Add Product";
+    document.getElementById(
+        "productTitle"
+    ).textContent =
+        "Add Product";
 
-    document.getElementById("productId")
-        .value = "";
 
-    document.getElementById("productName")
-        .value = "";
+    document.getElementById(
+        "productId"
+    ).value = "";
 
-    document.getElementById("productPrice")
-        .value = "";
 
-    document.getElementById("productImage")
-        .value = "";
+    document.getElementById(
+        "productName"
+    ).value = "";
 
-    document.getElementById("productDescription")
-        .value = "";
 
-    document.getElementById("productModal")
-        .style.display = "flex";
+    document.getElementById(
+        "productPrice"
+    ).value = "";
+
+
+    document.getElementById(
+        "productImage"
+    ).value = "";
+
+
+    document.getElementById(
+        "productDescription"
+    ).value = "";
+
+
+    document.getElementById(
+        "productModal"
+    ).style.display = "flex";
+
 }
 
 
 /* =====================================================
-   EDIT PRODUCT
+   EDIT EXISTING PRODUCT
 ===================================================== */
 
 function editProduct(id) {
 
     if (!admin) {
 
-        alert("Admin login required.");
+        alert(
+            "Admin login required."
+        );
 
         return;
     }
@@ -1450,97 +2051,126 @@ function editProduct(id) {
             p => p.id === id
         );
 
-    if (!product) return;
+
+    if (!product) {
+        return;
+    }
 
 
-    document.getElementById("productTitle")
-        .textContent =
-        "Edit Product / Change Market Price";
+    document.getElementById(
+        "productTitle"
+    ).textContent =
+        "Edit Product / Market Price";
 
 
-    document.getElementById("productId")
-        .value = product.id;
+    document.getElementById(
+        "productId"
+    ).value =
+        product.id;
 
 
-    document.getElementById("productName")
-        .value = product.name;
+    document.getElementById(
+        "productName"
+    ).value =
+        product.name;
 
 
     /*
-       This is the important part:
-       Admin can change the price whenever
-       the market price changes.
+       ADMIN CAN CHANGE
+       TODAY'S MARKET PRICE
     */
 
-    document.getElementById("productPrice")
-        .value = product.price;
+    document.getElementById(
+        "productPrice"
+    ).value =
+        product.price;
 
 
-    document.getElementById("productCategory")
-        .value = product.category;
+    document.getElementById(
+        "productCategory"
+    ).value =
+        product.category;
 
 
-    document.getElementById("productImage")
-        .value = product.image;
+    document.getElementById(
+        "productImage"
+    ).value =
+        product.image;
 
 
-    document.getElementById("productDescription")
-        .value =
+    document.getElementById(
+        "productDescription"
+    ).value =
         product.description || "";
 
 
-    document.getElementById("productModal")
-        .style.display = "flex";
+    document.getElementById(
+        "productModal"
+    ).style.display =
+        "flex";
+
 }
 
 
 /* =====================================================
-   SAVE PRODUCT / SAVE NEW PRICE
+   SAVE PRODUCT
 ===================================================== */
 
 function saveProduct() {
 
     if (!admin) {
 
-        alert("Admin login required.");
+        alert(
+            "Admin login required."
+        );
 
         return;
     }
 
 
     const id =
-        document.getElementById("productId")
-        .value;
+        document.getElementById(
+            "productId"
+        ).value;
 
 
     const name =
-        document.getElementById("productName")
-        .value.trim();
+        document.getElementById(
+            "productName"
+        ).value.trim();
 
 
     const price =
         Number(
-            document.getElementById("productPrice")
-            .value
+            document.getElementById(
+                "productPrice"
+            ).value
         );
 
 
     const category =
-        document.getElementById("productCategory")
-        .value;
+        document.getElementById(
+            "productCategory"
+        ).value;
 
 
     const image =
-        document.getElementById("productImage")
-        .value.trim();
+        document.getElementById(
+            "productImage"
+        ).value.trim();
 
 
     const description =
-        document.getElementById("productDescription")
-        .value.trim();
+        document.getElementById(
+            "productDescription"
+        ).value.trim();
 
 
-    if (!name || price <= 0 || !image) {
+    if (
+        !name ||
+        price <= 0 ||
+        !image
+    ) {
 
         alert(
             "Please enter product name, price and image."
@@ -1550,38 +2180,51 @@ function saveProduct() {
     }
 
 
-    if (id) {
+    /*
+       EDIT EXISTING PRODUCT
+    */
 
-        /*
-           UPDATE EXISTING PRODUCT
-        */
+    if (id) {
 
         const product =
             products.find(
                 p => p.id == id
             );
 
-        if (!product) return;
+
+        if (!product) {
+            return;
+        }
 
 
-        product.name = name;
+        product.name =
+            name;
+
 
         /*
-           NEW MARKET PRICE IS SAVED HERE
+           PRICE IS UPDATED
         */
 
-        product.price = price;
+        product.price =
+            price;
 
-        product.category = category;
 
-        product.image = image;
+        product.category =
+            category;
 
-        product.description = description;
+
+        product.image =
+            image;
+
+
+        product.description =
+            description;
 
 
         alert(
-            "Product and market price updated!"
+            "Product price updated successfully!"
         );
+
 
     } else {
 
@@ -1605,14 +2248,16 @@ function saveProduct() {
 
         });
 
+
         alert(
-            "New product added!"
+            "New product added successfully!"
         );
+
     }
 
 
     /*
-       SAVE PERMANENTLY IN THIS BROWSER
+       SAVE PRODUCT DATA
     */
 
     localStorage.setItem(
@@ -1625,7 +2270,11 @@ function saveProduct() {
 
     showProducts();
 
-    closeModal("productModal");
+
+    closeModal(
+        "productModal"
+    );
+
 }
 
 
@@ -1637,7 +2286,9 @@ function deleteProduct(id) {
 
     if (!admin) {
 
-        alert("Admin login required.");
+        alert(
+            "Admin login required."
+        );
 
         return;
     }
@@ -1649,16 +2300,20 @@ function deleteProduct(id) {
         );
 
 
-    if (!product) return;
+    if (!product) {
+        return;
+    }
 
 
-    if (
-        !confirm(
+    const confirmDelete =
+        confirm(
             "Delete " +
             product.name +
             "?"
-        )
-    ) {
+        );
+
+
+    if (!confirmDelete) {
         return;
     }
 
@@ -1678,6 +2333,7 @@ function deleteProduct(id) {
     displayCategories();
 
     showProducts();
+
 }
 
 
@@ -1687,8 +2343,10 @@ function deleteProduct(id) {
 
 function closeModal(id) {
 
-    document.getElementById(id)
-        .style.display = "none";
+    document.getElementById(
+        id
+    ).style.display = "none";
+
 }
 
 
@@ -1696,17 +2354,24 @@ function closeModal(id) {
    CLICK OUTSIDE MODAL
 ===================================================== */
 
-window.onclick = function(event) {
+window.onclick =
+function(event) {
 
     document
         .querySelectorAll(".modal")
         .forEach(modal => {
 
-            if (event.target === modal) {
-                modal.style.display = "none";
+            if (
+                event.target === modal
+            ) {
+
+                modal.style.display =
+                    "none";
+
             }
 
         });
+
 };
 
 
