@@ -394,7 +394,7 @@ body.admin-mode .admin-bar {
     border: none;
     padding: 8px 10px;
     background: var(--red);
-    color: white;
+    color: black;
     border-radius: 3px;
     cursor: pointer;
 }
