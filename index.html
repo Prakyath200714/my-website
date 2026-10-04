@@ -1,1 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>Mada General Store</title>
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+
+<body>
+
+
+<!-- ================= HEADER ================= -->
+
+<header>
+
+    <div class="logo">
+        Mada
+        <span>General Store</span>
+    </div>
+
+
+    <div class="search-box">
+
+        <input
+            id="search"
+            type="text"
+            placeholder="Search for products, groceries and more..."
+            oninput="showProducts()"
+        >
+
+        <button>
+            🔍
+        </button>
+
+    </div>
+
+
+    <button
+        class="login-btn"
+        onclick="openLogin()">
+
+        👤 Admin
+
+    </button>
+
+
+    <button
+        class="cart-btn"
+        onclick="openCart()">
+
+        🛒 Cart
+
+        <span id="cartCount">0</span>
+
+    </button>
+
+</header>
+
+
+
+<!-- ================= ADMIN BAR ================= -->
+
+<div
+    class="admin-bar"
+    id="adminBar">
+
+    <div>
+
+        🔐
+        <strong>
+            ADMIN MODE
+        </strong>
+
+    </div>
+
+
+    <div>
+
+        <button onclick="addProduct()">
+            ➕ Add Product
+        </button>
+
+        <button onclick="logout()">
+            Logout
+        </button>
+
+    </div>
+
+</div>
+
+
+
+<!-- ================= CATEGORY BAR ================= -->
+
+<div
+    class="categories"
+    id="categories">
+
+</div>
+
+
+
+<!-- ================= HERO ================= -->
+
+<section class="hero">
+
+    <div class="hero-content">
+
+        <span>
+            MADA GENERAL STORE
+        </span>
+
+        <h1>
+            Fresh Groceries.
+            <br>
+            Better Prices.
+        </h1>
+
+        <p>
+            Everything you need for your home,
+            delivered with convenience.
+        </p>
+
+        <button
+            onclick="document
+            .getElementById('products')
+            .scrollIntoView({behavior:'smooth'})">
+
+            Shop Now 🛒
+
+        </button>
+
+    </div>
+
+
+    <div class="hero-icon">
+
+        🛒
+
+    </div>
+
+</section>
+
+
+
+<!-- ================= FEATURES ================= -->
+
+<div class="features">
+
+    <div class="feature">
+
+        🚚
+
+        <div>
+            <strong>Fast Delivery</strong>
+            <small>Quick doorstep delivery</small>
+        </div>
+
+    </div>
+
+
+    <div class="feature">
+
+        💰
+
+        <div>
+            <strong>Best Prices</strong>
+            <small>Market price products</small>
+        </div>
+
+    </div>
+
+
+    <div class="feature">
+
+        🥦
+
+        <div>
+            <strong>Fresh Products</strong>
+            <small>Quality groceries</small>
+        </div>
+
+    </div>
+
+
+    <div class="feature">
+
+        📱
+
+        <div>
+            <strong>Easy Ordering</strong>
+            <small>Order on WhatsApp</small>
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- ================= PRODUCTS ================= -->
+
+<main class="container">
+
+
+    <div class="section-title">
+
+        <div>
+
+            <h2>
+                Today's Grocery Deals
+            </h2>
+
+            <p>
+                Fresh products at today's prices
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div
+        id="products"
+        class="products">
+
+    </div>
+
+
+</main>
+
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+    <div class="footer-logo">
+
+        Mada
+        <span>General Store</span>
+
+    </div>
+
+
+    <p>
+        Your trusted neighborhood grocery store.
+    </p>
+
+
+    <p>
+        WhatsApp Orders:
+        <strong>8123686297</strong>
+    </p>
+
+
+    <div class="copyright">
+
+        © 2026 Mada General Store
+
+    </div>
+
+</footer>
+
+
+
+<!-- =================================================
+     ADMIN LOGIN MODAL
+================================================= -->
+
+<div
+    class="modal"
+    id="loginModal">
+
+    <div class="modal-box">
+
+        <button
+            class="close"
+            onclick="closeModal('loginModal')">
+
+            ×
+
+        </button>
+
+
+        <h2>
+            🔐 Admin Login
+        </h2>
+
+
+        <p class="modal-subtitle">
+            Enter administrator password
+        </p>
+
+
+        <input
+            id="pin"
+            class="modal-input"
+            type="password"
+            maxlength="6"
+            placeholder="Enter 6 digit password"
+        >
+
+
+        <p
+            id="loginError"
+            class="error">
+
+        </p>
+
+
+        <button
+            class="primary-btn"
+            onclick="login()">
+
+            Login
+
+        </button>
+
+    </div>
+
+</div>
+
+
+
+<!-- =================================================
+     PRODUCT MODAL
+================================================= -->
+
+<div
+    class="modal"
+    id="productModal">
+
+    <div class="modal-box large">
+
+        <button
+            class="close"
+            onclick="closeModal('productModal')">
+
+            ×
+
+        </button>
+
+
+        <h2 id="productTitle">
+            Add Product
+        </h2>
+
+
+        <input
+            type="hidden"
+            id="productId"
+        >
+
+
+        <label>
+            Product Name
+        </label>
+
+        <input
+            id="productName"
+            class="modal-input"
+            placeholder="Example: Rice 5kg"
+        >
+
+
+        <label>
+            Price ₹
+        </label>
+
+        <input
+            id="productPrice"
+            class="modal-input"
+            type="number"
+            placeholder="Example: 350"
+        >
+
+
+        <label>
+            Category
+        </label>
+
+        <select
+            id="productCategory"
+            class="modal-input">
+
+            <option>Rice & Grains</option>
+            <option>Dal & Pulses</option>
+            <option>Oil</option>
+            <option>Spices</option>
+            <option>Fruits</option>
+            <option>Vegetables</option>
+            <option>Dairy</option>
+            <option>Snacks</option>
+            <option>Beverages</option>
+            <option>Household</option>
+            <option>Personal Care</option>
+            <option>Other</option>
+
+        </select>
+
+
+        <label>
+            Product Image URL
+        </label>
+
+        <input
+            id="productImage"
+            class="modal-input"
+            placeholder="Paste image URL"
+        >
+
+
+        <label>
+            Description
+        </label>
+
+        <textarea
+            id="productDescription"
+            class="modal-input"
+            rows="4"
+            placeholder="Product description">
+        </textarea>
+
+
+        <button
+            class="primary-btn"
+            onclick="saveProduct()">
+
+            💾 Save Product
+
+        </button>
+
+    </div>
+
+</div>
+
+
+
+<!-- =================================================
+     CART MODAL
+================================================= -->
+
+<div
+    class="modal"
+    id="cartModal">
+
+    <div class="modal-box large">
+
+        <button
+            class="close"
+            onclick="closeModal('cartModal')">
+
+            ×
+
+        </button>
+
+
+        <div id="cartPage">
+
+            <h2>
+                🛒 Your Cart
+            </h2>
+
+
+            <div
+                id="cartItems"
+                class="cart-items">
+
+            </div>
+
+
+            <div class="cart-total">
+
+                Total
+
+                <strong>
+                    ₹<span id="total">0</span>
+                </strong>
+
+            </div>
+
+
+            <h3 class="customer-title">
+                Delivery Details
+            </h3>
+
+
+            <input
+                id="customerName"
+                class="modal-input"
+                placeholder="Your name"
+            >
+
+
+            <input
+                id="customerPhone"
+                class="modal-input"
+                type="tel"
+                placeholder="Phone number"
+            >
+
+
+            <textarea
+                id="customerAddress"
+                class="modal-input"
+                rows="4"
+                placeholder="Delivery address">
+            </textarea>
+
+
+            <button
+                class="whatsapp-btn"
+                onclick="sendOrder()">
+
+                📲 Order Through WhatsApp
+
+            </button>
+
+
+            <button
+                class="continue-btn"
+                onclick="continueShopping()">
+
+                Continue Shopping
+
+            </button>
+
+        </div>
+
+
+
+        <!-- SUCCESS -->
+
+        <div
+            id="orderSuccess"
+            class="success"
+            style="display:none;">
+
+            <div class="success-icon">
+                ✓
+            </div>
+
+            <h2>
+                Order Sent!
+            </h2>
+
+            <p>
+                Your order has been opened in WhatsApp.
+            </p>
+
+
+            <button
+                class="continue-btn"
+                onclick="continueShopping()">
+
+                Continue Shopping
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<script src="script.js"></script>
+
+</body>
+
+</html>
