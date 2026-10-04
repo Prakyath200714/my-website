@@ -1,276 +1,274 @@
+\/* =========================================================
+   MADA GENERAL STORE
+   DATABASE VERSION
+   ========================================================= */
+
+/*
+=============================================================
+SUPABASE CONFIGURATION
+=============================================================
+
+Get these from:
+
+Supabase Dashboard
+→ Connect
+→ JavaScript
+
+Use the PUBLISHABLE key.
+
+DO NOT use:
+service_role
+secret key
+=============================================================
+*/
+
+const SUPABASE_URL =
+    "https://YOUR-PROJECT-ID.supabase.co";
+
+const SUPABASE_PUBLISHABLE_KEY =
+    "YOUR_SUPABASE_PUBLISHABLE_KEY";
+
+
+/* Create Supabase client */
+
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_PUBLISHABLE_KEY
+    );
+
+
 /* =========================================================
-   MADA GENERAL STORE - script.js
+   SETTINGS
    ========================================================= */
 
 const ADMIN_PIN = "689768";
-const WHATSAPP_NUMBER = "918123686297";
+
+const WHATSAPP_NUMBER =
+    "918123686297";
+
 
 /* =========================================================
-   DEFAULT PRODUCTS
+   WEBSITE DATA
    ========================================================= */
 
-const defaultProducts = [
-    {
-        id: 1,
-        name: "Premium Rice 5kg",
-        price: 350,
-        category: "Rice & Grains",
-        image: "https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=600&q=80",
-        description: "Premium quality rice"
-    },
-    {
-        id: 2,
-        name: "Toor Dal 1kg",
-        price: 160,
-        category: "Dal & Pulses",
-        image: "https://images.unsplash.com/photo-1585996787445-0f7b0b1a9e9a?auto=format&fit=crop&w=600&q=80",
-        description: "Fresh and high quality toor dal"
-    },
-    {
-        id: 3,
-        name: "Sunflower Oil 1L",
-        price: 145,
-        category: "Oil",
-        image: "https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?auto=format&fit=crop&w=600&q=80",
-        description: "Refined sunflower oil"
-    },
-    {
-        id: 4,
-        name: "Sugar 1kg",
-        price: 48,
-        category: "Other",
-        image: "https://images.unsplash.com/photo-1581268491976-1f0f9a8b5d76?auto=format&fit=crop&w=600&q=80",
-        description: "Fine quality sugar"
-    },
-    {
-        id: 5,
-        name: "Wheat Flour 5kg",
-        price: 260,
-        category: "Rice & Grains",
-        image: "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=600&q=80",
-        description: "Fresh wheat flour"
-    },
-    {
-        id: 6,
-        name: "Fresh Milk 1L",
-        price: 60,
-        category: "Dairy",
-        image: "https://images.unsplash.com/photo-1550583724-b2692b85b150?auto=format&fit=crop&w=600&q=80",
-        description: "Fresh milk"
-    },
-    {
-        id: 7,
-        name: "Premium Tea Powder 250g",
-        price: 120,
-        category: "Beverages",
-        image: "https://images.unsplash.com/photo-1594631252845-29fc4cc8cde9?auto=format&fit=crop&w=600&q=80",
-        description: "Premium tea powder"
-    },
-    {
-        id: 8,
-        name: "Iodized Salt 1kg",
-        price: 25,
-        category: "Other",
-        image: "https://images.unsplash.com/photo-1518110925495-5fe2c9a8b6d3?auto=format&fit=crop&w=600&q=80",
-        description: "Good quality iodized salt"
-    },
-    {
-        id: 9,
-        name: "Fresh Potato 1kg",
-        price: 40,
-        category: "Vegetables",
-        image: "https://images.unsplash.com/photo-1518977676601-b53f82aba655?auto=format&fit=crop&w=600&q=80",
-        description: "Fresh potatoes"
-    },
-    {
-        id: 10,
-        name: "Fresh Onion 1kg",
-        price: 45,
-        category: "Vegetables",
-        image: "https://images.unsplash.com/photo-1618512496248-a07fe83aa8cb?auto=format&fit=crop&w=600&q=80",
-        description: "Fresh onions"
-    },
-    {
-        id: 11,
-        name: "Fresh Apple 1kg",
-        price: 160,
-        category: "Fruits",
-        image: "https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?auto=format&fit=crop&w=600&q=80",
-        description: "Fresh apples"
-    },
-    {
-        id: 12,
-        name: "Banana 1 Dozen",
-        price: 60,
-        category: "Fruits",
-        image: "https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?auto=format&fit=crop&w=600&q=80",
-        description: "Fresh bananas"
-    },
-    {
-        id: 13,
-        name: "Turmeric Powder 100g",
-        price: 35,
-        category: "Spices",
-        image: "https://images.unsplash.com/photo-1615485500704-8e990f9900f7?auto=format&fit=crop&w=600&q=80",
-        description: "Pure turmeric powder"
-    },
-    {
-        id: 14,
-        name: "Crispy Biscuits",
-        price: 30,
-        category: "Snacks",
-        image: "https://images.unsplash.com/photo-1558961363-fa8fdf82db35?auto=format&fit=crop&w=600&q=80",
-        description: "Crispy tasty biscuits"
-    },
-    {
-        id: 15,
-        name: "Detergent 1kg",
-        price: 110,
-        category: "Household",
-        image: "https://images.unsplash.com/photo-1585832770485-e68a5dbfad52?auto=format&fit=crop&w=600&q=80",
-        description: "Powerful detergent"
-    }
-];
+let products = [];
 
-/* =========================================================
-   LOAD PRODUCTS
-   ========================================================= */
-
-let products = JSON.parse(
-    localStorage.getItem("madaProducts")
-);
-
-if (!products || !Array.isArray(products)) {
-    products = defaultProducts;
-    saveProducts();
-}
-
-/* =========================================================
-   LOAD CART
-   ========================================================= */
-
-let cart = JSON.parse(
-    localStorage.getItem("madaCart")
-) || [];
-
-/* =========================================================
-   ADMIN STATUS
-   ========================================================= */
+let cart =
+    JSON.parse(
+        localStorage.getItem("madaCart")
+    ) || [];
 
 let admin =
-    sessionStorage.getItem("madaAdmin") === "true";
+    sessionStorage.getItem(
+        "madaAdmin"
+    ) === "true";
 
 let selectedCategory = "All";
 
-/* =========================================================
-   SAVE PRODUCTS
-   ========================================================= */
+let realtimeChannel = null;
 
-function saveProducts() {
-    localStorage.setItem(
-        "madaProducts",
-        JSON.stringify(products)
-    );
-}
 
 /* =========================================================
    SAVE CART
    ========================================================= */
 
 function saveCart() {
+
     localStorage.setItem(
         "madaCart",
         JSON.stringify(cart)
     );
 }
 
-/* =========================================================
-   ADMIN MODE
-   ========================================================= */
-
-function enableAdminMode() {
-
-    admin = true;
-
-    sessionStorage.setItem(
-        "madaAdmin",
-        "true"
-    );
-
-    document.body.classList.add(
-        "admin-mode"
-    );
-
-    displayCategories();
-    showProducts();
-
-    alert(
-        "Admin login successful!"
-    );
-}
-
-function disableAdminMode() {
-
-    admin = false;
-
-    sessionStorage.removeItem(
-        "madaAdmin"
-    );
-
-    document.body.classList.remove(
-        "admin-mode"
-    );
-
-    displayCategories();
-    showProducts();
-
-    alert(
-        "Admin logged out."
-    );
-}
 
 /* =========================================================
-   LOGIN
+   UPDATE CART COUNT
    ========================================================= */
 
-function openLogin() {
+function updateCart() {
 
-    if (admin) {
-        alert(
-            "You are already logged in as Admin."
+    const count =
+        cart.reduce(
+            (total, item) =>
+                total + item.quantity,
+            0
         );
-        return;
-    }
 
-    const pin = prompt(
-        "Enter Admin Password"
-    );
-
-    if (pin === null) {
-        return;
-    }
-
-    if (pin === ADMIN_PIN) {
-        enableAdminMode();
-    } else {
-        alert(
-            "❌ Incorrect password!"
+    const element =
+        document.getElementById(
+            "cartCount"
         );
+
+    if (element) {
+
+        element.textContent =
+            count;
     }
 }
+
 
 /* =========================================================
-   LOGOUT
+   LOAD PRODUCTS FROM DATABASE
    ========================================================= */
 
-function logout() {
+async function loadProducts() {
 
-    if (!admin) {
-        return;
+    const productBox =
+        document.getElementById(
+            "products"
+        );
+
+    if (productBox) {
+
+        productBox.innerHTML = `
+            <div class="empty">
+                Loading products...
+            </div>
+        `;
     }
 
-    disableAdminMode();
+
+    try {
+
+        const {
+            data,
+            error
+        } = await supabaseClient
+            .from("products")
+            .select("*")
+            .order("id", {
+                ascending: true
+            });
+
+
+        if (error) {
+
+            console.error(
+                "Database loading error:",
+                error
+            );
+
+            if (productBox) {
+
+                productBox.innerHTML = `
+                    <div class="empty">
+
+                        <h3>
+                            Unable to load products
+                        </h3>
+
+                        <p>
+                            Please check your database connection.
+                        </p>
+
+                    </div>
+                `;
+            }
+
+            return;
+        }
+
+
+        products =
+            data || [];
+
+
+        displayCategories();
+
+        showProducts();
+
+
+    } catch (error) {
+
+        console.error(
+            "Unexpected database error:",
+            error
+        );
+
+        if (productBox) {
+
+            productBox.innerHTML = `
+                <div class="empty">
+                    Database connection failed.
+                </div>
+            `;
+        }
+    }
 }
+
+
+/* =========================================================
+   REALTIME DATABASE CONNECTION
+   ========================================================= */
+
+function startRealtime() {
+
+    /*
+       Remove old channel if one exists.
+    */
+
+    if (realtimeChannel) {
+
+        supabaseClient.removeChannel(
+            realtimeChannel
+        );
+    }
+
+
+    /*
+       Listen for:
+
+       INSERT
+       UPDATE
+       DELETE
+
+       from products table.
+    */
+
+    realtimeChannel =
+        supabaseClient
+            .channel(
+                "mada-products-realtime"
+            )
+
+            .on(
+                "postgres_changes",
+                {
+                    event: "*",
+                    schema: "public",
+                    table: "products"
+                },
+                function(payload) {
+
+                    console.log(
+                        "Database changed:",
+                        payload
+                    );
+
+
+                    /*
+                       Reload products from
+                       database immediately.
+                    */
+
+                    loadProducts();
+
+                }
+            )
+
+            .subscribe(
+                function(status) {
+
+                    console.log(
+                        "Realtime status:",
+                        status
+                    );
+
+                }
+            );
+}
+
 
 /* =========================================================
    CATEGORIES
@@ -287,35 +285,46 @@ function displayCategories() {
         return;
     }
 
+
     const categories = [
         "All",
         ...new Set(
             products.map(
-                product => product.category
+                product =>
+                    product.category
             )
         )
     ];
 
+
     categoryBox.innerHTML =
-        categories.map(category => {
+        categories
+            .map(
+                category => {
 
-            const active =
-                selectedCategory === category
-                    ? "active"
-                    : "";
+                    const active =
+                        selectedCategory ===
+                        category
+                            ? "active"
+                            : "";
 
-            return `
-                <div
-                    class="category ${active}"
-                    onclick="filterCategory('${escapeHTML(category)}')">
 
-                    ${escapeHTML(category)}
+                    return `
+                        <div
+                            class="category ${active}"
+                            onclick="filterCategory('${escapeHTML(category)}')">
 
-                </div>
-            `;
+                            ${escapeHTML(
+                                category
+                            )}
 
-        }).join("");
+                        </div>
+                    `;
+                }
+            )
+            .join("");
 }
+
 
 /* =========================================================
    FILTER CATEGORY
@@ -323,15 +332,17 @@ function displayCategories() {
 
 function filterCategory(category) {
 
-    selectedCategory = category;
+    selectedCategory =
+        category;
 
     displayCategories();
 
     showProducts();
 }
 
+
 /* =========================================================
-   SEARCH
+   SEARCH + DISPLAY
    ========================================================= */
 
 function showProducts() {
@@ -345,141 +356,197 @@ function showProducts() {
         return;
     }
 
-    const searchBox =
+
+    const searchElement =
         document.getElementById(
             "search"
         );
 
+
     const search =
-        searchBox
-            ? searchBox.value
+        searchElement
+            ? searchElement.value
                 .trim()
                 .toLowerCase()
             : "";
 
-    const filteredProducts =
-        products.filter(product => {
 
-            const searchMatch =
-                product.name
-                    .toLowerCase()
-                    .includes(search) ||
+    const filtered =
+        products.filter(
+            product => {
 
-                product.category
-                    .toLowerCase()
-                    .includes(search);
+                const name =
+                    String(
+                        product.name || ""
+                    ).toLowerCase();
 
-            const categoryMatch =
-                selectedCategory === "All" ||
-                product.category ===
-                selectedCategory;
 
-            return (
-                searchMatch &&
-                categoryMatch
-            );
-        });
+                const category =
+                    String(
+                        product.category || ""
+                    ).toLowerCase();
+
+
+                const searchMatch =
+                    name.includes(search) ||
+                    category.includes(search);
+
+
+                const categoryMatch =
+                    selectedCategory ===
+                    "All" ||
+                    product.category ===
+                    selectedCategory;
+
+
+                return (
+                    searchMatch &&
+                    categoryMatch
+                );
+            }
+        );
+
 
     if (
-        filteredProducts.length === 0
+        filtered.length === 0
     ) {
 
         productBox.innerHTML = `
             <div class="empty">
-                <h3>No products found</h3>
-                <p>Try another search.</p>
+
+                <h3>
+                    No products found
+                </h3>
+
+                <p>
+                    Try another search.
+                </p>
+
             </div>
         `;
 
         return;
     }
 
+
     productBox.innerHTML =
-        filteredProducts.map(
-            product => productCard(product)
-        ).join("");
+        filtered
+            .map(
+                product =>
+                    createProductCard(
+                        product
+                    )
+            )
+            .join("");
 }
+
 
 /* =========================================================
    PRODUCT CARD
    ========================================================= */
 
-function productCard(product) {
+function createProductCard(
+    product
+) {
 
     return `
+
         <div class="product">
 
-            <div class="product-image-box">
+            <img
+                src="${escapeAttribute(
+                    product.image
+                )}"
 
-                <img
-                    src="${escapeAttribute(product.image)}"
-                    alt="${escapeAttribute(product.name)}"
-                    class="product-image"
-                    onerror="this.src='https://via.placeholder.com/500x400?text=Grocery'"
-                >
+                alt="${escapeAttribute(
+                    product.name
+                )}"
+
+                onerror="
+                    this.src =
+                    'https://via.placeholder.com/300x200?text=Grocery'
+                "
+            >
+
+
+            <h3>
+                ${escapeHTML(
+                    product.name
+                )}
+            </h3>
+
+
+            <div class="category-name">
+
+                ${escapeHTML(
+                    product.category
+                )}
 
             </div>
 
-            <div class="product-info">
 
-                <div class="category-name">
-                    ${escapeHTML(product.category)}
-                </div>
+            <div class="price">
 
-                <h3>
-                    ${escapeHTML(product.name)}
-                </h3>
+                ₹${Number(
+                    product.price
+                ).toLocaleString(
+                    "en-IN"
+                )}
 
-                <p class="description">
-                    ${escapeHTML(
-                        product.description || ""
-                    )}
-                </p>
+            </div>
 
-                <div class="price">
-                    ₹${Number(product.price)
-                        .toLocaleString("en-IN")}
-                </div>
 
-                <button
-                    class="add"
-                    onclick="addCart(${product.id})">
+            <button
+                class="add"
+                onclick="addCart(${product.id})">
 
-                    🛒 Add to Cart
+                Add to Cart
 
-                </button>
+            </button>
 
-                ${
-                    admin
-                        ? `
+
+            ${
+                admin
+                    ? `
+
                         <div class="admin-controls">
 
                             <button
                                 class="edit"
-                                onclick="editProduct(${product.id})">
+                                onclick="
+                                    editProduct(
+                                        ${product.id}
+                                    )
+                                ">
 
                                 ✏️ Edit
 
                             </button>
 
+
                             <button
                                 class="delete"
-                                onclick="deleteProduct(${product.id})">
+                                onclick="
+                                    deleteProduct(
+                                        ${product.id}
+                                    )
+                                ">
 
-                                🗑️ Delete
+                                🗑️
 
                             </button>
 
                         </div>
-                        `
-                        : ""
-                }
 
-            </div>
+                    `
+                    : ""
+            }
 
         </div>
+
     `;
 }
+
 
 /* =========================================================
    ADD TO CART
@@ -489,100 +556,59 @@ function addCart(id) {
 
     const product =
         products.find(
-            product => product.id === id
+            product =>
+                Number(product.id) ===
+                Number(id)
         );
 
+
     if (!product) {
+
+        alert(
+            "Product not found."
+        );
+
         return;
     }
 
+
     const existing =
         cart.find(
-            item => item.id === id
+            item =>
+                Number(item.id) ===
+                Number(id)
         );
 
+
     if (existing) {
+
         existing.quantity++;
+
     } else {
+
         cart.push({
-            id: id,
-            quantity: 1
+
+            id:
+                Number(id),
+
+            quantity:
+                1
+
         });
     }
 
+
     saveCart();
+
     updateCart();
 
-    showCartMessage(
+
+    alert(
         product.name +
         " added to cart!"
     );
 }
 
-/* =========================================================
-   CART MESSAGE
-   ========================================================= */
-
-function showCartMessage(message) {
-
-    const old =
-        document.querySelector(
-            ".cart-message"
-        );
-
-    if (old) {
-        old.remove();
-    }
-
-    const div =
-        document.createElement(
-            "div"
-        );
-
-    div.className =
-        "cart-message";
-
-    div.textContent =
-        "✓ " + message;
-
-    document.body.appendChild(div);
-
-    setTimeout(() => {
-
-        div.classList.add(
-            "hide"
-        );
-
-        setTimeout(() => {
-            div.remove();
-        }, 300);
-
-    }, 1800);
-}
-
-/* =========================================================
-   UPDATE CART
-   ========================================================= */
-
-function updateCart() {
-
-    const count =
-        cart.reduce(
-            (total, item) =>
-                total + item.quantity,
-            0
-        );
-
-    const cartCount =
-        document.getElementById(
-            "cartCount"
-        );
-
-    if (cartCount) {
-        cartCount.textContent =
-            count;
-    }
-}
 
 /* =========================================================
    OPEN CART
@@ -595,35 +621,31 @@ function openCart() {
             "cartModal"
         );
 
+
     if (!modal) {
         return;
     }
 
+
     modal.style.display =
         "flex";
 
-    const cartPage =
-        document.getElementById(
-            "cartPage"
-        );
 
-    const success =
-        document.getElementById(
-            "orderSuccess"
-        );
+    document.getElementById(
+        "cartPage"
+    ).style.display =
+        "block";
 
-    if (cartPage) {
-        cartPage.style.display =
-            "block";
-    }
 
-    if (success) {
-        success.style.display =
-            "none";
-    }
+    document.getElementById(
+        "orderSuccess"
+    ).style.display =
+        "none";
+
 
     displayCart();
 }
+
 
 /* =========================================================
    DISPLAY CART
@@ -636,143 +658,181 @@ function displayCart() {
             "cartItems"
         );
 
+
     if (!cartBox) {
         return;
     }
 
-    if (cart.length === 0) {
+
+    if (
+        cart.length === 0
+    ) {
 
         cartBox.innerHTML = `
+
             <div class="empty">
-                🛒
-                <h3>Your cart is empty</h3>
-                <p>Add some groceries to continue.</p>
+
+                Your cart is empty.
+
             </div>
+
         `;
 
-        setTotal(0);
+
+        document.getElementById(
+            "total"
+        ).textContent =
+            "0";
+
 
         return;
     }
 
+
     let total = 0;
 
+
     cartBox.innerHTML =
-        cart.map(item => {
+        cart.map(
+            item => {
 
-            const product =
-                products.find(
-                    p => p.id === item.id
-                );
+                const product =
+                    products.find(
+                        p =>
+                            Number(p.id) ===
+                            Number(item.id)
+                    );
 
-            if (!product) {
-                return "";
-            }
 
-            const itemTotal =
-                Number(product.price) *
-                item.quantity;
+                if (!product) {
+                    return "";
+                }
 
-            total += itemTotal;
 
-            return `
-                <div class="cart-item">
+                const itemTotal =
+                    Number(
+                        product.price
+                    ) *
+                    item.quantity;
 
-                    <div class="cart-product">
 
-                        <strong>
-                            ${escapeHTML(product.name)}
-                        </strong>
+                total +=
+                    itemTotal;
 
-                        <small>
-                            ₹${Number(product.price)
-                                .toLocaleString("en-IN")}
-                            each
-                        </small>
+
+                return `
+
+                    <div class="cart-item">
 
                         <div>
-                            Item Total:
+
                             <strong>
-                                ₹${itemTotal
-                                    .toLocaleString("en-IN")}
+                                ${escapeHTML(
+                                    product.name
+                                )}
                             </strong>
+
+                            <br>
+
+                            ₹${Number(
+                                product.price
+                            ).toLocaleString(
+                                "en-IN"
+                            )}
+
+                            ×
+                            ${item.quantity}
+
+                        </div>
+
+
+                        <div class="qty">
+
+                            <button
+                                onclick="
+                                    changeQty(
+                                        ${product.id},
+                                        -1
+                                    )
+                                ">
+
+                                −
+
+                            </button>
+
+
+                            ${item.quantity}
+
+
+                            <button
+                                onclick="
+                                    changeQty(
+                                        ${product.id},
+                                        1
+                                    )
+                                ">
+
+                                +
+
+                            </button>
+
                         </div>
 
                     </div>
 
-                    <div class="qty">
+                `;
+            }
+        )
+        .join("");
 
-                        <button
-                            onclick="changeQty(${item.id}, -1)">
 
-                            −
-
-                        </button>
-
-                        <span>
-                            ${item.quantity}
-                        </span>
-
-                        <button
-                            onclick="changeQty(${item.id}, 1)">
-
-                            +
-
-                        </button>
-
-                    </div>
-
-                </div>
-            `;
-
-        }).join("");
-
-    setTotal(total);
-}
-
-/* =========================================================
-   SET TOTAL
-   ========================================================= */
-
-function setTotal(total) {
-
-    const totalElement =
-        document.getElementById(
-            "total"
+    document.getElementById(
+        "total"
+    ).textContent =
+        total.toLocaleString(
+            "en-IN"
         );
-
-    if (totalElement) {
-
-        totalElement.textContent =
-            Number(total)
-                .toLocaleString("en-IN");
-    }
 }
 
+
 /* =========================================================
-   CHANGE QUANTITY
+   CHANGE CART QUANTITY
    ========================================================= */
 
-function changeQty(id, change) {
+function changeQty(
+    id,
+    change
+) {
 
     const item =
         cart.find(
-            item => item.id === id
+            item =>
+                Number(item.id) ===
+                Number(id)
         );
+
 
     if (!item) {
         return;
     }
 
-    item.quantity += change;
 
-    if (item.quantity <= 0) {
+    item.quantity +=
+        change;
+
+
+    if (
+        item.quantity <= 0
+    ) {
 
         cart =
             cart.filter(
-                item => item.id !== id
+                item =>
+                    Number(item.id) !==
+                    Number(id)
             );
     }
+
 
     saveCart();
 
@@ -781,13 +841,16 @@ function changeQty(id, change) {
     displayCart();
 }
 
+
 /* =========================================================
-   SEND WHATSAPP ORDER
+   WHATSAPP ORDER
    ========================================================= */
 
 function sendOrder() {
 
-    if (cart.length === 0) {
+    if (
+        cart.length === 0
+    ) {
 
         alert(
             "Your cart is empty."
@@ -796,14 +859,24 @@ function sendOrder() {
         return;
     }
 
+
     const name =
-        getValue("customerName");
+        document.getElementById(
+            "customerName"
+        ).value.trim();
+
 
     const phone =
-        getValue("customerPhone");
+        document.getElementById(
+            "customerPhone"
+        ).value.trim();
+
 
     const address =
-        getValue("customerAddress");
+        document.getElementById(
+            "customerAddress"
+        ).value.trim();
+
 
     if (
         !name ||
@@ -812,99 +885,121 @@ function sendOrder() {
     ) {
 
         alert(
-            "Please enter your name, phone number and delivery address."
+            "Please enter your name, phone number and address."
         );
 
         return;
     }
 
-    let total = 0;
 
     let message =
-        "🛒 *NEW ORDER - MADA GENERAL STORE*\n\n";
+        "*NEW ORDER - MADA GENERAL STORE*\n\n";
+
 
     message +=
-        "*CUSTOMER DETAILS*\n";
+        "*Customer:* " +
+        name +
+        "\n";
+
 
     message +=
-        "Name: " + name + "\n";
+        "*Phone:* " +
+        phone +
+        "\n";
+
 
     message +=
-        "Phone: " + phone + "\n";
+        "*Address:* " +
+        address +
+        "\n\n";
+
 
     message +=
-        "Address: " + address + "\n\n";
+        "*ITEMS:*\n";
 
-    message +=
-        "*ORDER ITEMS*\n";
 
-    cart.forEach(item => {
+    let total = 0;
 
-        const product =
-            products.find(
-                p => p.id === item.id
-            );
 
-        if (!product) {
-            return;
+    cart.forEach(
+        item => {
+
+            const product =
+                products.find(
+                    p =>
+                        Number(p.id) ===
+                        Number(item.id)
+                );
+
+
+            if (!product) {
+                return;
+            }
+
+
+            const itemTotal =
+                Number(
+                    product.price
+                ) *
+                item.quantity;
+
+
+            total +=
+                itemTotal;
+
+
+            message +=
+                "• " +
+                product.name +
+                " × " +
+                item.quantity +
+                " = ₹" +
+                itemTotal +
+                "\n";
         }
+    );
 
-        const itemTotal =
-            Number(product.price) *
-            item.quantity;
-
-        total += itemTotal;
-
-        message +=
-            "• " +
-            product.name +
-            " × " +
-            item.quantity +
-            " = ₹" +
-            itemTotal +
-            "\n";
-    });
 
     message +=
-        "\n💰 *TOTAL: ₹" +
+        "\n*TOTAL: ₹" +
         total +
         "*";
 
-    const url =
+
+    const whatsappURL =
         "https://wa.me/" +
         WHATSAPP_NUMBER +
         "?text=" +
-        encodeURIComponent(message);
+        encodeURIComponent(
+            message
+        );
+
 
     window.open(
-        url,
+        whatsappURL,
         "_blank"
     );
 
-    setTimeout(() => {
 
-        const cartPage =
+    setTimeout(
+        () => {
+
             document.getElementById(
                 "cartPage"
-            );
+            ).style.display =
+                "none";
 
-        const success =
+
             document.getElementById(
                 "orderSuccess"
-            );
-
-        if (cartPage) {
-            cartPage.style.display =
-                "none";
-        }
-
-        if (success) {
-            success.style.display =
+            ).style.display =
                 "block";
-        }
 
-    }, 500);
+        },
+        500
+    );
 }
+
 
 /* =========================================================
    CONTINUE SHOPPING
@@ -918,52 +1013,150 @@ function continueShopping() {
 
     updateCart();
 
-    setTotal(0);
 
-    setValue(
-        "customerName",
-        ""
-    );
+    document.getElementById(
+        "total"
+    ).textContent =
+        "0";
 
-    setValue(
-        "customerPhone",
-        ""
-    );
 
-    setValue(
-        "customerAddress",
-        ""
-    );
+    document.getElementById(
+        "customerName"
+    ).value =
+        "";
 
-    const cartPage =
-        document.getElementById(
-            "cartPage"
-        );
 
-    const success =
-        document.getElementById(
-            "orderSuccess"
-        );
+    document.getElementById(
+        "customerPhone"
+    ).value =
+        "";
 
-    if (cartPage) {
-        cartPage.style.display =
-            "block";
-    }
 
-    if (success) {
-        success.style.display =
-            "none";
-    }
+    document.getElementById(
+        "customerAddress"
+    ).value =
+        "";
+
+
+    document.getElementById(
+        "cartPage"
+    ).style.display =
+        "block";
+
+
+    document.getElementById(
+        "orderSuccess"
+    ).style.display =
+        "none";
+
 
     closeModal(
         "cartModal"
     );
 
+
     window.scrollTo({
+
         top: 0,
+
         behavior: "smooth"
+
     });
 }
+
+
+/* =========================================================
+   ADMIN LOGIN
+   ========================================================= */
+
+function openLogin() {
+
+    if (admin) {
+
+        alert(
+            "You are already logged in as admin."
+        );
+
+        return;
+    }
+
+
+    const pin =
+        prompt(
+            "Enter Admin Password"
+        );
+
+
+    if (
+        pin === null
+    ) {
+        return;
+    }
+
+
+    if (
+        pin === ADMIN_PIN
+    ) {
+
+        admin = true;
+
+
+        sessionStorage.setItem(
+            "madaAdmin",
+            "true"
+        );
+
+
+        document.body.classList.add(
+            "admin-mode"
+        );
+
+
+        displayCategories();
+
+        showProducts();
+
+
+        alert(
+            "Admin login successful!"
+        );
+
+    } else {
+
+        alert(
+            "Incorrect PIN."
+        );
+    }
+}
+
+
+/* =========================================================
+   LOGOUT
+   ========================================================= */
+
+function logout() {
+
+    admin = false;
+
+
+    sessionStorage.removeItem(
+        "madaAdmin"
+    );
+
+
+    document.body.classList.remove(
+        "admin-mode"
+    );
+
+
+    showProducts();
+
+
+    alert(
+        "Admin logged out."
+    );
+}
+
 
 /* =========================================================
    ADD PRODUCT
@@ -980,28 +1173,49 @@ function addProduct() {
         return;
     }
 
-    clearProductForm();
 
-    const title =
-        document.getElementById(
-            "productTitle"
-        );
+    document.getElementById(
+        "productTitle"
+    ).textContent =
+        "Add Product";
 
-    if (title) {
-        title.textContent =
-            "Add New Product";
-    }
 
-    const modal =
-        document.getElementById(
-            "productModal"
-        );
+    document.getElementById(
+        "productId"
+    ).value =
+        "";
 
-    if (modal) {
-        modal.style.display =
-            "flex";
-    }
+
+    document.getElementById(
+        "productName"
+    ).value =
+        "";
+
+
+    document.getElementById(
+        "productPrice"
+    ).value =
+        "";
+
+
+    document.getElementById(
+        "productImage"
+    ).value =
+        "";
+
+
+    document.getElementById(
+        "productDescription"
+    ).value =
+        "";
+
+
+    document.getElementById(
+        "productModal"
+    ).style.display =
+        "flex";
 }
+
 
 /* =========================================================
    EDIT PRODUCT
@@ -1018,103 +1232,80 @@ function editProduct(id) {
         return;
     }
 
+
     const product =
         products.find(
-            product => product.id === id
+            p =>
+                Number(p.id) ===
+                Number(id)
         );
 
+
     if (!product) {
+
+        alert(
+            "Product not found."
+        );
+
         return;
     }
 
-    setValue(
-        "productId",
-        product.id
-    );
 
-    setValue(
-        "productName",
-        product.name
-    );
+    document.getElementById(
+        "productTitle"
+    ).textContent =
+        "Edit Product / Market Price";
 
-    setValue(
-        "productPrice",
-        product.price
-    );
 
-    setValue(
-        "productCategory",
-        product.category
-    );
+    document.getElementById(
+        "productId"
+    ).value =
+        product.id;
 
-    setValue(
-        "productImage",
-        product.image
-    );
 
-    setValue(
-        "productDescription",
-        product.description || ""
-    );
+    document.getElementById(
+        "productName"
+    ).value =
+        product.name;
 
-    const title =
-        document.getElementById(
-            "productTitle"
-        );
 
-    if (title) {
-        title.textContent =
-            "Edit Product & Market Price";
-    }
+    document.getElementById(
+        "productPrice"
+    ).value =
+        product.price;
 
-    const modal =
-        document.getElementById(
-            "productModal"
-        );
 
-    if (modal) {
-        modal.style.display =
-            "flex";
-    }
+    document.getElementById(
+        "productCategory"
+    ).value =
+        product.category;
+
+
+    document.getElementById(
+        "productImage"
+    ).value =
+        product.image;
+
+
+    document.getElementById(
+        "productDescription"
+    ).value =
+        product.description ||
+        "";
+
+
+    document.getElementById(
+        "productModal"
+    ).style.display =
+        "flex";
 }
 
-/* =========================================================
-   CLEAR PRODUCT FORM
-   ========================================================= */
-
-function clearProductForm() {
-
-    setValue(
-        "productId",
-        ""
-    );
-
-    setValue(
-        "productName",
-        ""
-    );
-
-    setValue(
-        "productPrice",
-        ""
-    );
-
-    setValue(
-        "productImage",
-        ""
-    );
-
-    setValue(
-        "productDescription",
-        ""
-    );
-}
 
 /* =========================================================
-   SAVE PRODUCT
+   SAVE PRODUCT TO DATABASE
    ========================================================= */
 
-function saveProduct() {
+async function saveProduct() {
 
     if (!admin) {
 
@@ -1125,25 +1316,44 @@ function saveProduct() {
         return;
     }
 
+
     const id =
-        getValue("productId");
+        document.getElementById(
+            "productId"
+        ).value;
+
 
     const name =
-        getValue("productName");
+        document.getElementById(
+            "productName"
+        ).value.trim();
+
 
     const price =
         Number(
-            getValue("productPrice")
+            document.getElementById(
+                "productPrice"
+            ).value
         );
 
+
     const category =
-        getValue("productCategory");
+        document.getElementById(
+            "productCategory"
+        ).value;
+
 
     const image =
-        getValue("productImage");
+        document.getElementById(
+            "productImage"
+        ).value.trim();
+
 
     const description =
-        getValue("productDescription");
+        document.getElementById(
+            "productDescription"
+        ).value.trim();
+
 
     if (!name) {
 
@@ -1153,6 +1363,7 @@ function saveProduct() {
 
         return;
     }
+
 
     if (
         !price ||
@@ -1166,6 +1377,7 @@ function saveProduct() {
         return;
     }
 
+
     if (!category) {
 
         alert(
@@ -1175,99 +1387,164 @@ function saveProduct() {
         return;
     }
 
+
     if (!image) {
 
         alert(
-            "Please enter product image URL."
+            "Please enter image URL."
         );
 
         return;
     }
 
-    /* EDIT */
 
-    if (id) {
+    const productData = {
 
-        const product =
-            products.find(
-                p => p.id == id
+        name:
+            name,
+
+        price:
+            price,
+
+        category:
+            category,
+
+        image:
+            image,
+
+        description:
+            description,
+
+        updated_at:
+            new Date().toISOString()
+    };
+
+
+    try {
+
+        /* =================================================
+           UPDATE EXISTING PRODUCT
+           ================================================= */
+
+        if (id) {
+
+            const {
+                error
+            } =
+                await supabaseClient
+                    .from("products")
+                    .update(
+                        productData
+                    )
+                    .eq(
+                        "id",
+                        Number(id)
+                    );
+
+
+            if (error) {
+
+                console.error(
+                    error
+                );
+
+                alert(
+                    "Database update failed:\n" +
+                    error.message
+                );
+
+                return;
+            }
+
+
+            alert(
+                "✅ Product updated in database!"
             );
-
-        if (!product) {
-            return;
         }
 
-        product.name =
-            name;
 
-        product.price =
-            price;
+        /* =================================================
+           ADD NEW PRODUCT
+           ================================================= */
 
-        product.category =
-            category;
+        else {
 
-        product.image =
-            image;
+            const newProduct = {
 
-        product.description =
-            description;
+                id:
+                    Date.now(),
+
+                ...productData
+            };
+
+
+            const {
+                error
+            } =
+                await supabaseClient
+                    .from("products")
+                    .insert(
+                        newProduct
+                    );
+
+
+            if (error) {
+
+                console.error(
+                    error
+                );
+
+                alert(
+                    "Database insert failed:\n" +
+                    error.message
+                );
+
+                return;
+            }
+
+
+            alert(
+                "✅ Product added to database!"
+            );
+        }
+
+
+        /*
+           Realtime will normally update
+           the website automatically.
+
+           We also load once immediately
+           so the admin sees the change.
+        */
+
+        await loadProducts();
+
+
+        closeModal(
+            "productModal"
+        );
+
+
+    } catch (error) {
+
+        console.error(
+            "Save error:",
+            error
+        );
+
 
         alert(
-            "✅ Product updated successfully!"
-        );
-
-    }
-
-    /* ADD */
-
-    else {
-
-        const newProduct = {
-
-            id:
-                Date.now(),
-
-            name:
-                name,
-
-            price:
-                price,
-
-            category:
-                category,
-
-            image:
-                image,
-
-            description:
-                description
-        };
-
-        products.push(
-            newProduct
-        );
-
-        alert(
-            "✅ New product added successfully!"
+            "Something went wrong while saving."
         );
     }
-
-    saveProducts();
-
-    displayCategories();
-
-    showProducts();
-
-    closeModal(
-        "productModal"
-    );
 }
 
+
 /* =========================================================
-   DELETE PRODUCT
+   DELETE PRODUCT FROM DATABASE
    ========================================================= */
 
-function deleteProduct(id) {
+async function deleteProduct(id) {
 
     if (!admin) {
 
@@ -1278,14 +1555,19 @@ function deleteProduct(id) {
         return;
     }
 
+
     const product =
         products.find(
-            p => p.id === id
+            p =>
+                Number(p.id) ===
+                Number(id)
         );
+
 
     if (!product) {
         return;
     }
+
 
     const confirmed =
         confirm(
@@ -1294,34 +1576,79 @@ function deleteProduct(id) {
             "?"
         );
 
+
     if (!confirmed) {
         return;
     }
 
-    products =
-        products.filter(
-            p => p.id !== id
+
+    try {
+
+        const {
+            error
+        } =
+            await supabaseClient
+                .from("products")
+                .delete()
+                .eq(
+                    "id",
+                    Number(id)
+                );
+
+
+        if (error) {
+
+            console.error(
+                error
+            );
+
+            alert(
+                "Delete failed:\n" +
+                error.message
+            );
+
+            return;
+        }
+
+
+        /*
+           Remove from cart too.
+        */
+
+        cart =
+            cart.filter(
+                item =>
+                    Number(item.id) !==
+                    Number(id)
+            );
+
+
+        saveCart();
+
+        updateCart();
+
+
+        alert(
+            "✅ Product deleted from database."
         );
 
-    cart =
-        cart.filter(
-            item => item.id !== id
+
+        await loadProducts();
+
+
+    } catch (error) {
+
+        console.error(
+            error
         );
 
-    saveProducts();
 
-    saveCart();
-
-    displayCategories();
-
-    showProducts();
-
-    updateCart();
-
-    alert(
-        "Product deleted."
-    );
+        alert(
+            "Something went wrong while deleting."
+        );
+    }
 }
+
 
 /* =========================================================
    CLOSE MODAL
@@ -1330,7 +1657,10 @@ function deleteProduct(id) {
 function closeModal(id) {
 
     const modal =
-        document.getElementById(id);
+        document.getElementById(
+            id
+        );
+
 
     if (modal) {
 
@@ -1339,28 +1669,33 @@ function closeModal(id) {
     }
 }
 
+
 /* =========================================================
    CLICK OUTSIDE MODAL
    ========================================================= */
 
-window.addEventListener(
-    "click",
+window.onclick =
     function(event) {
 
         document
-            .querySelectorAll(".modal")
-            .forEach(modal => {
+            .querySelectorAll(
+                ".modal"
+            )
+            .forEach(
+                modal => {
 
-                if (
-                    event.target === modal
-                ) {
+                    if (
+                        event.target ===
+                        modal
+                    ) {
 
-                    modal.style.display =
-                        "none";
+                        modal.style.display =
+                            "none";
+                    }
                 }
-            });
-    }
-);
+            );
+    };
+
 
 /* =========================================================
    ESCAPE KEY
@@ -1371,48 +1706,29 @@ document.addEventListener(
     function(event) {
 
         if (
-            event.key === "Escape"
+            event.key ===
+            "Escape"
         ) {
 
             document
-                .querySelectorAll(".modal")
-                .forEach(modal => {
+                .querySelectorAll(
+                    ".modal"
+                )
+                .forEach(
+                    modal => {
 
-                    modal.style.display =
-                        "none";
-                });
+                        modal.style.display =
+                            "none";
+                    }
+                );
         }
     }
 );
 
+
 /* =========================================================
-   HELPER FUNCTIONS
+   HTML SECURITY HELPERS
    ========================================================= */
-
-function getValue(id) {
-
-    const element =
-        document.getElementById(id);
-
-    if (!element) {
-        return "";
-    }
-
-    return String(
-        element.value
-    ).trim();
-}
-
-function setValue(id, value) {
-
-    const element =
-        document.getElementById(id);
-
-    if (element) {
-        element.value =
-            value;
-    }
-}
 
 function escapeHTML(value) {
 
@@ -1439,97 +1755,72 @@ function escapeHTML(value) {
         );
 }
 
+
 function escapeAttribute(value) {
+
     return escapeHTML(value);
 }
 
+
 /* =========================================================
-   ADMIN BUTTON SUPPORT
+   START WEBSITE
    ========================================================= */
 
-function checkAdmin() {
+async function startWebsite() {
+
+    console.log(
+        "Mada General Store starting..."
+    );
+
 
     if (admin) {
 
         document.body.classList.add(
             "admin-mode"
         );
-
-    } else {
-
-        document.body.classList.remove(
-            "admin-mode"
-        );
     }
+
+
+    updateCart();
+
+
+    /*
+       First load products
+       from Supabase.
+    */
+
+    await loadProducts();
+
+
+    /*
+       Then connect to
+       Supabase Realtime.
+    */
+
+    startRealtime();
+
+
+    console.log(
+        "Mada General Store ready."
+    );
 }
 
-/* =========================================================
-   START WEBSITE
-   ========================================================= */
-
-document.addEventListener(
-    "DOMContentLoaded",
-    function() {
-
-        checkAdmin();
-
-        displayCategories();
-
-        showProducts();
-
-        updateCart();
-    }
-);
 
 /* =========================================================
-   AUTO REFRESH PRODUCT DATA
-   =========================================================
-   If another tab changes localStorage,
-   refresh this website automatically.
+   START
    ========================================================= */
 
-window.addEventListener(
-    "storage",
-    function(event) {
+if (
+    document.readyState ===
+    "loading"
+) {
 
-        if (
-            event.key ===
-            "madaProducts"
-        ) {
+    document.addEventListener(
+        "DOMContentLoaded",
+        startWebsite
+    );
 
-            const newProducts =
-                JSON.parse(
-                    event.newValue
-                );
+} else {
 
-            if (
-                Array.isArray(
-                    newProducts
-                )
-            ) {
-
-                products =
-                    newProducts;
-
-                displayCategories();
-
-                showProducts();
-            }
-        }
-
-        if (
-            event.key ===
-            "madaCart"
-        ) {
-
-            cart =
-                JSON.parse(
-                    event.newValue
-                ) || [];
-
-            updateCart();
-
-            displayCart();
-        }
-    }
-);
+    startWebsite();
+}
