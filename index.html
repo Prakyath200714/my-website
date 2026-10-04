@@ -1,909 +1,497 @@
-/* =========================================================
-   MADA GENERAL STORE - COMPLETE CSS
-   ========================================================= */
-
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-}
-
-body {
-    background: #f1f3f6;
-    color: #212121;
-}
-
-/* =========================================================
-   HEADER
-   ========================================================= */
-
-header {
-    background: #2874f0;
-    color: white;
-    padding: 12px 5%;
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-}
-
-.logo {
-    font-size: 24px;
-    font-weight: bold;
-    white-space: nowrap;
-}
-
-.logo span {
-    color: #ffe500;
-}
-
-.search {
-    flex: 1;
-    display: flex;
-}
-
-.search input {
-    width: 100%;
-    padding: 12px;
-    border: none;
-    outline: none;
-    font-size: 15px;
-}
-
-.search button {
-    background: white;
-    color: #2874f0;
-    border: none;
-    padding: 0 18px;
-    cursor: pointer;
-    font-size: 18px;
-}
-
-.header-btn {
-    background: white;
-    color: #2874f0;
-    border: none;
-    padding: 10px 14px;
-    cursor: pointer;
-    font-weight: bold;
-    border-radius: 3px;
-}
-
-.header-btn:hover {
-    background: #f0f0f0;
-}
-
-/* =========================================================
-   ADMIN BAR
-   ========================================================= */
-
-.admin-bar {
-    display: none;
-    background: #ffe500;
-    padding: 10px 5%;
-    justify-content: space-between;
-    align-items: center;
-}
-
-body.admin-mode .admin-bar {
-    display: flex;
-}
-
-.admin-bar button {
-    border: none;
-    background: #2874f0;
-    color: white;
-    padding: 9px 14px;
-    margin-left: 5px;
-    cursor: pointer;
-    border-radius: 3px;
-}
-
-.admin-bar button:hover {
-    background: #1257c7;
-}
-
-/* =========================================================
-   CATEGORIES
-   ========================================================= */
-
-.categories {
-    background: white;
-    padding: 14px 5%;
-    display: flex;
-    gap: 10px;
-    overflow-x: auto;
-}
-
-.category {
-    border: 1px solid #ddd;
-    padding: 8px 15px;
-    border-radius: 20px;
-    cursor: pointer;
-    white-space: nowrap;
-    transition: 0.2s;
-}
-
-.category:hover,
-.category.active {
-    background: #2874f0;
-    color: white;
-    border-color: #2874f0;
-}
-
-/* =========================================================
-   BANNER
-   ========================================================= */
-
-.banner {
-    margin: 15px 5%;
-    padding: 35px 20px;
-    text-align: center;
-    color: white;
-
-    background: linear-gradient(
-        90deg,
-        #2874f0,
-        #1257c7
-    );
-
-    border-radius: 5px;
-}
-
-.banner h1 {
-    margin-bottom: 8px;
-    font-size: 30px;
-}
-
-.banner p {
-    font-size: 16px;
-}
-
-/* =========================================================
-   PRODUCTS CONTAINER
-   ========================================================= */
-
-.container {
-    padding: 10px 5% 50px;
-}
-
-.container h2 {
-    margin: 15px 0;
-}
-
-/* =========================================================
-   PRODUCT GRID
-   ========================================================= */
-
-.products {
-    display: grid;
-
-    grid-template-columns:
-        repeat(
-            auto-fill,
-            minmax(190px, 1fr)
-        );
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    gap: 15px;
-}
+<title>Mada General Store</title>
 
-/* =========================================================
-   PRODUCT CARD
-   ========================================================= */
+<link rel="stylesheet" href="style.css">
 
-.product {
-    background: white;
+</head>
 
-    padding: 15px;
+<body>
 
-    border-radius: 5px;
+<!-- ================= HEADER ================= -->
 
-    box-shadow:
-        0 1px 5px rgba(0, 0, 0, 0.15);
+<header>
 
-    transition:
-        transform 0.2s,
-        box-shadow 0.2s;
-}
+    <div class="logo">
+        Mada <span>General Store</span>
+    </div>
 
-.product:hover {
-    transform: translateY(-3px);
+    <div class="search">
 
-    box-shadow:
-        0 4px 12px rgba(0, 0, 0, 0.20);
-}
+        <input
+            id="search"
+            placeholder="Search groceries..."
+            oninput="showProducts()"
+        >
 
-/* =========================================================
-   PRODUCT IMAGE
-   ========================================================= */
+        <button>
+            🔍
+        </button>
 
-.product img {
-    width: 100%;
-    height: 160px;
+    </div>
 
-    object-fit: contain;
+    <button
+        class="header-btn"
+        onclick="openCart()">
 
-    display: block;
-}
+        🛒 Cart
+        (<span id="cartCount">0</span>)
 
-/* =========================================================
-   PRODUCT NAME
-   ========================================================= */
+    </button>
 
-.product h3 {
-    margin-top: 10px;
-    font-size: 17px;
-    min-height: 40px;
-}
+    <button
+        class="header-btn"
+        onclick="openLogin()">
 
-/* =========================================================
-   CATEGORY NAME
-   ========================================================= */
+        Admin
 
-.category-name {
-    color: #777;
-    font-size: 13px;
-    margin: 5px 0;
-}
+    </button>
 
-/* =========================================================
-   PRICE
-   ========================================================= */
+</header>
 
-.price {
-    font-size: 20px;
-    font-weight: bold;
-    margin: 10px 0;
-    color: #111;
-}
 
-/* =========================================================
-   ADD TO CART
-   ========================================================= */
+<!-- ================= ADMIN BAR ================= -->
 
-.add {
-    width: 100%;
+<div class="admin-bar">
 
-    padding: 10px;
+    <strong>
+        🔐 ADMIN MODE
+    </strong>
 
-    border: none;
+    <div>
 
-    background: #ff9f00;
+        <button
+            onclick="addProduct()">
 
-    color: white;
+            ➕ Add Product
 
-    font-weight: bold;
+        </button>
 
-    cursor: pointer;
+        <button
+            onclick="logout()">
 
-    border-radius: 3px;
+            Logout
 
-    transition: 0.2s;
-}
+        </button>
 
-.add:hover {
-    background: #fb8c00;
-}
+    </div>
 
-/* =========================================================
-   ADMIN CONTROLS
-   ========================================================= */
+</div>
 
-.admin-controls {
-    display: none;
 
-    margin-top: 8px;
+<!-- ================= CATEGORIES ================= -->
 
-    gap: 5px;
-}
+<div
+    class="categories"
+    id="categories">
+</div>
 
-body.admin-mode .admin-controls {
-    display: flex;
-}
 
-/* EDIT BUTTON */
+<!-- ================= BANNER ================= -->
 
-.edit {
-    flex: 1;
+<div class="banner">
 
-    background: #2874f0;
+    <h1>
+        Welcome to Mada General Store
+    </h1>
 
-    color: white;
+    <p>
+        Fresh groceries at today's market prices
+    </p>
 
-    border: none;
+</div>
 
-    padding: 8px;
 
-    cursor: pointer;
+<!-- ================= PRODUCTS ================= -->
 
-    border-radius: 3px;
-}
+<div class="container">
 
-.edit:hover {
-    background: #1257c7;
-}
+    <h2 style="margin:15px 0;">
 
-/* DELETE BUTTON */
+        Today's Grocery Items
 
-.delete {
-    background: #e53935;
+    </h2>
 
-    color: white;
+    <div
+        class="products"
+        id="products">
+    </div>
 
-    border: none;
+</div>
 
-    padding: 8px 12px;
 
-    cursor: pointer;
+<!-- ================= FOOTER ================= -->
 
-    border-radius: 3px;
-}
+<footer>
 
-.delete:hover {
-    background: #c62828;
-}
+    <h2>
+        Mada General Store
+    </h2>
 
-/* =========================================================
-   MODAL
-   ========================================================= */
+    <p style="margin-top:8px;">
+        Easy grocery shopping
+    </p>
 
-.modal {
-    display: none;
+    <p style="margin-top:8px;">
+        WhatsApp Orders:
+        8123686297
+    </p>
 
-    position: fixed;
+</footer>
 
-    inset: 0;
 
-    background: rgba(0, 0, 0, 0.65);
+<!-- =================================================
+     ADMIN LOGIN MODAL
+================================================= -->
 
-    z-index: 2000;
+<div
+    class="modal"
+    id="loginModal">
 
-    align-items: center;
+    <div class="modal-box">
 
-    justify-content: center;
+        <span
+            class="close"
+            onclick="closeModal('loginModal')">
 
-    padding: 15px;
-}
+            ×
 
-/* =========================================================
-   MODAL BOX
-   ========================================================= */
+        </span>
 
-.modal-box {
-    background: white;
+        <h2>
+            Admin Login
+        </h2>
 
-    width: 100%;
+        <div class="form">
 
-    max-width: 500px;
+            <label>
+                Admin PIN
+            </label>
 
-    max-height: 90vh;
+            <input
+                id="pin"
+                type="password"
+                maxlength="6"
+                placeholder="Enter 6 digit PIN"
+            >
 
-    overflow-y: auto;
+        </div>
 
-    padding: 25px;
+        <button
+            class="save"
+            onclick="login()">
 
-    border-radius: 6px;
+            Login
 
-    box-shadow:
-        0 5px 30px rgba(0, 0, 0, 0.3);
-}
+        </button>
 
-/* =========================================================
-   CLOSE BUTTON
-   ========================================================= */
+        <p
+            id="loginError"
+            style="color:red;margin-top:10px;">
 
-.close {
-    float: right;
+        </p>
 
-    font-size: 28px;
+    </div>
 
-    cursor: pointer;
+</div>
 
-    color: #555;
-}
 
-.close:hover {
-    color: #000;
-}
+<!-- =================================================
+     ADD / EDIT PRODUCT MODAL
+================================================= -->
 
-/* =========================================================
-   FORMS
-   ========================================================= */
+<div
+    class="modal"
+    id="productModal">
 
-.form {
-    margin-top: 15px;
-}
+    <div class="modal-box">
 
-.form label {
-    display: block;
+        <span
+            class="close"
+            onclick="closeModal('productModal')">
 
-    font-weight: bold;
+            ×
 
-    margin-bottom: 5px;
-}
+        </span>
 
-.form input,
-.form select,
-.form textarea {
-    width: 100%;
+        <h2 id="productTitle">
+            Add Product
+        </h2>
 
-    padding: 11px;
+        <input
+            type="hidden"
+            id="productId"
+        >
 
-    border: 1px solid #ccc;
+        <div class="form">
 
-    border-radius: 3px;
+            <label>
+                Product Name
+            </label>
 
-    outline: none;
+            <input
+                id="productName"
+                placeholder="Example: Rice 5kg and opp"
+            >
 
-    font-size: 15px;
-}
+        </div>
 
-.form input:focus,
-.form select:focus,
-.form textarea:focus {
-    border-color: #2874f0;
+        <div class="form">
 
-    box-shadow:
-        0 0 0 2px rgba(40, 116, 240, 0.1);
-}
+            <label>
+                Today's Market Price ₹
+            </label>
 
-/* =========================================================
-   SAVE BUTTON
-   ========================================================= */
+            <input
+                id="productPrice"
+                type="number"
+                min="0"
+                placeholder="Example: 400"
+            >
 
-.save {
-    width: 100%;
+        </div>
 
-    padding: 12px;
+        <div class="form">
 
-    margin-top: 15px;
+            <label>
+                Category
+            </label>
 
-    border: none;
+            <select id="productCategory">
 
-    background: #2874f0;
+                <option>
+                    Rice & Grains
+                </option>
 
-    color: white;
+                <option>
+                    Dal & Pulses
+                </option>
 
-    font-weight: bold;
+                <option>
+                    Oil
+                </option>
 
-    cursor: pointer;
+                <option>
+                    Spices
+                </option>
 
-    border-radius: 3px;
-}
+                <option>
+                    Fruits
+                </option>
 
-.save:hover {
-    background: #1257c7;
-}
+                <option>
+                    Vegetables
+                </option>
 
-/* =========================================================
-   CART
-   ========================================================= */
+                <option>
+                    Dairy
+                </option>
 
-.cart-item {
-    display: flex;
+                <option>
+                    Snacks
+                </option>
 
-    justify-content: space-between;
+                <option>
+                    Beverages
+                </option>
 
-    align-items: center;
+                <option>
+                    Household
+                </option>
 
-    border-bottom: 1px solid #ddd;
+                <option>
+                    Personal Care
+                </option>
 
-    padding: 12px 0;
+                <option>
+                    Other
+                </option>
 
-    gap: 10px;
-}
+            </select>
 
-.qty {
-    display: flex;
+        </div>
 
-    align-items: center;
+        <div class="form">
 
-    gap: 7px;
-}
+            <label>
+                Product Image URL
+            </label>
 
-.qty button {
-    padding: 5px 9px;
+            <input
+                id="productImage"
+                placeholder="Paste image URL"
+            >
 
-    cursor: pointer;
+        </div>
 
-    border: 1px solid #ccc;
+        <div class="form">
 
-    background: white;
+            <label>
+                Description
+            </label>
 
-    border-radius: 3px;
-}
+            <textarea
+                id="productDescription"
+                rows="3">
+            </textarea>
 
-.qty button:hover {
-    background: #f1f1f1;
-}
+        </div>
 
-/* =========================================================
-   TOTAL
-   ========================================================= */
+        <button
+            class="save"
+            onclick="saveProduct()">
 
-.total {
-    font-size: 21px;
+            Save Product
 
-    font-weight: bold;
+        </button>
 
-    margin-top: 20px;
+    </div>
 
-    border-top: 1px solid #ddd;
+</div>
 
-    padding-top: 15px;
-}
 
-/* =========================================================
-   WHATSAPP BUTTON
-   ========================================================= */
+<!-- =================================================
+     CART MODAL
+================================================= -->
 
-.whatsapp {
-    width: 100%;
+<div
+    class="modal"
+    id="cartModal">
 
-    background: #25D366;
+    <div class="modal-box">
 
-    color: white;
+        <span
+            class="close"
+            onclick="closeModal('cartModal')">
 
-    border: none;
+            ×
 
-    padding: 14px;
+        </span>
 
-    margin-top: 15px;
+        <!-- CART PAGE -->
 
-    cursor: pointer;
+        <div id="cartPage">
 
-    font-size: 16px;
+            <h2>
+                🛒 Your Cart
+            </h2>
 
-    font-weight: bold;
+            <div
+                id="cartItems">
+            </div>
 
-    border-radius: 3px;
-}
+            <div class="total">
 
-.whatsapp:hover {
-    background: #1ebe5d;
-}
+                Total:
+                ₹<span id="total">0</span>
 
-/* =========================================================
-   CONTINUE SHOPPING
-   ========================================================= */
+            </div>
 
-.continue {
-    width: 100%;
+            <!-- CUSTOMER DETAILS -->
 
-    background: #2874f0;
+            <div class="form">
 
-    color: white;
+                <label>
+                    Customer Name
+                </label>
 
-    border: none;
+                <input
+                    id="customerName"
+                    placeholder="Your name"
+                >
 
-    padding: 14px;
+            </div>
 
-    margin-top: 10px;
+            <div class="form">
 
-    cursor: pointer;
+                <label>
+                    Phone Number
+                </label>
 
-    font-size: 16px;
+                <input
+                    id="customerPhone"
+                    placeholder="Your phone number"
+                >
 
-    font-weight: bold;
+            </div>
 
-    border-radius: 3px;
-}
+            <div class="form">
 
-.continue:hover {
-    background: #1257c7;
-}
+                <label>
+                    Delivery Address
+                </label>
 
-/* =========================================================
-   EMPTY CART
-   ========================================================= */
+                <textarea
+                    id="customerAddress"
+                    rows="3"
+                    placeholder="Your delivery address">
+                </textarea>
 
-.empty {
-    text-align: center;
+            </div>
 
-    padding: 30px;
+            <!-- WHATSAPP -->
 
-    color: #777;
+            <button
+                class="whatsapp"
+                onclick="sendOrder()">
 
-    width: 100%;
-}
+                📲 Order Through WhatsApp
 
-/* =========================================================
-   ORDER SUCCESS
-   ========================================================= */
+            </button>
 
-.order-success {
-    display: none;
+            <!-- CONTINUE SHOPPING -->
 
-    text-align: center;
+            <button
+                class="continue"
+                onclick="continueShopping()">
 
-    padding: 20px;
-}
+                🛍️ Continue Shopping
 
-.order-success h2 {
-    color: #25a244;
+            </button>
 
-    margin-bottom: 10px;
-}
+        </div>
 
-/* =========================================================
-   FOOTER
-   ========================================================= */
 
-footer {
-    background: #172337;
+        <!-- ORDER SENT PAGE -->
 
-    color: white;
+        <div
+            class="order-success"
+            id="orderSuccess">
 
-    text-align: center;
+            <h2>
+                ✅ Order Sent!
+            </h2>
 
-    padding: 30px;
-}
+            <p>
+                Your order has been opened in WhatsApp.
+            </p>
 
-footer h2 {
-    margin-bottom: 8px;
-}
+            <p style="margin-top:10px;">
+                You can continue shopping below.
+            </p>
 
-footer p {
-    margin-top: 8px;
-}
+            <button
+                class="continue"
+                onclick="continueShopping()">
 
-/* =========================================================
-   LOADING
-   ========================================================= */
+                🛍️ Continue Shopping
 
-.loading {
-    text-align: center;
+            </button>
 
-    padding: 40px;
+        </div>
 
-    font-size: 18px;
+    </div>
 
-    color: #777;
-}
+</div>
 
-/* =========================================================
-   SUCCESS MESSAGE
-   ========================================================= */
 
-.success {
-    background: #d4edda;
+<!-- ================= JAVASCRIPT ================= -->
 
-    color: #155724;
+<script src="script.js"></script>
 
-    padding: 12px;
-
-    margin: 10px 0;
-
-    border-radius: 4px;
-}
-
-/* =========================================================
-   ERROR MESSAGE
-   ========================================================= */
-
-.error {
-    background: #f8d7da;
-
-    color: #721c24;
-
-    padding: 12px;
-
-    margin: 10px 0;
-
-    border-radius: 4px;
-}
-
-/* =========================================================
-   SCROLLBAR
-   ========================================================= */
-
-::-webkit-scrollbar {
-    width: 8px;
-
-    height: 8px;
-}
-
-::-webkit-scrollbar-track {
-    background: #f1f1f1;
-}
-
-::-webkit-scrollbar-thumb {
-    background: #aaa;
-
-    border-radius: 10px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background: #777;
-}
-
-/* =========================================================
-   MOBILE
-   ========================================================= */
-
-@media (max-width: 700px) {
-
-    header {
-        flex-wrap: wrap;
-
-        gap: 10px;
-
-        padding: 10px 4%;
-    }
-
-
-    .logo {
-        font-size: 20px;
-
-        flex: 1;
-    }
-
-
-    .header-btn {
-        padding: 9px 10px;
-
-        font-size: 13px;
-    }
-
-
-    .search {
-        flex-basis: 100%;
-
-        order: 3;
-    }
-
-
-    .search input {
-        padding: 11px;
-    }
-
-
-    .categories {
-        padding: 10px 4%;
-    }
-
-
-    .banner {
-        margin: 10px 4%;
-
-        padding: 25px 15px;
-    }
-
-
-    .banner h1 {
-        font-size: 23px;
-    }
-
-
-    .banner p {
-        font-size: 14px;
-    }
-
-
-    .container {
-        padding: 5px 4% 40px;
-    }
-
-
-    .products {
-        grid-template-columns:
-            repeat(2, 1fr);
-
-        gap: 10px;
-    }
-
-
-    .product {
-        padding: 10px;
-    }
-
-
-    .product img {
-        height: 120px;
-    }
-
-
-    .product h3 {
-        font-size: 15px;
-
-        min-height: 35px;
-    }
-
-
-    .price {
-        font-size: 17px;
-    }
-
-
-    .add {
-        padding: 9px;
-
-        font-size: 13px;
-    }
-
-
-    .admin-bar {
-        padding: 8px 4%;
-
-        flex-direction: column;
-
-        gap: 8px;
-
-        align-items: stretch;
-    }
-
-
-    .admin-bar div {
-        display: flex;
-
-        width: 100%;
-    }
-
-
-    .admin-bar button {
-        flex: 1;
-
-        margin: 0 3px;
-    }
-
-
-    .modal-box {
-        padding: 18px;
-
-        max-height: 95vh;
-    }
-
-
-    .cart-item {
-        font-size: 14px;
-    }
-
-
-    footer {
-        padding: 25px 15px;
-    }
-
-}
-
-/* =========================================================
-   SMALL MOBILE
-   ========================================================= */
-
-@media (max-width: 400px) {
-
-    .products {
-        grid-template-columns:
-            repeat(2, 1fr);
-
-        gap: 8px;
-    }
-
-
-    .product {
-        padding: 8px;
-    }
-
-
-    .product img {
-        height: 100px;
-    }
-
-
-    .product h3 {
-        font-size: 14px;
-    }
-
-
-    .price {
-        font-size: 16px;
-    }
-
-
-    .logo {
-        font-size: 18px;
-    }
-
-}
+</body>
+</html>
