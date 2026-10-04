@@ -1,80 +1,124 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Mada General Store</title>
+    <meta charset="UTF-8">
 
-<link rel="stylesheet" href="style.css">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Mada General Store</title>
+
+    <!-- PREMIUM CSS -->
+    <link rel="stylesheet" href="style.css">
 
 </head>
 
+
 <body>
 
-<!-- ================= HEADER ================= -->
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
 
 <header>
 
+    <!-- LOGO -->
+
     <div class="logo">
-        Mada <span>General Store</span>
+
+        Mada
+        <span>General Store</span>
+
     </div>
+
+
+    <!-- SEARCH -->
 
     <div class="search">
 
         <input
+            type="text"
             id="search"
-            placeholder="Search groceries..."
+            placeholder="Search for groceries, fruits, vegetables and more..."
             oninput="showProducts()"
         >
 
-        <button>
+        <button type="button">
+
             🔍
+
         </button>
 
     </div>
 
+
+    <!-- CART -->
+
     <button
         class="header-btn"
-        onclick="openCart()">
+        onclick="openCart()"
+    >
 
         🛒 Cart
-        (<span id="cartCount">0</span>)
+
+        (
+        <span id="cartCount">
+            0
+        </span>
+        )
 
     </button>
 
+
+    <!-- ADMIN -->
+
     <button
         class="header-btn"
-        onclick="openLogin()">
+        onclick="openLogin()"
+    >
 
-        Admin
+        👤 Admin
 
     </button>
 
 </header>
 
 
-<!-- ================= ADMIN BAR ================= -->
+
+<!-- =====================================================
+     ADMIN BAR
+===================================================== -->
 
 <div class="admin-bar">
 
     <strong>
+
         🔐 ADMIN MODE
+
     </strong>
+
 
     <div>
 
         <button
-            onclick="addProduct()">
+            onclick="addProduct()"
+        >
 
             ➕ Add Product
 
         </button>
 
-        <button
-            onclick="logout()">
 
-            Logout
+        <button
+            onclick="logout()"
+        >
+
+            🚪 Logout
 
         </button>
 
@@ -83,185 +127,284 @@
 </div>
 
 
-<!-- ================= CATEGORIES ================= -->
+
+<!-- =====================================================
+     CATEGORY BAR
+===================================================== -->
 
 <div
     class="categories"
-    id="categories">
+    id="categories"
+>
+
 </div>
 
 
-<!-- ================= BANNER ================= -->
+
+<!-- =====================================================
+     MAIN BANNER
+===================================================== -->
 
 <div class="banner">
 
     <h1>
-        Welcome to Mada General Store
+
+        Welcome to Mada General Store 🛒
+
     </h1>
 
+
     <p>
-        Fresh groceries at today's market prices
+
+        Fresh groceries • Best prices • Easy ordering
+
     </p>
 
 </div>
 
 
-<!-- ================= PRODUCTS ================= -->
+
+<!-- =====================================================
+     PRODUCTS
+===================================================== -->
 
 <div class="container">
 
-    <h2 style="margin:15px 0;">
 
-        Today's Grocery Items
+    <h2>
+
+        🛍️ Today's Grocery Items
 
     </h2>
 
+
     <div
         class="products"
-        id="products">
+        id="products"
+    >
+
+        <!-- PRODUCTS ARE LOADED BY JAVASCRIPT -->
+
     </div>
+
 
 </div>
 
 
-<!-- ================= FOOTER ================= -->
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
 
 <footer>
 
     <h2>
+
         Mada General Store
+
     </h2>
 
-    <p style="margin-top:8px;">
-        Easy grocery shopping
+
+    <p>
+
+        Easy grocery shopping at your fingertips
+
     </p>
 
-    <p style="margin-top:8px;">
+
+    <p>
+
         WhatsApp Orders:
         8123686297
+
     </p>
 
 </footer>
 
 
-<!-- =================================================
+
+<!-- =====================================================
      ADMIN LOGIN MODAL
-================================================= -->
+===================================================== -->
 
 <div
     class="modal"
-    id="loginModal">
+    id="loginModal"
+>
 
     <div class="modal-box">
 
+
         <span
             class="close"
-            onclick="closeModal('loginModal')">
+            onclick="closeModal('loginModal')"
+        >
 
             ×
 
         </span>
 
+
         <h2>
-            Admin Login
+
+            🔐 Admin Login
+
         </h2>
+
+
+        <p
+            style="
+                color:#777;
+                margin-top:8px;
+                font-size:14px;
+            "
+        >
+
+            Enter your administrator password.
+
+        </p>
+
 
         <div class="form">
 
             <label>
-                Admin PIN
+
+                Admin Password
+
             </label>
+
 
             <input
                 id="pin"
                 type="password"
                 maxlength="6"
-                placeholder="Enter 6 digit PIN"
+                placeholder="Enter 6 digit password"
             >
 
         </div>
 
+
         <button
             class="save"
-            onclick="login()">
+            onclick="login()"
+        >
 
-            Login
+            🔓 Login
 
         </button>
 
+
         <p
             id="loginError"
-            style="color:red;margin-top:10px;">
+            style="
+                color:red;
+                margin-top:12px;
+                text-align:center;
+            "
+        >
 
         </p>
+
 
     </div>
 
 </div>
 
 
-<!-- =================================================
+
+<!-- =====================================================
      ADD / EDIT PRODUCT MODAL
-================================================= -->
+===================================================== -->
 
 <div
     class="modal"
-    id="productModal">
+    id="productModal"
+>
 
     <div class="modal-box">
 
+
         <span
             class="close"
-            onclick="closeModal('productModal')">
+            onclick="closeModal('productModal')"
+        >
 
             ×
 
         </span>
 
+
         <h2 id="productTitle">
-            Add Product
+
+            ➕ Add New Product
+
         </h2>
+
 
         <input
             type="hidden"
             id="productId"
         >
 
+
+
+        <!-- PRODUCT NAME -->
+
         <div class="form">
 
             <label>
+
                 Product Name
+
             </label>
+
 
             <input
                 id="productName"
-                placeholder="Example: Rice 5kg and opp"
+                type="text"
+                placeholder="Example: Rice 5kg"
             >
 
         </div>
 
+
+
+        <!-- PRICE -->
+
         <div class="form">
 
             <label>
+
                 Today's Market Price ₹
+
             </label>
+
 
             <input
                 id="productPrice"
                 type="number"
-                min="0"
-                placeholder="Example: 400"
+                min="1"
+                placeholder="Example: 350"
             >
 
         </div>
 
+
+
+        <!-- CATEGORY -->
+
         <div class="form">
 
             <label>
+
                 Category
+
             </label>
 
-            <select id="productCategory">
+
+            <select
+                id="productCategory"
+            >
 
                 <option>
                     Rice & Grains
@@ -315,74 +458,112 @@
 
         </div>
 
+
+
+        <!-- IMAGE -->
+
         <div class="form">
 
             <label>
+
                 Product Image URL
+
             </label>
+
 
             <input
                 id="productImage"
-                placeholder="Paste image URL"
+                type="url"
+                placeholder="Paste product image URL"
             >
 
         </div>
 
+
+
+        <!-- DESCRIPTION -->
+
         <div class="form">
 
             <label>
-                Description
+
+                Product Description
+
             </label>
+
 
             <textarea
                 id="productDescription"
-                rows="3">
-            </textarea>
+                rows="4"
+                placeholder="Enter product description..."
+            ></textarea>
 
         </div>
 
+
+
+        <!-- SAVE -->
+
         <button
             class="save"
-            onclick="saveProduct()">
+            onclick="saveProduct()"
+        >
 
-            Save Product
+            💾 Save Product
 
         </button>
+
 
     </div>
 
 </div>
 
 
-<!-- =================================================
+
+<!-- =====================================================
      CART MODAL
-================================================= -->
+===================================================== -->
 
 <div
     class="modal"
-    id="cartModal">
+    id="cartModal"
+>
 
     <div class="modal-box">
 
+
         <span
             class="close"
-            onclick="closeModal('cartModal')">
+            onclick="closeModal('cartModal')"
+        >
 
             ×
 
         </span>
 
+
+
         <!-- CART PAGE -->
 
         <div id="cartPage">
 
+
             <h2>
-                🛒 Your Cart
+
+                🛒 Your Shopping Cart
+
             </h2>
 
+
             <div
-                id="cartItems">
+                id="cartItems"
+            >
+
             </div>
+
+
+
+            <!-- TOTAL -->
 
             <div class="total">
 
@@ -391,107 +572,157 @@
 
             </div>
 
-            <!-- CUSTOMER DETAILS -->
+
+
+            <!-- CUSTOMER NAME -->
 
             <div class="form">
 
                 <label>
+
                     Customer Name
+
                 </label>
+
 
                 <input
                     id="customerName"
-                    placeholder="Your name"
+                    type="text"
+                    placeholder="Enter your name"
                 >
 
             </div>
 
+
+
+            <!-- PHONE -->
+
             <div class="form">
 
                 <label>
+
                     Phone Number
+
                 </label>
+
 
                 <input
                     id="customerPhone"
-                    placeholder="Your phone number"
+                    type="tel"
+                    placeholder="Enter your phone number"
                 >
 
             </div>
 
+
+
+            <!-- ADDRESS -->
+
             <div class="form">
 
                 <label>
+
                     Delivery Address
+
                 </label>
+
 
                 <textarea
                     id="customerAddress"
-                    rows="3"
-                    placeholder="Your delivery address">
-                </textarea>
+                    rows="4"
+                    placeholder="Enter your complete delivery address"
+                ></textarea>
 
             </div>
+
+
 
             <!-- WHATSAPP -->
 
             <button
                 class="whatsapp"
-                onclick="sendOrder()">
+                onclick="sendOrder()"
+            >
 
                 📲 Order Through WhatsApp
 
             </button>
 
-            <!-- CONTINUE SHOPPING -->
+
+
+            <!-- CONTINUE -->
 
             <button
                 class="continue"
-                onclick="continueShopping()">
+                onclick="continueShopping()"
+            >
 
                 🛍️ Continue Shopping
 
             </button>
 
+
         </div>
 
 
-        <!-- ORDER SENT PAGE -->
+
+        <!-- =================================================
+             ORDER SUCCESS
+        ================================================= -->
 
         <div
             class="order-success"
-            id="orderSuccess">
+            id="orderSuccess"
+        >
 
             <h2>
+
                 ✅ Order Sent!
+
             </h2>
 
+
             <p>
+
                 Your order has been opened in WhatsApp.
+
             </p>
 
+
             <p style="margin-top:10px;">
-                You can continue shopping below.
+
+                Thank you for shopping with
+                Mada General Store ❤️
+
             </p>
+
 
             <button
                 class="continue"
-                onclick="continueShopping()">
+                onclick="continueShopping()"
+            >
 
                 🛍️ Continue Shopping
 
             </button>
 
+
         </div>
+
 
     </div>
 
 </div>
 
 
-<!-- ================= JAVASCRIPT ================= -->
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
 
 <script src="script.js"></script>
 
+
 </body>
+
 </html>
