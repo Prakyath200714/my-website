@@ -1,432 +1,547 @@
 /* =========================================================
-   MADA GENERAL STORE
-   FLIPKART STYLE - JAVASCRIPT
+   MADA GENERAL STORE — PREMIUM SHOPPING UI
+   Flipkart-inspired layout
    ========================================================= */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+:root {
+    --blue: #2874f0;
+    --blue-dark: #1558c0;
+    --blue-light: #eaf2ff;
+    --yellow: #ffd814;
+    --orange: #ff9f00;
+    --green: #00a86b;
+    --red: #e53935;
+    --dark: #172337;
+    --text: #212121;
+    --muted: #777;
+    --white: #ffffff;
+    --bg: #f1f3f6;
+    --border: #e0e0e0;
+    --shadow: 0 2px 8px rgba(0,0,0,0.10);
+    --shadow-hover: 0 6px 20px rgba(0,0,0,0.16);
+}
+
+body {
+    background: var(--bg);
+    color: var(--text);
+}
 
 
 /* =========================================================
-   DEFAULT PRODUCTS
+   HEADER
    ========================================================= */
 
-const defaultProducts = [
-
-    {
-        id: 1,
-        name: "Rice 5kg",
-        price: 350,
-        category: "Rice & Grains",
-        image: "https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=600&q=80",
-        description: "Premium quality rice"
-    },
-
-    {
-        id: 2,
-        name: "Toor Dal 1kg",
-        price: 160,
-        category: "Dal & Pulses",
-        image: "https://images.unsplash.com/photo-1585996787445-0f7b0b1a9e9a?auto=format&fit=crop&w=600&q=80",
-        description: "Fresh toor dal"
-    },
-
-    {
-        id: 3,
-        name: "Sunflower Oil 1L",
-        price: 145,
-        category: "Oil",
-        image: "https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?auto=format&fit=crop&w=600&q=80",
-        description: "Refined sunflower oil"
-    },
-
-    {
-        id: 4,
-        name: "Sugar 1kg",
-        price: 48,
-        category: "Other",
-        image: "https://images.unsplash.com/photo-1581268491976-1f0f9a8b5d76?auto=format&fit=crop&w=600&q=80",
-        description: "Fine quality sugar"
-    },
-
-    {
-        id: 5,
-        name: "Wheat Flour 5kg",
-        price: 260,
-        category: "Rice & Grains",
-        image: "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=600&q=80",
-        description: "Fresh wheat flour"
-    },
-
-    {
-        id: 6,
-        name: "Milk 1L",
-        price: 60,
-        category: "Dairy",
-        image: "https://images.unsplash.com/photo-1550583724-b2692b85b150?auto=format&fit=crop&w=600&q=80",
-        description: "Fresh milk"
-    },
-
-    {
-        id: 7,
-        name: "Tea Powder 250g",
-        price: 120,
-        category: "Beverages",
-        image: "https://images.unsplash.com/photo-1594631252845-29fc4cc8cde9?auto=format&fit=crop&w=600&q=80",
-        description: "Premium tea"
-    },
-
-    {
-        id: 8,
-        name: "Salt 1kg",
-        price: 25,
-        category: "Other",
-        image: "https://images.unsplash.com/photo-1518110925495-5fe2c9a8b6d3?auto=format&fit=crop&w=600&q=80",
-        description: "Iodized salt"
-    },
-
-    {
-        id: 9,
-        name: "Potato 1kg",
-        price: 40,
-        category: "Vegetables",
-        image: "https://images.unsplash.com/photo-1518977676601-b53f82aba655?auto=format&fit=crop&w=600&q=80",
-        description: "Fresh potatoes"
-    },
-
-    {
-        id: 10,
-        name: "Onion 1kg",
-        price: 45,
-        category: "Vegetables",
-        image: "https://images.unsplash.com/photo-1618512496248-a07fe83aa8cb?auto=format&fit=crop&w=600&q=80",
-        description: "Fresh onions"
-    },
-
-    {
-        id: 11,
-        name: "Apple 1kg",
-        price: 160,
-        category: "Fruits",
-        image: "https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?auto=format&fit=crop&w=600&q=80",
-        description: "Fresh apples"
-    },
-
-    {
-        id: 12,
-        name: "Banana 1 Dozen",
-        price: 60,
-        category: "Fruits",
-        image: "https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?auto=format&fit=crop&w=600&q=80",
-        description: "Fresh bananas"
-    },
-
-    {
-        id: 13,
-        name: "Turmeric Powder 100g",
-        price: 35,
-        category: "Spices",
-        image: "https://images.unsplash.com/photo-1615485500704-8e990f9900f7?auto=format&fit=crop&w=600&q=80",
-        description: "Pure turmeric"
-    },
-
-    {
-        id: 14,
-        name: "Biscuits",
-        price: 30,
-        category: "Snacks",
-        image: "https://images.unsplash.com/photo-1558961363-fa8fdf82db35?auto=format&fit=crop&w=600&q=80",
-        description: "Crispy biscuits"
-    },
-
-    {
-        id: 15,
-        name: "Detergent 1kg",
-        price: 110,
-        category: "Household",
-        image: "https://images.unsplash.com/photo-1585832770485-e68a5dbfad52?auto=format&fit=crop&w=600&q=80",
-        description: "Powerful detergent"
-    }
-
-];
-
-
-/* =========================================================
-   LOAD PRODUCTS
-   ========================================================= */
-
-let products = JSON.parse(
-    localStorage.getItem("madaProducts")
-);
-
-
-if (!products) {
-
-    products = defaultProducts;
-
-    localStorage.setItem(
-        "madaProducts",
-        JSON.stringify(products)
+header {
+    background: linear-gradient(
+        135deg,
+        #2874f0,
+        #1558c0
     );
 
+    color: white;
+
+    min-height: 64px;
+
+    padding: 10px 5%;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 22px;
+
+    position: sticky;
+
+    top: 0;
+
+    z-index: 1000;
+
+    box-shadow:
+        0 2px 10px rgba(0,0,0,0.20);
+}
+
+
+/* LOGO */
+
+.logo {
+    font-size: 23px;
+
+    font-weight: 800;
+
+    white-space: nowrap;
+
+    letter-spacing: -0.5px;
+}
+
+.logo span {
+    color: var(--yellow);
+
+    font-style: italic;
 }
 
 
 /* =========================================================
-   CART
+   SEARCH
    ========================================================= */
 
-let cart = JSON.parse(
-    localStorage.getItem("madaCart")
-) || [];
+.search {
+    flex: 1;
 
+    max-width: 700px;
 
-/* =========================================================
-   ADMIN
-   ========================================================= */
+    display: flex;
 
-let admin =
-    sessionStorage.getItem("madaAdmin") === "true";
+    background: white;
 
+    border-radius: 3px;
 
-if (admin) {
+    overflow: hidden;
 
-    document.body.classList.add(
-        "admin-mode"
-    );
+    box-shadow:
+        0 2px 7px rgba(0,0,0,0.15);
+}
 
+.search input {
+    flex: 1;
+
+    width: 100%;
+
+    padding: 13px 16px;
+
+    border: none;
+
+    outline: none;
+
+    font-size: 15px;
+
+    color: #333;
+}
+
+.search input::placeholder {
+    color: #999;
+}
+
+.search button {
+    width: 55px;
+
+    border: none;
+
+    background: white;
+
+    color: var(--blue);
+
+    font-size: 19px;
+
+    cursor: pointer;
 }
 
 
 /* =========================================================
-   CATEGORY
+   HEADER BUTTONS
    ========================================================= */
 
-let selectedCategory = "All";
+.header-btn {
+    background: white;
 
+    color: var(--blue);
 
-function displayCategories() {
+    border: none;
 
-    const categoryBox =
-        document.getElementById("categories");
+    padding: 11px 18px;
 
+    cursor: pointer;
 
-    if (!categoryBox) {
-        return;
-    }
+    font-weight: 700;
 
+    border-radius: 3px;
 
-    const categories = [
+    transition: 0.2s;
 
-        "All",
-
-        ...new Set(
-            products.map(
-                product => product.category
-            )
-        )
-
-    ];
-
-
-    categoryBox.innerHTML =
-        categories.map(category => `
-
-            <div
-                class="category ${
-                    selectedCategory === category
-                        ? "active"
-                        : ""
-                }"
-                onclick="filterCategory('${category}')">
-
-                ${category}
-
-            </div>
-
-        `).join("");
-
+    white-space: nowrap;
 }
 
+.header-btn:hover {
+    background: #f5f8ff;
 
-function filterCategory(category) {
-
-    selectedCategory = category;
-
-    displayCategories();
-
-    showProducts();
-
+    transform: translateY(-1px);
 }
 
 
 /* =========================================================
-   SHOW PRODUCTS
+   ADMIN BAR
    ========================================================= */
 
-function showProducts() {
+.admin-bar {
+    display: none;
 
-    const productBox =
-        document.getElementById("products");
+    background:
+        linear-gradient(
+            90deg,
+            #fff3b0,
+            #ffe16b
+        );
 
+    padding: 10px 5%;
 
-    if (!productBox) {
-        return;
-    }
+    justify-content: space-between;
 
+    align-items: center;
 
-    const searchInput =
-        document.getElementById("search");
+    border-bottom: 1px solid #e0c500;
+}
 
+body.admin-mode .admin-bar {
+    display: flex;
+}
 
-    const search =
-        searchInput
-            ? searchInput.value.toLowerCase()
-            : "";
+.admin-bar strong {
+    color: #5c4800;
 
+    font-size: 14px;
+}
 
-    const filtered =
-        products.filter(product => {
+.admin-bar button {
+    border: none;
 
-            const searchMatch =
-                product.name
-                    .toLowerCase()
-                    .includes(search);
+    background: var(--blue);
 
+    color: white;
 
-            const categoryMatch =
-                selectedCategory === "All" ||
-                product.category ===
-                selectedCategory;
+    padding: 9px 15px;
 
+    margin-left: 6px;
 
-            return (
-                searchMatch &&
-                categoryMatch
-            );
+    cursor: pointer;
 
-        });
+    border-radius: 3px;
 
+    font-weight: 600;
+}
 
-    if (filtered.length === 0) {
+.admin-bar button:hover {
+    background: var(--blue-dark);
+}
 
-        productBox.innerHTML = `
 
-            <div class="empty">
+/* =========================================================
+   CATEGORY BAR
+   ========================================================= */
 
-                <h3>
-                    No products found
-                </h3>
+.categories {
+    background: white;
 
-                <p>
-                    Try another search.
-                </p>
+    padding: 13px 5%;
 
-            </div>
+    display: flex;
 
-        `;
+    gap: 10px;
 
-        return;
+    overflow-x: auto;
 
-    }
+    border-bottom: 1px solid var(--border);
 
+    scrollbar-width: none;
+}
 
-    productBox.innerHTML =
-        filtered.map(product => `
+.categories::-webkit-scrollbar {
+    display: none;
+}
 
-        <div class="product">
+.category {
+    border: 1px solid #d6d6d6;
 
-            <div class="product-image">
+    background: white;
 
-                <img
-                    src="${product.image}"
-                    alt="${product.name}"
+    padding: 8px 17px;
 
-                    onerror="
-                        this.src=
-                        'https://via.placeholder.com/400x300?text=Grocery'
-                    "
-                >
+    border-radius: 20px;
 
-            </div>
+    cursor: pointer;
 
+    white-space: nowrap;
 
-            <div class="product-info">
+    font-size: 14px;
 
-                <div class="category-name">
+    font-weight: 600;
 
-                    ${product.category}
+    color: #555;
 
-                </div>
+    transition: 0.2s;
+}
 
+.category:hover {
+    border-color: var(--blue);
 
-                <h3>
+    color: var(--blue);
 
-                    ${product.name}
+    background: var(--blue-light);
+}
 
-                </h3>
+.category.active {
+    background: var(--blue);
 
+    color: white;
 
-                <p class="description">
+    border-color: var(--blue);
+}
 
-                    ${product.description || ""}
 
-                </p>
+/* =========================================================
+   PREMIUM BANNER
+   ========================================================= */
 
+.banner {
+    margin: 18px 5%;
 
-                <div class="price">
+    padding: 38px 25px;
 
-                    ₹${Number(product.price)
-                        .toLocaleString("en-IN")}
+    text-align: center;
 
-                </div>
+    color: white;
 
+    background:
+        linear-gradient(
+            135deg,
+            #2874f0 0%,
+            #1558c0 55%,
+            #0b3e8c 100%
+        );
 
-                <button
-                    class="add"
-                    onclick="addCart(${product.id})">
+    border-radius: 8px;
 
-                    🛒 Add to Cart
+    position: relative;
 
-                </button>
+    overflow: hidden;
 
+    box-shadow:
+        0 5px 18px rgba(40,116,240,0.25);
+}
 
-                ${
-                    admin
-                    ? `
+.banner::before {
+    content: "";
 
-                    <div class="admin-controls">
+    position: absolute;
 
-                        <button
-                            class="edit"
-                            onclick="
-                                editProduct(${product.id})
-                            ">
+    width: 250px;
 
-                            ✏️ Edit
+    height: 250px;
 
-                        </button>
+    background: rgba(255,255,255,0.08);
 
+    border-radius: 50%;
 
-                        <button
-                            class="delete"
-                            onclick="
-                                deleteProduct(${product.id})
-                            ">
+    top: -120px;
 
-                            🗑️ Delete
+    left: -60px;
+}
 
-                        </button>
+.banner::after {
+    content: "";
 
-                    </div>
+    position: absolute;
 
-                    `
-                    : ""
-                }
+    width: 220px;
 
-            </div>
+    height: 220px;
 
-        </div>
+    background: rgba(255,255,255,0.06);
 
-        `).join("");
+    border-radius: 50%;
 
+    right: -80px;
+
+    bottom: -120px;
+}
+
+.banner h1 {
+    position: relative;
+
+    z-index: 2;
+
+    margin-bottom: 10px;
+
+    font-size: 30px;
+}
+
+.banner p {
+    position: relative;
+
+    z-index: 2;
+
+    font-size: 16px;
+
+    opacity: 0.95;
+}
+
+
+/* =========================================================
+   MAIN CONTAINER
+   ========================================================= */
+
+.container {
+    padding: 5px 5% 50px;
+}
+
+.container > h2 {
+    background: white;
+
+    padding: 18px 20px;
+
+    margin: 0 0 15px 0 !important;
+
+    border-bottom: 1px solid var(--border);
+
+    font-size: 21px;
+
+    color: #222;
+}
+
+
+/* =========================================================
+   PRODUCT GRID
+   ========================================================= */
+
+.products {
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            auto-fill,
+            minmax(210px, 1fr)
+        );
+
+    gap: 14px;
+}
+
+
+/* =========================================================
+   PRODUCT CARD
+   ========================================================= */
+
+.product {
+    background: white;
+
+    border-radius: 6px;
+
+    overflow: hidden;
+
+    border: 1px solid #eeeeee;
+
+    box-shadow: var(--shadow);
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+
+    position: relative;
+}
+
+.product:hover {
+    transform: translateY(-5px);
+
+    box-shadow: var(--shadow-hover);
+}
+
+
+/* =========================================================
+   PRODUCT IMAGE
+   ========================================================= */
+
+.product-image {
+    width: 100%;
+
+    height: 205px;
+
+    background: #fafafa;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 15px;
+
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.product img {
+    width: 100%;
+
+    height: 100%;
+
+    object-fit: contain;
+
+    transition: transform 0.3s ease;
+}
+
+.product:hover img {
+    transform: scale(1.06);
+}
+
+
+/* =========================================================
+   PRODUCT INFORMATION
+   ========================================================= */
+
+.product-info {
+    padding: 15px;
+}
+
+.product h3 {
+    margin: 6px 0;
+
+    font-size: 16px;
+
+    line-height: 1.4;
+
+    color: #212121;
+
+    font-weight: 600;
+}
+
+.category-name {
+    color: #878787;
+
+    font-size: 12px;
+
+    text-transform: uppercase;
+
+    font-weight: 600;
+
+    letter-spacing: 0.4px;
+}
+
+.description {
+    color: #777;
+
+    font-size: 13px;
+
+    min-height: 18px;
+
+    margin: 5px 0;
+}
+
+
+/* =========================================================
+   PRICE
+   ========================================================= */
+
+.price {
+    font-size: 20px;
+
+    font-weight: 700;
+
+    color: #212121;
+
+    margin: 11px 0;
 }
 
 
@@ -434,1010 +549,362 @@ function showProducts() {
    ADD TO CART
    ========================================================= */
 
-function addCart(id) {
+.add {
+    width: 100%;
 
-    const product =
-        products.find(
-            product => product.id === id
+    padding: 11px;
+
+    border: none;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ffb300,
+            #ff8f00
         );
 
+    color: white;
 
-    if (!product) {
-        return;
-    }
+    font-weight: 700;
 
+    cursor: pointer;
 
-    const existing =
-        cart.find(
-            item => item.id === id
+    border-radius: 4px;
+
+    font-size: 14px;
+
+    transition: 0.2s;
+}
+
+.add:hover {
+    background:
+        linear-gradient(
+            135deg,
+            #ff9f00,
+            #f57c00
         );
 
-
-    if (existing) {
-
-        existing.quantity++;
-
-    } else {
-
-        cart.push({
-
-            id: id,
-
-            quantity: 1
-
-        });
-
-    }
-
-
-    saveCart();
-
-    updateCart();
-
-
-    alert(
-        product.name +
-        " added to cart!"
-    );
-
+    transform: translateY(-1px);
 }
 
 
 /* =========================================================
-   SAVE CART
+   ADMIN CONTROLS
    ========================================================= */
 
-function saveCart() {
+.admin-controls {
+    display: none;
 
-    localStorage.setItem(
-        "madaCart",
-        JSON.stringify(cart)
-    );
+    margin-top: 8px;
 
+    gap: 7px;
+}
+
+body.admin-mode .admin-controls {
+    display: flex;
+}
+
+.edit {
+    flex: 1;
+
+    background: var(--blue);
+
+    color: white;
+
+    border: none;
+
+    padding: 9px;
+
+    cursor: pointer;
+
+    border-radius: 4px;
+
+    font-weight: 600;
+}
+
+.edit:hover {
+    background: var(--blue-dark);
+}
+
+.delete {
+    background: var(--red);
+
+    color: white;
+
+    border: none;
+
+    padding: 9px 13px;
+
+    cursor: pointer;
+
+    border-radius: 4px;
+
+    font-weight: 600;
+}
+
+.delete:hover {
+    background: #c62828;
 }
 
 
 /* =========================================================
-   CART COUNT
+   MODAL
    ========================================================= */
 
-function updateCart() {
+.modal {
+    display: none;
 
-    const count =
-        cart.reduce(
-            (total, item) =>
-                total + item.quantity,
-            0
-        );
+    position: fixed;
 
+    inset: 0;
 
-    const cartCount =
-        document.getElementById(
-            "cartCount"
-        );
+    background:
+        rgba(0,0,0,0.65);
 
+    z-index: 2000;
 
-    if (cartCount) {
+    align-items: center;
 
-        cartCount.textContent =
-            count;
+    justify-content: center;
 
+    padding: 15px;
+
+    backdrop-filter: blur(3px);
+}
+
+.modal-box {
+    background: white;
+
+    width: 100%;
+
+    max-width: 520px;
+
+    max-height: 90vh;
+
+    overflow-y: auto;
+
+    padding: 27px;
+
+    border-radius: 8px;
+
+    box-shadow:
+        0 15px 50px rgba(0,0,0,0.3);
+
+    animation: modalOpen 0.2s ease;
+}
+
+@keyframes modalOpen {
+
+    from {
+        opacity: 0;
+        transform: scale(0.94);
     }
 
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.close {
+    float: right;
+
+    font-size: 28px;
+
+    cursor: pointer;
+
+    color: #777;
+
+    line-height: 20px;
+}
+
+.close:hover {
+    color: #222;
 }
 
 
 /* =========================================================
-   OPEN CART
+   FORMS
    ========================================================= */
 
-function openCart() {
+.form {
+    margin-top: 17px;
+}
 
-    const modal =
-        document.getElementById(
-            "cartModal"
+.form label {
+    display: block;
+
+    font-weight: 700;
+
+    margin-bottom: 7px;
+
+    color: #333;
+
+    font-size: 14px;
+}
+
+.form input,
+.form select,
+.form textarea {
+    width: 100%;
+
+    padding: 12px;
+
+    border: 1px solid #ccc;
+
+    border-radius: 4px;
+
+    outline: none;
+
+    font-size: 14px;
+
+    transition: 0.2s;
+}
+
+.form input:focus,
+.form select:focus,
+.form textarea:focus {
+    border-color: var(--blue);
+
+    box-shadow:
+        0 0 0 2px rgba(40,116,240,0.12);
+}
+
+.save {
+    width: 100%;
+
+    padding: 13px;
+
+    margin-top: 20px;
+
+    border: none;
+
+    background:
+        linear-gradient(
+            135deg,
+            #2874f0,
+            #1558c0
         );
 
+    color: white;
 
-    if (!modal) {
-        return;
-    }
+    font-weight: 700;
 
+    cursor: pointer;
 
-    modal.style.display = "flex";
+    border-radius: 4px;
 
+    font-size: 15px;
+}
 
-    document.getElementById(
-        "cartPage"
-    ).style.display = "block";
-
-
-    document.getElementById(
-        "orderSuccess"
-    ).style.display = "none";
-
-
-    displayCart();
-
+.save:hover {
+    background: var(--blue-dark);
 }
 
 
 /* =========================================================
-   DISPLAY CART
+   CART
    ========================================================= */
 
-function displayCart() {
+.cart-item {
+    display: flex;
 
-    const cartBox =
-        document.getElementById(
-            "cartItems"
-        );
+    justify-content: space-between;
 
+    align-items: center;
 
-    if (!cartBox) {
-        return;
-    }
+    border-bottom: 1px solid #eee;
 
+    padding: 15px 0;
 
-    if (cart.length === 0) {
+    gap: 15px;
+}
 
-        cartBox.innerHTML = `
+.cart-item strong {
+    font-size: 15px;
+}
 
-            <div class="empty">
+.qty {
+    display: flex;
 
-                🛒 Your cart is empty.
+    align-items: center;
 
-            </div>
+    gap: 8px;
+}
 
-        `;
+.qty button {
+    width: 30px;
 
+    height: 30px;
 
-        document.getElementById(
-            "total"
-        ).textContent = "0";
+    padding: 0;
 
+    cursor: pointer;
 
-        return;
+    border: 1px solid #ccc;
 
-    }
+    background: white;
 
+    border-radius: 4px;
 
-    let total = 0;
+    font-size: 18px;
+}
 
+.qty button:hover {
+    border-color: var(--blue);
 
-    cartBox.innerHTML =
-        cart.map(item => {
+    color: var(--blue);
+}
 
-            const product =
-                products.find(
-                    p => p.id === item.id
-                );
+.total {
+    font-size: 22px;
 
+    font-weight: 800;
 
-            if (!product) {
-                return "";
-            }
+    margin-top: 20px;
 
+    padding-top: 15px;
 
-            const itemTotal =
-                product.price *
-                item.quantity;
-
-
-            total += itemTotal;
-
-
-            return `
-
-                <div class="cart-item">
-
-                    <div>
-
-                        <strong>
-                            ${product.name}
-                        </strong>
-
-                        <br>
-
-                        ₹${product.price}
-                        × ${item.quantity}
-
-                    </div>
-
-
-                    <div class="qty">
-
-                        <button
-                            onclick="
-                                changeQty(
-                                    ${item.id},
-                                    -1
-                                )
-                            ">
-
-                            −
-
-                        </button>
-
-
-                        <span>
-                            ${item.quantity}
-                        </span>
-
-
-                        <button
-                            onclick="
-                                changeQty(
-                                    ${item.id},
-                                    1
-                                )
-                            ">
-
-                            +
-
-                        </button>
-
-                    </div>
-
-                </div>
-
-            `;
-
-        }).join("");
-
-
-    document.getElementById(
-        "total"
-    ).textContent =
-        total.toLocaleString("en-IN");
-
+    border-top: 2px solid #eee;
 }
 
 
 /* =========================================================
-   CHANGE QUANTITY
+   WHATSAPP
    ========================================================= */
 
-function changeQty(id, change) {
+.whatsapp {
+    width: 100%;
 
-    const item =
-        cart.find(
-            item => item.id === id
+    background:
+        linear-gradient(
+            135deg,
+            #25D366,
+            #16a653
         );
 
+    color: white;
 
-    if (!item) {
-        return;
-    }
+    border: none;
 
+    padding: 14px;
 
-    item.quantity += change;
+    margin-top: 18px;
 
+    cursor: pointer;
 
-    if (item.quantity <= 0) {
+    border-radius: 4px;
 
-        cart =
-            cart.filter(
-                item => item.id !== id
-            );
+    font-size: 16px;
 
-    }
+    font-weight: 700;
 
-
-    saveCart();
-
-    updateCart();
-
-    displayCart();
-
+    box-shadow:
+        0 3px 8px rgba(37,211,102,0.25);
 }
 
-
-/* =========================================================
-   ADMIN LOGIN
-   ========================================================= */
-
-function openLogin() {
-
-    if (admin) {
-
-        alert(
-            "You are already logged in as Admin."
-        );
-
-        return;
-
-    }
-
-
-    const modal =
-        document.getElementById(
-            "loginModal"
-        );
-
-
-    if (modal) {
-
-        modal.style.display =
-            "flex";
-
-    }
-
-
-    const pin =
-        document.getElementById("pin");
-
-
-    if (pin) {
-
-        pin.value = "";
-
-        setTimeout(
-            () => pin.focus(),
-            100
-        );
-
-    }
-
-}
-
-
-/* =========================================================
-   LOGIN
-   PASSWORD = 689768
-   ========================================================= */
-
-function login() {
-
-    const pin =
-        document.getElementById(
-            "pin"
-        ).value;
-
-
-    if (pin === "689768") {
-
-        admin = true;
-
-
-        sessionStorage.setItem(
-            "madaAdmin",
-            "true"
-        );
-
-
-        document.body.classList.add(
-            "admin-mode"
-        );
-
-
-        closeModal(
-            "loginModal"
-        );
-
-
-        displayCategories();
-
-        showProducts();
-
-
-        alert(
-            "✅ Admin Login Successful!"
-        );
-
-
-    } else {
-
-        document.getElementById(
-            "loginError"
-        ).textContent =
-            "❌ Incorrect password.";
-
-    }
-
-}
-
-
-/* =========================================================
-   LOGOUT
-   ========================================================= */
-
-function logout() {
-
-    admin = false;
-
-
-    sessionStorage.removeItem(
-        "madaAdmin"
-    );
-
-
-    document.body.classList.remove(
-        "admin-mode"
-    );
-
-
-    displayCategories();
-
-    showProducts();
-
-
-    alert(
-        "Admin logged out."
-    );
-
-}
-
-
-/* =========================================================
-   ADD PRODUCT
-   ========================================================= */
-
-function addProduct() {
-
-    if (!admin) {
-
-        alert(
-            "Admin login required."
-        );
-
-        return;
-
-    }
-
-
-    document.getElementById(
-        "productTitle"
-    ).textContent =
-        "➕ Add New Product";
-
-
-    document.getElementById(
-        "productId"
-    ).value = "";
-
-
-    document.getElementById(
-        "productName"
-    ).value = "";
-
-
-    document.getElementById(
-        "productPrice"
-    ).value = "";
-
-
-    document.getElementById(
-        "productImage"
-    ).value = "";
-
-
-    document.getElementById(
-        "productDescription"
-    ).value = "";
-
-
-    document.getElementById(
-        "productModal"
-    ).style.display =
-        "flex";
-
-}
-
-
-/* =========================================================
-   EDIT PRODUCT
-   ========================================================= */
-
-function editProduct(id) {
-
-    if (!admin) {
-
-        alert(
-            "Admin login required."
-        );
-
-        return;
-
-    }
-
-
-    const product =
-        products.find(
-            product => product.id === id
-        );
-
-
-    if (!product) {
-
-        alert(
-            "Product not found."
-        );
-
-        return;
-
-    }
-
-
-    document.getElementById(
-        "productTitle"
-    ).textContent =
-        "✏️ Edit Product";
-
-
-    document.getElementById(
-        "productId"
-    ).value =
-        product.id;
-
-
-    document.getElementById(
-        "productName"
-    ).value =
-        product.name;
-
-
-    document.getElementById(
-        "productPrice"
-    ).value =
-        product.price;
-
-
-    document.getElementById(
-        "productCategory"
-    ).value =
-        product.category;
-
-
-    document.getElementById(
-        "productImage"
-    ).value =
-        product.image;
-
-
-    document.getElementById(
-        "productDescription"
-    ).value =
-        product.description || "";
-
-
-    document.getElementById(
-        "productModal"
-    ).style.display =
-        "flex";
-
-}
-
-
-/* =========================================================
-   SAVE PRODUCT
-   ========================================================= */
-
-function saveProduct() {
-
-    if (!admin) {
-
-        alert(
-            "Admin login required."
-        );
-
-        return;
-
-    }
-
-
-    const id =
-        document.getElementById(
-            "productId"
-        ).value;
-
-
-    const name =
-        document.getElementById(
-            "productName"
-        ).value.trim();
-
-
-    const price =
-        Number(
-            document.getElementById(
-                "productPrice"
-            ).value
-        );
-
-
-    const category =
-        document.getElementById(
-            "productCategory"
-        ).value;
-
-
-    const image =
-        document.getElementById(
-            "productImage"
-        ).value.trim();
-
-
-    const description =
-        document.getElementById(
-            "productDescription"
-        ).value.trim();
-
-
-    if (!name) {
-
-        alert(
-            "Please enter product name."
-        );
-
-        return;
-
-    }
-
-
-    if (!price || price <= 0) {
-
-        alert(
-            "Please enter a valid price."
-        );
-
-        return;
-
-    }
-
-
-    if (!image) {
-
-        alert(
-            "Please enter product image URL."
-        );
-
-        return;
-
-    }
-
-
-    /* EDIT EXISTING PRODUCT */
-
-    if (id) {
-
-        const product =
-            products.find(
-                product => product.id == id
-            );
-
-
-        if (!product) {
-            return;
-        }
-
-
-        product.name =
-            name;
-
-
-        product.price =
-            price;
-
-
-        product.category =
-            category;
-
-
-        product.image =
-            image;
-
-
-        product.description =
-            description;
-
-
-        alert(
-            "✅ Product updated successfully!"
-        );
-
-    }
-
-
-    /* ADD NEW PRODUCT */
-
-    else {
-
-        const newProduct = {
-
-            id: Date.now(),
-
-            name: name,
-
-            price: price,
-
-            category: category,
-
-            image: image,
-
-            description: description
-
-        };
-
-
-        products.push(
-            newProduct
-        );
-
-
-        alert(
-            "✅ Product added successfully!"
-        );
-
-    }
-
-
-    localStorage.setItem(
-        "madaProducts",
-        JSON.stringify(products)
-    );
-
-
-    displayCategories();
-
-    showProducts();
-
-
-    closeModal(
-        "productModal"
-    );
-
-}
-
-
-/* =========================================================
-   DELETE PRODUCT
-   ========================================================= */
-
-function deleteProduct(id) {
-
-    if (!admin) {
-
-        alert(
-            "Admin login required."
-        );
-
-        return;
-
-    }
-
-
-    const product =
-        products.find(
-            product => product.id === id
-        );
-
-
-    if (!product) {
-        return;
-    }
-
-
-    const answer =
-        confirm(
-            "Are you sure you want to delete " +
-            product.name +
-            "?"
-        );
-
-
-    if (!answer) {
-        return;
-    }
-
-
-    products =
-        products.filter(
-            product => product.id !== id
-        );
-
-
-    localStorage.setItem(
-        "madaProducts",
-        JSON.stringify(products)
-    );
-
-
-    cart =
-        cart.filter(
-            item => item.id !== id
-        );
-
-
-    saveCart();
-
-    updateCart();
-
-
-    displayCategories();
-
-    showProducts();
-
-
-    alert(
-        "Product deleted successfully."
-    );
-
-}
-
-
-/* =========================================================
-   CLOSE MODAL
-   ========================================================= */
-
-function closeModal(id) {
-
-    const modal =
-        document.getElementById(id);
-
-
-    if (modal) {
-
-        modal.style.display =
-            "none";
-
-    }
-
-}
-
-
-/* =========================================================
-   SEND WHATSAPP ORDER
-   ========================================================= */
-
-function sendOrder() {
-
-    if (cart.length === 0) {
-
-        alert(
-            "Your cart is empty."
-        );
-
-        return;
-
-    }
-
-
-    const name =
-        document.getElementById(
-            "customerName"
-        ).value.trim();
-
-
-    const phone =
-        document.getElementById(
-            "customerPhone"
-        ).value.trim();
-
-
-    const address =
-        document.getElementById(
-            "customerAddress"
-        ).value.trim();
-
-
-    if (!name || !phone || !address) {
-
-        alert(
-            "Please enter your name, phone number and address."
-        );
-
-        return;
-
-    }
-
-
-    let message =
-        "*NEW ORDER - MADA GENERAL STORE*%0A%0A";
-
-
-    message +=
-        "*Customer:* " +
-        encodeURIComponent(name) +
-        "%0A";
-
-
-    message +=
-        "*Phone:* " +
-        encodeURIComponent(phone) +
-        "%0A";
-
-
-    message +=
-        "*Address:* " +
-        encodeURIComponent(address) +
-        "%0A%0A";
-
-
-    message +=
-        "*ITEMS:*%0A";
-
-
-    let total = 0;
-
-
-    cart.forEach(item => {
-
-        const product =
-            products.find(
-                product =>
-                    product.id === item.id
-            );
-
-
-        if (!product) {
-            return;
-        }
-
-
-        const itemTotal =
-            product.price *
-            item.quantity;
-
-
-        total += itemTotal;
-
-
-        message +=
-            encodeURIComponent(
-                product.name
-            ) +
-            " x " +
-            item.quantity +
-            " = ₹" +
-            itemTotal +
-            "%0A";
-
-    });
-
-
-    message +=
-        "%0A*TOTAL: ₹" +
-        total +
-        "*";
-
-
-    /*
-       YOUR WHATSAPP NUMBER
-    */
-
-    const whatsappNumber =
-        "918792043577";
-
-
-    const whatsappURL =
-        "https://wa.me/" +
-        whatsappNumber +
-        "?text=" +
-        message;
-
-
-    window.open(
-        whatsappURL,
-        "_blank"
-    );
-
-
-    setTimeout(() => {
-
-        document.getElementById(
-            "cartPage"
-        ).style.display =
-            "none";
-
-
-        document.getElementById(
-            "orderSuccess"
-        ).style.display =
-            "block";
-
-    }, 700);
-
+.whatsapp:hover {
+    background: #159447;
 }
 
 
@@ -1445,113 +912,253 @@ function sendOrder() {
    CONTINUE SHOPPING
    ========================================================= */
 
-function continueShopping() {
+.continue {
+    width: 100%;
 
-    cart = [];
+    background: var(--blue);
 
+    color: white;
 
-    saveCart();
+    border: none;
 
+    padding: 14px;
 
-    updateCart();
+    margin-top: 10px;
 
+    cursor: pointer;
 
-    document.getElementById(
-        "customerName"
-    ).value = "";
+    border-radius: 4px;
 
+    font-size: 16px;
 
-    document.getElementById(
-        "customerPhone"
-    ).value = "";
+    font-weight: 700;
+}
 
-
-    document.getElementById(
-        "customerAddress"
-    ).value = "";
-
-
-    document.getElementById(
-        "cartPage"
-    ).style.display =
-        "block";
-
-
-    document.getElementById(
-        "orderSuccess"
-    ).style.display =
-        "none";
-
-
-    closeModal(
-        "cartModal"
-    );
-
-
-    window.scrollTo({
-
-        top: 0,
-
-        behavior: "smooth"
-
-    });
-
+.continue:hover {
+    background: var(--blue-dark);
 }
 
 
 /* =========================================================
-   CLICK OUTSIDE MODAL
+   EMPTY
    ========================================================= */
 
-window.onclick = function(event) {
+.empty {
+    text-align: center;
 
-    const modals =
-        document.querySelectorAll(
-            ".modal"
+    padding: 60px 20px;
+
+    color: #777;
+
+    background: white;
+
+    border-radius: 6px;
+}
+
+.empty h3 {
+    color: #444;
+
+    margin-bottom: 8px;
+}
+
+
+/* =========================================================
+   ORDER SUCCESS
+   ========================================================= */
+
+.order-success {
+    display: none;
+
+    text-align: center;
+
+    padding: 35px 20px;
+}
+
+.order-success h2 {
+    color: #18a558;
+
+    margin-bottom: 12px;
+
+    font-size: 25px;
+}
+
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+footer {
+    background:
+        linear-gradient(
+            135deg,
+            #172337,
+            #0e1725
         );
 
+    color: white;
 
-    modals.forEach(modal => {
+    text-align: center;
 
-        if (event.target === modal) {
+    padding: 40px 20px;
 
-            modal.style.display =
-                "none";
+    margin-top: 20px;
+}
 
-        }
+footer h2 {
+    color: white;
 
-    });
+    margin-bottom: 8px;
+}
 
-};
+footer p {
+    color: #b9c0cc;
+}
 
 
 /* =========================================================
-   SEARCH ENTER KEY
+   MOBILE
    ========================================================= */
 
-document.addEventListener(
-    "keydown",
-    function(event) {
+@media (max-width: 900px) {
 
-        if (
-            event.key === "Enter" &&
-            document.activeElement.id === "pin"
-        ) {
+    header {
+        gap: 12px;
 
-            login();
-
-        }
-
+        padding: 10px 3%;
     }
-);
+
+    .products {
+        grid-template-columns:
+            repeat(
+                3,
+                1fr
+            );
+    }
+
+    .product-image {
+        height: 180px;
+    }
+
+}
 
 
-/* =========================================================
-   START WEBSITE
-   ========================================================= */
+@media (max-width: 700px) {
 
-displayCategories();
+    header {
+        flex-wrap: wrap;
 
-showProducts();
+        padding: 10px 4%;
+    }
 
-updateCart();
+    .logo {
+        font-size: 19px;
+    }
+
+    .header-btn {
+        padding: 9px 11px;
+
+        font-size: 13px;
+    }
+
+    .search {
+        flex-basis: 100%;
+
+        order: 3;
+
+        max-width: none;
+    }
+
+    .categories {
+        padding: 11px 4%;
+    }
+
+    .banner {
+        margin: 12px 4%;
+
+        padding: 28px 15px;
+    }
+
+    .banner h1 {
+        font-size: 23px;
+    }
+
+    .banner p {
+        font-size: 14px;
+    }
+
+    .container {
+        padding-left: 4%;
+
+        padding-right: 4%;
+    }
+
+    .products {
+        grid-template-columns:
+            repeat(
+                2,
+                1fr
+            );
+
+        gap: 10px;
+    }
+
+    .product-image {
+        height: 145px;
+
+        padding: 10px;
+    }
+
+    .product-info {
+        padding: 11px;
+    }
+
+    .product h3 {
+        font-size: 14px;
+    }
+
+    .price {
+        font-size: 18px;
+    }
+
+    .add {
+        padding: 10px 5px;
+
+        font-size: 13px;
+    }
+
+    .admin-bar {
+        padding: 10px 4%;
+
+        gap: 8px;
+
+        flex-wrap: wrap;
+    }
+
+}
+
+
+@media (max-width: 400px) {
+
+    .products {
+        grid-template-columns:
+            repeat(
+                2,
+                1fr
+            );
+    }
+
+    .product-image {
+        height: 125px;
+    }
+
+    .logo {
+        font-size: 17px;
+    }
+
+    .header-btn {
+        font-size: 12px;
+
+        padding: 8px;
+    }
+
+}
