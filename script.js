@@ -23,10 +23,10 @@ secret key
 */
 
 const SUPABASE_URL =
-    "https://YOUR-PROJECT-ID.supabase.co";
+    "https://aobpgitcqflvtclltcpj.supabase.co";
 
 const SUPABASE_PUBLISHABLE_KEY =
-    "YOUR_SUPABASE_PUBLISHABLE_KEY";
+    "sb_publishable_rOF_xYWDZM_BfIjcRP_ICg_lOgqyBbk";
 
 
 /* Create Supabase client */
